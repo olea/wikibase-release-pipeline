@@ -6,7 +6,7 @@ services:
   # --------------------------------------------------
 
   wikibase:
-    # image: wikibase/wikibase:4
+    #image: wikibase/wikibase:4
     image: olea/wikibase:latest
     depends_on:
       mysql:
