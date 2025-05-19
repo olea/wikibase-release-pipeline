@@ -57,4 +57,14 @@ ENV PATH="/workspace/node_modules/.bin:/root/venv/bin:$PATH"
 # https://github.com/nrwl/nx/issues/27040
 ENV NX_ISOLATE_PLUGINS=false
 
+# Install mediawiki extensions https://phabricator.wikimedia.org/T393666
+# except Extension:3D
+RUN apt-get update && \
+    apt-get --no-install-recommends -y install \
+    	ghostscript imagemagick xpdf-utils \ 
+    	exiv2 libtiff-tools \ 
+    	ffmpeg \ 
+    	libvips-tools
+    	
 ENTRYPOINT [ "./entrypoint.sh" ]
+
