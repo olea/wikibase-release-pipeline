@@ -13,8 +13,8 @@
 # your DNS server to point to the public IP address of the server being
 # deployed to. Note that you need two distinct names, e.g. two different
 # subdomains. Otherwise the traefik reverse proxy cannot route properly.
-WIKIBASE_PUBLIC_HOST=wb.lisergia
-WDQS_PUBLIC_HOST=wbqs.lisergia
+WIKIBASE_PUBLIC_HOST=wb.local
+WDQS_PUBLIC_HOST=wbqs.local
 
 # MediaWiki / Wikibase user configuration.
 # Password must be at least 10 characters, different from your username and not

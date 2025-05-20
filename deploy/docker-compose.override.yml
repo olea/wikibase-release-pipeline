@@ -1,0 +1,16 @@
+name: wbs-deploy
+
+services:
+
+  wikibase:
+    image: olea/wikibase:latest
+  wikibase-jobrunner:
+    image: olea/wikibase:latest
+
+  go-avahi-cname:
+    network_mode: host
+    restart: always
+    volumes:
+      - "/var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:rw"
+    image: "ghcr.io/grishy/go-avahi-cname:v2.0.6"
+    entrypoint: ["./go-avahi-cname","cname", "--fqdn", "local", "wbqs", "wb"]
