@@ -13,3 +13,7 @@
 //   wfLoadExtension( 'WikibaseLexeme' );
 // here in Wikibase Suite Deploy you need to put
 //   wfLoadExtension( 'extensions/WikibaseLexeme' );
+wfLoadExtension('extensions/Springboard-main');
+require_once('/var/www/html/extensions/extensions/Springboard-main/includes/CustomLoader.php');
+wfLoadExtension('extensions/TimedMediaHandler');
+$wgFFmpegLocation = '/usr/bin/ffmpeg';
