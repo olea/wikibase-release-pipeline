@@ -32,3 +32,7 @@ $wgPdftoText = "pdftotext";
 $wgPdfOutputExtension = "png";
 $wgPdfHandlerDpi = "300" ;
 $wgFileExtensions[] = 'pdf';
+
+// PagedTiffHandler
+wfLoadExtension( 'extensions/PagedTiffHandler' );
+
