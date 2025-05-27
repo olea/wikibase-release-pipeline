@@ -50,6 +50,7 @@ wfLoadExtension( 'extensions/WikibaseQualityConstraints' );
 // WikibaseMediaInfo
 wfLoadExtension( 'extensions/WikibaseMediaInfo' );
 $wgUploadWizardConfig['wikibase']['enabled'] = true ;
+// set to the definitive 
 $wgMediaInfoProperties = [ 'depicts' => 'P1', ];
 //Links to pages to learn more about wikibase properties:
 //$wgMediaInfoHelpUrls =	[ 'P1' => 'https://commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Depicts' ];
@@ -57,4 +58,27 @@ $wgMediaInfoProperties = [ 'depicts' => 'P1', ];
 $wgUploadWizardConfig[ 'wikibase' ][ 'enabled' ] = true;
 $wgUploadWizardConfig[ 'wikibase' ][ 'captions' ] = true;
 $wgUploadWizardConfig[ 'wikibase' ][ 'statements' ] = true;
+
+// CiteThisPage
+wfLoadExtension( 'CiteThisPage' );
+
+// Gadgets
+wfLoadExtension( 'Gadgets' );
+
+// DiscussionTools
+//wfLoadExtension( 'DiscussionTools' );
+// Linter
+//wfLoadExtension( 'Linter' );
+
+// MultimediaViewer
+wfLoadExtension( 'MultimediaViewer' );
+
+// PageImages
+wfLoadExtension( 'PageImages' );
+
+// Thanks
+wfLoadExtension( 'Thanks' );
+
+// Echo
+wfLoadExtension( 'Echo' );
 
