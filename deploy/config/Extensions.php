@@ -46,3 +46,15 @@ $wgWikibaseInWikitextSparqlDefaultUi = "https://wbqs.local/";
 
 // WikibaseQualityConstraints
 wfLoadExtension( 'extensions/WikibaseQualityConstraints' );
+
+// WikibaseMediaInfo
+wfLoadExtension( 'extensions/WikibaseMediaInfo' );
+$wgUploadWizardConfig['wikibase']['enabled'] = true ;
+$wgMediaInfoProperties = [ 'depicts' => 'P1', ];
+//Links to pages to learn more about wikibase properties:
+//$wgMediaInfoHelpUrls =	[ 'P1' => 'https://commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Depicts' ];
+//UploadWizard feature-flags:
+$wgUploadWizardConfig[ 'wikibase' ][ 'enabled' ] = true;
+$wgUploadWizardConfig[ 'wikibase' ][ 'captions' ] = true;
+$wgUploadWizardConfig[ 'wikibase' ][ 'statements' ] = true;
+
