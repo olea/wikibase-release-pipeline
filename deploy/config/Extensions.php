@@ -39,11 +39,22 @@ wfLoadExtension( 'extensions/PagedTiffHandler' );
 // VipsScaler
 wfLoadExtension( 'extensions/VipsScaler' );
 
-// WikibaseInWikitext
-wfLoadExtension( 'extensions/WikibaseInWikitext' );
-//$wgWikibaseInWikitextSparqlDefaultUi = $WDQS_PUBLIC_URL ;
-$wgWikibaseInWikitextSparqlDefaultUi = "https://wbqs.local/";
+// extensions distributed in WBS but not activated:
+// CiteThisPage
+wfLoadExtension( 'CiteThisPage' );
+// Gadgets
+wfLoadExtension( 'Gadgets' );
+// MultimediaViewer
+wfLoadExtension( 'MultimediaViewer' );
+// PageImages
+wfLoadExtension( 'PageImages' );
+// Thanks
+wfLoadExtension( 'Thanks' );
+// Echo
+wfLoadExtension( 'Echo' );
 
+
+// Wikibase extensions:
 // WikibaseQualityConstraints
 wfLoadExtension( 'extensions/WikibaseQualityConstraints' );
 
@@ -59,21 +70,8 @@ $wgUploadWizardConfig[ 'wikibase' ][ 'enabled' ] = true;
 $wgUploadWizardConfig[ 'wikibase' ][ 'captions' ] = true;
 $wgUploadWizardConfig[ 'wikibase' ][ 'statements' ] = true;
 
-// CiteThisPage
-wfLoadExtension( 'CiteThisPage' );
-
-// Gadgets
-wfLoadExtension( 'Gadgets' );
-
-// MultimediaViewer
-wfLoadExtension( 'MultimediaViewer' );
-
-// PageImages
-wfLoadExtension( 'PageImages' );
-
-// Thanks
-wfLoadExtension( 'Thanks' );
-
-// Echo
-wfLoadExtension( 'Echo' );
+// WikibaseInWikitext
+wfLoadExtension( 'extensions/WikibaseInWikitext' );
+//$wgWikibaseInWikitextSparqlDefaultUi = $WDQS_PUBLIC_URL ;
+$wgWikibaseInWikitextSparqlDefaultUi = "https://wbqs.local/";
 
