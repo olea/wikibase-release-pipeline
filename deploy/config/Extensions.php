@@ -36,3 +36,5 @@ $wgFileExtensions[] = 'pdf';
 // PagedTiffHandler
 wfLoadExtension( 'extensions/PagedTiffHandler' );
 
+// VipsScaler
+wfLoadExtension( 'extensions/VipsScaler' );
