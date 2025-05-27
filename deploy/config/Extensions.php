@@ -65,11 +65,6 @@ wfLoadExtension( 'CiteThisPage' );
 // Gadgets
 wfLoadExtension( 'Gadgets' );
 
-// DiscussionTools
-//wfLoadExtension( 'DiscussionTools' );
-// Linter
-//wfLoadExtension( 'Linter' );
-
 // MultimediaViewer
 wfLoadExtension( 'MultimediaViewer' );
 
