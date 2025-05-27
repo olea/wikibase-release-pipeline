@@ -43,3 +43,6 @@ wfLoadExtension( 'extensions/VipsScaler' );
 wfLoadExtension( 'extensions/WikibaseInWikitext' );
 //$wgWikibaseInWikitextSparqlDefaultUi = $WDQS_PUBLIC_URL ;
 $wgWikibaseInWikitextSparqlDefaultUi = "https://wbqs.local/";
+
+// WikibaseQualityConstraints
+wfLoadExtension( 'extensions/WikibaseQualityConstraints' );
