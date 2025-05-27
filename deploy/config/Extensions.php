@@ -75,3 +75,9 @@ wfLoadExtension( 'extensions/WikibaseInWikitext' );
 //$wgWikibaseInWikitextSparqlDefaultUi = $WDQS_PUBLIC_URL ;
 $wgWikibaseInWikitextSparqlDefaultUi = "https://wbqs.local/";
 
+// WikibaseLexeme
+wfLoadExtension( 'extensions/WikibaseLexeme' );
+
+// WikibaseLexemeCirrusSearch
+wfLoadExtension( 'extensions/WikibaseLexemeCirrusSearch' );
+
