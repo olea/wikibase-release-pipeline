@@ -13,7 +13,22 @@
 //   wfLoadExtension( 'WikibaseLexeme' );
 // here in Wikibase Suite Deploy you need to put
 //   wfLoadExtension( 'extensions/WikibaseLexeme' );
+
+// Springboard
 wfLoadExtension('extensions/Springboard-main');
 require_once('/var/www/html/extensions/extensions/Springboard-main/includes/CustomLoader.php');
+
+// TimedMediaHandler
 wfLoadExtension('extensions/TimedMediaHandler');
 $wgFFmpegLocation = '/usr/bin/ffmpeg';
+
+// PDF handler
+wfLoadExtension( 'PdfHandler' );
+// this should be in LocalSettings.php?
+$wgPdfProcessor = "gs";
+$wgPdfPostProcessor = "convert";
+$wgPdfInfo ="pdfinfo";
+$wgPdftoText = "pdftotext";
+$wgPdfOutputExtension = "png";
+$wgPdfHandlerDpi = "300" ;
+$wgFileExtensions[] = 'pdf';
