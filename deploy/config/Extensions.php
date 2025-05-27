@@ -38,3 +38,8 @@ wfLoadExtension( 'extensions/PagedTiffHandler' );
 
 // VipsScaler
 wfLoadExtension( 'extensions/VipsScaler' );
+
+// WikibaseInWikitext
+wfLoadExtension( 'extensions/WikibaseInWikitext' );
+//$wgWikibaseInWikitextSparqlDefaultUi = $WDQS_PUBLIC_URL ;
+$wgWikibaseInWikitextSparqlDefaultUi = "https://wbqs.local/";
