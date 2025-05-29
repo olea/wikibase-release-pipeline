@@ -15,8 +15,8 @@
 //   wfLoadExtension( 'extensions/WikibaseLexeme' );
 
 // Springboard
-wfLoadExtension('extensions/Springboard-main');
-require_once('/var/www/html/extensions/extensions/Springboard-main/includes/CustomLoader.php');
+/// wfLoadExtension('extensions/Springboard-main');
+/// require_once('/var/www/html/extensions/extensions/Springboard-main/includes/CustomLoader.php');
 
 // TimedMediaHandler
 wfLoadExtension('extensions/TimedMediaHandler');
