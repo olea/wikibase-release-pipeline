@@ -1,4 +1,4 @@
-name: wbs-deploy
+name: wbs
 
 services:
 
@@ -16,3 +16,19 @@ services:
     
 # this domain names has been defined in the docker compose .env file and  should be changed by hand here:
     entrypoint: ["./go-avahi-cname","cname", "--fqdn", "local", "wbqs", "wb"]
+
+  openrefine-redis:
+    image: "redis:alpine"
+    expose:
+      - "6379"
+
+  openrefine-reconciliator:
+    image: registry.gitlab.com/nfdi4culture/openrefine-reconciliation-services/openrefine-wikibase:1.1.0
+#    image: registry.gitlab.com/nfdi4culture/ta1-data-enrichment/openrefine-wikibase:latest
+    ports:
+     - "8000:8000"
+    volumes:
+     - ./config.py:/openrefine-wikibase/config.py
+     - ./manifest.json:/openrefine-wikibase/static/manifest.json
+    depends_on:
+     - openrefine-redis
