@@ -83,3 +83,12 @@ wfLoadExtension( 'extensions/WikibaseLexemeCirrusSearch' );
 
 // PropertySuggester
 wfLoadExtension( 'extensions/PropertySuggester' );
+
+// Citoid
+wfLoadExtension( 'extensions/TemplateData' );
+wfLoadExtension( 'extensions/TemplateStyles' );
+wfLoadExtension( 'extensions/Cite' );
+wfLoadExtension( 'extensions/Citoid' );
+// Citoid configuration
+$wgCitoidServiceUrl = "https://es.wikipedia.org/api/rest_v1/data/citation";
+
