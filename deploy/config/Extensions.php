@@ -14,7 +14,7 @@
 // here in Wikibase Suite Deploy you need to put
 //   wfLoadExtension( 'extensions/WikibaseLexeme' );
 
-// Springboard
+// Springboard: seems it will never be an universal mediawiki extensions installer.
 /// wfLoadExtension('extensions/Springboard-main');
 /// require_once('/var/www/html/extensions/extensions/Springboard-main/includes/CustomLoader.php');
 
