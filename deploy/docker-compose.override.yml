@@ -1,0 +1,37 @@
+name: wbs
+
+services:
+
+  wikibase:
+    image: olea/wikibase:latest
+  wikibase-jobrunner:
+    image: olea/wikibase:latest
+
+  go-avahi-cname:
+    network_mode: host
+    restart: always
+    volumes:
+      - "/var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket"
+    image: "ghcr.io/grishy/go-avahi-cname:2.2.5"
+    
+# this domain names has been defined in the docker compose .env file and  should be changed by hand here:
+    entrypoint: ["./go-avahi-cname","cname", "--fqdn", "local", "wbqs", "wb"]
+    env_file:
+       - ".env"
+
+  openrefine-redis:
+    image: "redis:alpine"
+    expose:
+      - "6379"
+
+  openrefine-endpoint:
+    image: registry.gitlab.com/nfdi4culture/openrefine-reconciliation-services/openrefine-wikibase:${OPENREFINE_VERSION}
+    ports:
+     - "${RECONCILE_PORT}:8000"
+    volumes:
+     - ./openrefine_conf/config.py:/openrefine-wikibase/config.py
+     - ./openrefine_conf/manifest.json:/openrefine-wikibase/static/manifest.json
+    depends_on:
+     - openrefine-redis
+    env_file:
+       - ".env"
