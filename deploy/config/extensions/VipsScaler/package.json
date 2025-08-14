@@ -1,0 +1,14 @@
+{
+	"name": "VipsScaler",
+	"private": true,
+	"scripts": {
+		"test": "eslint . && grunt test"
+	},
+	"devDependencies": {
+		"eslint-config-wikimedia": "0.28.2",
+		"grunt": "1.6.1",
+		"grunt-banana-checker": "0.13.0",
+		"grunt-stylelint": "0.20.1",
+		"stylelint-config-wikimedia": "0.17.2"
+	}
+}
