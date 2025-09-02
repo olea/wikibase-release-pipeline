@@ -8,6 +8,14 @@
 # environments they will be included in the var!
 # ##############################################################################
 
+# Uncomment true to opt-in to the list of known Wikibases.
+# Uncomment false to not take part.
+# You will need to choose one of the options below, otherwise the Wikibase
+# container will stop with an error.
+#METADATA_CALLBACK=true
+METADATA_CALLBACK=false
+
+
 # Public hostname configuration.
 # These domain names for your Wikibase Suite services should be configured on
 # your DNS server to point to the public IP address of the server being
@@ -35,9 +43,11 @@ DB_NAME=my_wiki
 DB_USER=sqluser
 DB_PASS=change-this-password
 
+
 ## OpenRefine configuration:
 OPENREFINE_VERSION=1.1.0
 RECONCILE_PORT=8000
 # ¡¡¡a saber cuál es!!!
 RECONCILE_ADDRESS=127.0.0.1
 WIKIBASE_NAME=WIKIBASE_PUBLIC_HOST
+

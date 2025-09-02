@@ -104,7 +104,7 @@ $wgWbManifestExternalServiceMapping = [
 
 // Access control
 // $wgGroupPermissions['user']['read'] = true;  // logged-in users only
-$wgGroupPermissions['*']['read']  = false;   // anons can’t read
+///// $wgGroupPermissions['*']['read']  = false;   // anons can’t read
 $wgWhitelistRead = [ 'Main Page', 'Special:UserLogin', 'Special:CreateAccount' ]; // optional
 
 
