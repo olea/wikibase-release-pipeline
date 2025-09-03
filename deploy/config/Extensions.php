@@ -111,5 +111,3 @@ $wgWhitelistRead = [ 'Main Page', 'Special:UserLogin', 'Special:CreateAccount' ]
 # Enable multilanguage labels
 ## Mediawiki 1.44
 $wgWBRepoSettings['EnableMulLanguageCode'] = true;
-## Mediawiki v1.43:
-$wgWBRepoSettings['tmpEnableMulLanguageCode'] = true;
