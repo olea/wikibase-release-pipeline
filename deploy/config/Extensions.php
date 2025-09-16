@@ -80,6 +80,7 @@ wfLoadExtension( 'extensions/WikibaseLexeme' );
 
 // WikibaseLexemeCirrusSearch
 wfLoadExtension( 'extensions/WikibaseLexemeCirrusSearch' );
+$wgLexemeUseCirrus = true;
 
 // PropertySuggester
 wfLoadExtension( 'extensions/PropertySuggester' );
