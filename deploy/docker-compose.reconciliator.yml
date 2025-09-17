@@ -6,12 +6,12 @@ services:
       - "6379"
 
   openrefine-endpoint:
-    image: registry.gitlab.com/nfdi4culture/openrefine-reconciliation-services/openrefine-wikibase:${OPENREFINE_VERSION}
+    image: registry.gitlab.com/nfdi4culture/openrefine-reconciliation-services/openrefine-wikibase:${RECONCILIATOR_VERSION}
     ports:
-     - "${RECONCILE_PORT}:8000"
+     - "${RECONCILIATOR_PORT}:8000"
     volumes:
-     - ./openrefine_conf/config.py:/openrefine-wikibase/config.py
-     - ./openrefine_conf/manifest.json:/openrefine-wikibase/static/manifest.json
+     - ./reconciliator_conf/config.py:/openrefine-wikibase/config.py
+     - ./reconciliator_conf/manifest.json:/openrefine-wikibase/static/manifest.json
     depends_on:
      - openrefine-redis
     env_file:

@@ -2,5 +2,5 @@ name: wbs
 
 include:
   - docker-compose.avahi.yml
-  - docker.compose.reconciliator.yml
+  - docker-compose.reconciliator.yml
   

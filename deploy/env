@@ -44,10 +44,8 @@ DB_USER=sqluser
 DB_PASS=change-this-password
 
 
-## OpenRefine configuration:
-OPENREFINE_VERSION=1.1.0
-RECONCILE_PORT=8000
-# ¡¡¡a saber cuál es!!!
-RECONCILE_ADDRESS=127.0.0.1
-WIKIBASE_NAME=WIKIBASE_PUBLIC_HOST
+# configuration for docker-compose.reconciliator.yml:
 
+RECONCILIATOR_VERSION = 1.1.0
+# RECONCILIATOR_VERSION = latest
+RECONCILIATOR_PORT = 8000

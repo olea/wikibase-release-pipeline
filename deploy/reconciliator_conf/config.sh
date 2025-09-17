@@ -44,7 +44,7 @@ echo "
       \"url_schema\": \"\"
     }
   }
-" > static/manifest.json
+" > manifest.json
 
 echo "manifest.json processed"
 
