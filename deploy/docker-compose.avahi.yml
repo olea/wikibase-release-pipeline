@@ -1,0 +1,14 @@
+services:
+
+  go-avahi-cname:
+    network_mode: host
+    restart: always
+    volumes:
+      - "/var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket"
+    image: "ghcr.io/grishy/go-avahi-cname:2.2.5"
+    
+# this domain names has been defined in the docker compose .env file and  should be changed by hand here:
+    entrypoint: ["./go-avahi-cname","cname", "--fqdn", "local", "wbqs", "wb"]
+    env_file:
+       - ".env"
+
