@@ -3,7 +3,7 @@
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
         'aliases' => array(),
-        'reference' => '4d8b357d96da4f444d6a5c04cc06c1e3c975ed9d',
+        'reference' => 'b0f6c8d1ea574cb77a554b87fbada0a472ddac81',
         'name' => 'wikibase/constraints',
     ),
     'versions' => array(
@@ -32,10 +32,10 @@
             'reference' => '22573cd52a7b37416f28ed6a8d8706543b0d430a',
         ),
         'data-values/number' => array(
-            'pretty_version' => '0.12.3',
-            'version' => '0.12.3.0',
+            'pretty_version' => '0.13.0',
+            'version' => '0.13.0.0',
             'aliases' => array(),
-            'reference' => '0e7e3217d04d48d3b895171e743ac81bf4824735',
+            'reference' => '131964ceb9b8d48bb974a7c0246003f54b445560',
         ),
         'data-values/serialization' => array(
             'pretty_version' => '1.2.5',
@@ -61,8 +61,8 @@
             'reference' => '4403fbab83e0187791d35caef4eef4395811e58d',
         ),
         'symfony/polyfill-php80' => array(
-            'pretty_version' => 'v1.32.0',
-            'version' => '1.32.0.0',
+            'pretty_version' => 'v1.33.0',
+            'version' => '1.33.0.0',
             'aliases' => array(),
             'reference' => '0cc9dd0f17f61d8131e7df6b84bd344899fe2608',
         ),
@@ -70,7 +70,7 @@
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
             'aliases' => array(),
-            'reference' => '4d8b357d96da4f444d6a5c04cc06c1e3c975ed9d',
+            'reference' => 'b0f6c8d1ea574cb77a554b87fbada0a472ddac81',
         ),
         'wikimedia/purtle' => array(
             'pretty_version' => 'v2.0.0',

@@ -275,11 +275,8 @@ return call_user_func( static function () {
 							60 * 60, // 1 hour
 							static function () use ( $context, $services ) {
 								$termLanguages = WikibaseLexemeServices::getTermLanguages( $services );
-								$languageNameLookup = WikibaseLexemeServices::getLanguageNameLookupFactory( $services )
-									->getForLanguageCodeAndMessageLocalizer(
-										$context->getLanguage(),
-										$context
-									);
+								$languageNameLookup = WikibaseRepo::getLanguageNameLookupFactory( $services )
+									->getForLanguageCode( $context->getLanguage() );
 								$names = [];
 								foreach ( $termLanguages->getLanguages() as $languageCode ) {
 									$names[$languageCode] = $languageNameLookup->getName( $languageCode );
@@ -291,7 +288,7 @@ return call_user_func( static function () {
 				],
 			],
 			"styles" => [
-				'special/new-lexeme-dist/style.css',
+				'special/new-lexeme-dist/new-lexeme-special-page.css',
 			],
 			"dependencies" => [
 				'vue',

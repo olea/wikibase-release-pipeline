@@ -32,7 +32,7 @@ use WikibaseQuality\ConstraintReport\ConstraintCheck\Result\CheckResult;
 use WikibaseQuality\ConstraintReport\Html\HtmlTableBuilder;
 use WikibaseQuality\ConstraintReport\Html\HtmlTableCellBuilder;
 use WikibaseQuality\ConstraintReport\Html\HtmlTableHeaderBuilder;
-use Wikimedia\Stats\IBufferingStatsdDataFactory;
+use Wikimedia\Stats\StatsFactory;
 
 /**
  * Special page that displays all constraints that are defined on an Entity with additional information
@@ -51,11 +51,11 @@ class SpecialConstraintReport extends SpecialPage {
 	private DelegatingConstraintChecker $constraintChecker;
 	private ViolationMessageRenderer $violationMessageRenderer;
 	private Config $config;
-	private IBufferingStatsdDataFactory $dataFactory;
+	private StatsFactory $statsFactory;
 
 	public static function factory(
 		Config $config,
-		IBufferingStatsdDataFactory $dataFactory,
+		StatsFactory $statsFactory,
 		EntityIdFormatterFactory $entityIdHtmlLinkFormatterFactory,
 		EntityIdLabelFormatterFactory $entityIdLabelFormatterFactory,
 		EntityIdParser $entityIdParser,
@@ -75,7 +75,7 @@ class SpecialConstraintReport extends SpecialPage {
 			$delegatingConstraintChecker,
 			$violationMessageRendererFactory,
 			$config,
-			$dataFactory
+			$statsFactory
 		);
 	}
 
@@ -89,7 +89,7 @@ class SpecialConstraintReport extends SpecialPage {
 		DelegatingConstraintChecker $constraintChecker,
 		ViolationMessageRendererFactory $violationMessageRendererFactory,
 		Config $config,
-		IBufferingStatsdDataFactory $dataFactory
+		StatsFactory $statsFactory
 	) {
 		parent::__construct( 'ConstraintReport' );
 
@@ -116,7 +116,7 @@ class SpecialConstraintReport extends SpecialPage {
 		);
 
 		$this->config = $config;
-		$this->dataFactory = $dataFactory;
+		$this->statsFactory = $statsFactory;
 	}
 
 	/**
@@ -162,8 +162,13 @@ class SpecialConstraintReport extends SpecialPage {
 
 		$postRequest = $this->getContext()->getRequest()->getVal( 'entityid' );
 		if ( $postRequest ) {
-			$out->redirect( $this->getPageTitle( strtoupper( $postRequest ) )->getLocalURL() );
-			return;
+			try {
+				$entityId = $this->entityIdParser->parse( $postRequest );
+				$out->redirect( $this->getPageTitle( $entityId->getSerialization() )->getLocalURL() );
+				return;
+			} catch ( EntityIdParsingException $e ) {
+				// fall through, error is shown later
+			}
 		}
 
 		$out->enableOOUI();
@@ -173,6 +178,14 @@ class SpecialConstraintReport extends SpecialPage {
 
 		$out->addHTML( $this->getExplanationText() );
 		$this->buildEntityIdForm();
+
+		if ( $postRequest ) {
+			// must be an invalid entity ID (otherwise we would have redirected and returned above)
+			$out->addHTML(
+				$this->buildNotice( 'wbqc-constraintreport-invalid-entity-id', true )
+			);
+			return;
+		}
 
 		if ( !$subPage ) {
 			return;
@@ -198,9 +211,9 @@ class SpecialConstraintReport extends SpecialPage {
 			return;
 		}
 
-		$this->dataFactory->increment(
-			'wikibase.quality.constraints.specials.specialConstraintReport.executeCheck'
-		);
+		$baseKey = 'wikibase.quality.constraints.specials.specialConstraintReport.executeCheck';
+		$metric = $this->statsFactory->getCounter( 'special_constraint_report_execute_check_total' );
+		$metric->copyToStatsdAt( $baseKey )->increment();
 		$results = $this->constraintChecker->checkAgainstConstraintsOnEntityId( $entityId );
 
 		if ( $results !== [] ) {

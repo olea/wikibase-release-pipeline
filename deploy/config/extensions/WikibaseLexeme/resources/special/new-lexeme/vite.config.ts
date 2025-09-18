@@ -31,23 +31,11 @@ export default defineConfig( {
 	build: getBuildConfig( !!process.env.BUILD_AS_APP ),
 	resolve: {
 		alias: {
-			'@wmde/wikit-tokens/variables': resolve(
-				__dirname,
-				'node_modules/@wmde/wikit-tokens/dist/_variables.scss',
-			),
 			'@': resolve( __dirname, 'src' ),
 		},
 	},
 	plugins: [
-		vue( {
-			template: {
-				compilerOptions: {
-					compatConfig: {
-						MODE: 3,
-					},
-				},
-			},
-		} ),
+		vue(),
 		banner( '/*!/*@nomin*/' ),
 	],
 } );

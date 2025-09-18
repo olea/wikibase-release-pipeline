@@ -7,8 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Wikimedia\\Assert\\' => array($vendorDir . '/wikimedia/assert/src'),
-    'Wikibase\\Lexeme\\Tests\\' => array($baseDir . '/tests/phpunit/composer'),
-    'Wikibase\\Lexeme\\' => array($baseDir . '/src'),
     'WMDE\\VueJsTemplating\\' => array($vendorDir . '/wmde/php-vuejs-templating/src'),
     'Serializers\\' => array($vendorDir . '/serialization/serialization/src/Serializers'),
     'Deserializers\\' => array($vendorDir . '/serialization/serialization/src/Deserializers'),

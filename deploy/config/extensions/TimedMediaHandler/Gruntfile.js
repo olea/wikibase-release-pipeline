@@ -1,4 +1,5 @@
-/* eslint-env node, es6 */
+'use strict';
+
 module.exports = function ( grunt ) {
 	const conf = grunt.file.readJSON( 'extension.json' );
 
@@ -17,6 +18,9 @@ module.exports = function ( grunt ) {
 			all: '.'
 		},
 		stylelint: {
+			options: {
+				cache: true
+			},
 			all: [
 				'**/*.{css,less}',
 				'!resources/mw-info-button/**',

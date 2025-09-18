@@ -2,8 +2,8 @@
 
 namespace Wikibase\MediaInfo\Rdf;
 
-use File;
-use RepoGroup;
+use MediaWiki\FileRepo\File\File;
+use MediaWiki\FileRepo\RepoGroup;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\MediaInfo\Content\MediaInfoHandler;
 use Wikibase\MediaInfo\DataModel\MediaInfo;
@@ -128,7 +128,7 @@ class MediaInfoSpecificComponentsRdfBuilder implements EntityRdfBuilder {
 		}
 	}
 
-	private function getFileSpecificType( File $file ) {
+	private function getFileSpecificType( File $file ): ?string {
 		switch ( $file->getMediaType() ) {
 			case MEDIATYPE_BITMAP:
 			case MEDIATYPE_DRAWING:
@@ -171,6 +171,11 @@ class MediaInfoSpecificComponentsRdfBuilder implements EntityRdfBuilder {
 		}
 	}
 
+	/**
+	 * @param MediaInfoId $id
+	 * @param string $schemaProperty
+	 * @param int $value
+	 */
 	private function addPositiveIntegerValue( MediaInfoId $id, $schemaProperty, $value ) {
 		if ( is_int( $value ) && $value > 0 ) {
 			$this->aboutId( $id )

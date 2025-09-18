@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit156551da854bd15f4849d07a91594f29
+class ComposerStaticInit49d41c91b47a37d301a99619def87f1f
 {
     public static $classMap = array (
         'AMFReader' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
@@ -102,7 +102,7 @@ class ComposerStaticInit156551da854bd15f4849d07a91594f29
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit156551da854bd15f4849d07a91594f29::$classMap;
+            $loader->classMap = ComposerStaticInit49d41c91b47a37d301a99619def87f1f::$classMap;
 
         }, null, ClassLoader::class);
     }

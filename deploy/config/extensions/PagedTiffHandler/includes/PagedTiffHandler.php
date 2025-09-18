@@ -22,7 +22,6 @@
 
 namespace MediaWiki\Extension\PagedTiffHandler;
 
-use File;
 use FormatMetadata;
 use LogicException;
 use MapCacheLRU;
@@ -31,6 +30,7 @@ use MediaTransformError;
 use MediaTransformOutput;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\FileRepo\File\File;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
@@ -134,7 +134,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 			if ( !$ok ) {
 				$this->getCachedTiffImage( $fileName )->resetMetaData();
-				call_user_func_array( [ $status, 'fatal' ], $error );
+				// @phan-suppress-next-line PhanParamTooFewUnpack
+				$status->fatal( ...$error );
 			}
 		}
 
@@ -221,7 +222,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 				}
 
 				return false;
-			} elseif ( $value <= 0 || $value > 65535 ) { // ImageMagick overflows for values > 65536
+			} elseif ( $value <= 0 || $value > 65535 ) {
+				// ImageMagick overflows for values > 65536
 				return false;
 			} else {
 				return true;
@@ -466,7 +468,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			);
 			return $this->getMediaTransformError( $scalerParams, $err );
 		} else {
-			return false; /* no error */
+			// no error
+			return false;
 		}
 	}
 
@@ -764,6 +767,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		return PagedTiffImage::getPageSize( $data, $page );
 	}
 
+	/**
+	 * @param File $file
+	 * @return bool
+	 */
 	public function isExpensiveToThumbnail( $file ) {
 		return $file->getSize() > self::EXPENSIVE_SIZE_LIMIT;
 	}

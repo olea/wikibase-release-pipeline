@@ -58,6 +58,7 @@ class MediaInfoView implements EntityDocumentView {
 		return '';
 	}
 
+	/** @inheritDoc */
 	public function getContent( EntityDocument $entity, $revision = null ): ViewContent {
 		if ( !( $entity instanceof MediaInfo ) ) {
 			throw new InvalidArgumentException( '$entity must be a MediaInfo entity.' );
@@ -81,12 +82,18 @@ class MediaInfoView implements EntityDocumentView {
 		);
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getCaptionsHtml( MediaInfo $entity ) {
 		return $this->captionsView->getHtml(
 			$entity
 		);
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getStatementsHtml( MediaInfo $entity ) {
 		return $this->statementsView->getHtml(
 			$entity

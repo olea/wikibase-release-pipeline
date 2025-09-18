@@ -24,13 +24,19 @@ const searchMessage = computed( () => messages.get(
 </template>
 
 <style lang="scss" scoped>
-@import '@wmde/wikit-tokens/variables';
-@import '@wmde/wikit-vue-components/src/styles/mixins/Typography';
+@use '@wikimedia/codex-design-tokens/theme-wikimedia-ui';
+@import '@/styles/custom-variables.css';
 
 .wbl-snl-search-existing {
-	@include body;
+	/* font Codex Body */
+	font-family: theme-wikimedia-ui.$font-family-system-sans;
+	font-size: theme-wikimedia-ui.$font-size-small;
+	font-weight: theme-wikimedia-ui.$font-weight-normal;
+	line-height: theme-wikimedia-ui.$line-height-medium;
+	color: var( --color-base );
 
-	margin-top: 1rem;
-	margin-bottom: 1rem;
+	/* margins */
+	margin-top: var( --dimension-layout-xsmall );
+	margin-bottom: var( --dimension-layout-xsmall );
 }
 </style>

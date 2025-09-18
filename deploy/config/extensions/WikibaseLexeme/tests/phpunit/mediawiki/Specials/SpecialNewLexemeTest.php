@@ -4,10 +4,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
 use DataValues\StringValue;
 use Exception;
-use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Block\Restriction\NamespaceRestriction;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Exception\PermissionsError;
+use MediaWiki\Exception\UserBlockedError;
 use MediaWiki\Language\Language;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
@@ -18,8 +19,6 @@ use MediaWiki\Title\Title;
 use MediaWiki\User\TempUser\TempUserConfig;
 use MediaWiki\User\User;
 use MediaWiki\User\UserIdentity;
-use PermissionsError;
-use PHPUnit\Framework\MockObject\MockObject;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermFallback;
@@ -40,6 +39,7 @@ use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\Tests\Specials\SpecialNewEntityTestCase;
 use Wikibase\Repo\WikibaseRepo;
+use Wikimedia\Stats\StatsFactory;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme
@@ -59,16 +59,25 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	private const NON_EXISTING_ITEM_ID = 'Q100';
 
 	/**
-	 * @var StatsdDataFactoryInterface|MockObject
+	 * @var StatsFactory|MockObject
 	 */
-	private $stats;
+	private $statsFactory;
+
+	/**
+	 * @var UnitTestingHelper
+	 */
+	private $statsHelper;
 
 	protected function setUp(): void {
+		$statsHelper = StatsFactory::newUnitTestingHelper();
+		$statsFactory = $statsHelper->getStatsFactory();
+
 		parent::setUp();
 		$this->setUserLang( 'qqx' );
 
 		$this->givenItemExists( self::EXISTING_ITEM_ID );
-		$this->stats = $this->createMock( StatsdDataFactoryInterface::class );
+		$this->statsFactory = $statsFactory;
+		$this->statsHelper = $statsHelper;
 		$this->copyrightView = $this->createMock( SpecialPageCopyrightView::class );
 		$this->copyrightView->method( "getHtml" )->willReturn( 'copyright' );
 	}
@@ -97,7 +106,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			self::TAGS,
 			$this->copyrightView,
 			$this->getServiceContainer()->getLinkRenderer(),
-			$this->stats,
+			$this->statsFactory,
 			WikibaseRepo::getEditEntityFactory(),
 			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => 146 ] ),
 			WikibaseRepo::getEntityTitleStoreLookup(),
@@ -138,7 +147,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	public function testExceptionWhenUserBlockedOnNamespace(): void {
 		$user = $this->getTestBlockedUser( false, [ 146 ] );
 
-		$this->expectException( \UserBlockedError::class );
+		$this->expectException( UserBlockedError::class );
 		$this->executeSpecialPage( '', null, null, $user );
 	}
 
@@ -156,11 +165,13 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	public function testExceptionWhenUserBlockedSitewide(): void {
 		$user = $this->getTestBlockedUser( true );
 
-		$this->stats->expects( $this->once() )
-			->method( 'increment' )
-			->with( 'wikibase.lexeme.special.NewLexeme.views' );
-		$this->expectException( \UserBlockedError::class );
+		$this->expectException( UserBlockedError::class );
 		$this->executeSpecialPage( '', null, null, $user );
+
+		$this->assertSame(
+			1,
+			$this->statsHelper->count( 'special_new_lexeme_views_total' )
+		);
 	}
 
 	private function getTestBlockedUser( $blockIsSitewide, $blockedNamespaces = null ): User {
@@ -173,7 +184,8 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			'expiry' => time() + 100500,
 			'sitewide' => $blockIsSitewide,
 		] );
-		$block->insert();
+		$this->getServiceContainer()->getDatabaseBlockStore()
+			->insertBlock( $block );
 		if ( $blockedNamespaces !== null ) {
 			$restrictions = [];
 			foreach ( $blockedNamespaces as $blockedNamespace ) {
@@ -214,11 +226,12 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		] );
 		$this->resetServices();
 
-		$this->stats->expects( $this->once() )
-			->method( 'increment' )
-			->with( 'wikibase.lexeme.special.NewLexeme.views' );
 		try {
 			$this->executeSpecialPage();
+			$this->assertSame(
+				1,
+				$this->statsHelper->count( 'special_new_lexeme_views_total' )
+			);
 			$this->fail();
 		} catch ( PermissionsError $exception ) {
 			$this->assertSame( 'badaccess-group0', $exception->getMessageObject()->getKey() );
@@ -525,7 +538,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		$this->assertStringContainsString( $expectedHTML, $scriptHTML[0] );
 	}
 
-	public function provideValidEntityCreationRequests(): array {
+	public static function provideValidEntityCreationRequests(): array {
 		return [
 			'everything is set' => [
 				[
@@ -546,7 +559,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		];
 	}
 
-	public function provideInvalidEntityCreationRequests() {
+	public static function provideInvalidEntityCreationRequests() {
 		return [
 			'unknown language' => [
 				[
@@ -637,17 +650,15 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	 * @dataProvider provideValidEntityCreationRequests
 	 */
 	public function testEntityIsBeingCreated_WhenValidInputIsGiven( array $formData ) {
-		$expectedStats = [
-			'wikibase.lexeme.special.NewLexeme.views' => true,
-			'wikibase.lexeme.special.NewLexeme.nojs.create' => true,
-		];
-		$this->stats->expects( $this->exactly( count( $expectedStats ) ) )
-			->method( 'increment' )
-			->willReturnCallback( function ( $stat ) use ( &$expectedStats ) {
-				$this->assertArrayHasKey( $stat, $expectedStats );
-				unset( $expectedStats[$stat] );
-			} );
 		parent::testEntityIsBeingCreated_WhenValidInputIsGiven( $formData );
+		$this->assertSame(
+			1,
+			$this->statsHelper->count( 'special_new_lexeme_views_total' )
+		);
+		$this->assertSame(
+			1,
+			$this->statsHelper->count( 'special_new_lexeme_nojs_create_total' )
+		);
 	}
 
 	public function testTempUserCreatedRedirect(): void {

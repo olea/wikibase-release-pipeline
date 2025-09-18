@@ -40,14 +40,6 @@ const error = computed( () => {
 } );
 </script>
 
-<script lang="ts">
-export default {
-	compatConfig: {
-		MODE: 3,
-	},
-};
-</script>
-
 <template>
 	<div class="wbl-snl-lexical-category-lookup">
 		<item-lookup
@@ -73,11 +65,5 @@ export default {
 </template>
 
 <style lang="scss">
-@import '@wmde/wikit-tokens/variables';
-/* stylelint-disable selector-class-pattern */
-.wbl-snl-lexical-category-lookup .wikit .wikit-Lookup__label-wrapper {
-	gap: $dimension-spacing-xsmall;
-}
-/* stylelint-enable selector-class-pattern */
-
+@use '@wikimedia/codex-design-tokens/theme-wikimedia-ui';
 </style>

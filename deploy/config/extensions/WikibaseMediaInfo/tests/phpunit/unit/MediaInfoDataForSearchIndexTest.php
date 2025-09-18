@@ -6,6 +6,7 @@ use MediaWiki\Content\ContentHandler;
 use MediaWiki\Content\ContentHandlerFactory;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Page\PageStore;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Title\TitleFactory;
@@ -15,6 +16,7 @@ use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookup;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lib\DataTypeFactory;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\MediaInfo\Content\MediaInfoContent;
 use Wikibase\MediaInfo\Content\MediaInfoHandler;
@@ -26,6 +28,7 @@ use Wikibase\MediaInfo\Search\MediaInfoFieldDefinitions;
 use Wikibase\MediaInfo\Services\FilePageLookup;
 use Wikibase\MediaInfo\Services\MediaInfoIdLookup;
 use Wikibase\Repo\Content\EntityInstanceHolder;
+use Wikibase\Repo\Hooks\WikibaseTextForSearchIndexHook;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
@@ -52,7 +55,10 @@ class MediaInfoDataForSearchIndexTest extends \MediaWikiUnitTestCase {
 			new NullLogger()
 		);
 
-		$content = new MediaInfoContent( new EntityInstanceHolder( $this->createEntity() ) );
+		$content = new MediaInfoContent(
+			$this->createMock( WikibaseTextForSearchIndexHook::class ),
+			new EntityInstanceHolder( $this->createEntity() )
+		);
 		$revision = $this->createMock( RevisionRecord::class );
 		$revision->method( 'hasSlot' )
 			->with( MediaInfo::ENTITY_TYPE )
@@ -66,7 +72,7 @@ class MediaInfoDataForSearchIndexTest extends \MediaWikiUnitTestCase {
 		$hook->onSearchDataForIndex2(
 			$fields,
 			$this->createMock( ContentHandler::class ),
-			$this->createMock( \WikiPage::class ),
+			$this->createMock( WikiPage::class ),
 			$this->createMock( ParserOutput::class ),
 			$this->createMock( \SearchEngine::class ),
 			$revision
@@ -112,6 +118,7 @@ class MediaInfoDataForSearchIndexTest extends \MediaWikiUnitTestCase {
 				new LabelsProviderFieldDefinitions( [ 'ar', 'en' ] ),
 				new DescriptionsProviderFieldDefinitions( [ 'ar', 'en' ], null ),
 				new StatementProviderFieldDefinitions(
+					new DataTypeFactory( [] ),
 					$this->createMock( PropertyDataTypeLookup::class ),
 					[],
 					[],
@@ -122,6 +129,7 @@ class MediaInfoDataForSearchIndexTest extends \MediaWikiUnitTestCase {
 			),
 			$this->createMock( PageStore::class ),
 			$this->createMock( TitleFactory::class ),
+			$this->createMock( WikibaseTextForSearchIndexHook::class ),
 			null
 		);
 	}

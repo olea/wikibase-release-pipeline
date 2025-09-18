@@ -6,6 +6,7 @@ use CirrusSearch\Parser\FullTextKeywordRegistry;
 use CirrusSearch\SearchConfig;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Config\Config;
 use MediaWiki\Config\ConfigException;
 use MediaWiki\Context\DerivativeContext;
@@ -141,15 +142,16 @@ class SpecialMediaSearch extends SpecialPage {
 		OutputPage::setupOOUI();
 		$userLanguage = $this->getLanguage();
 
-		// url & querystring params of this page
-		$url = $this->getRequest()->getRequestURL();
+		// url & querystring params of this page, in tests this is sometimes unset
+		$request = $this->getRequest();
+		$url = $request instanceof FauxRequest && !$request->hasRequestURL() ? null : $request->getRequestURL();
 
 		// Discard query param keys or values that are not strings to sanitize before using
-		$queryParams = array_filter( $this->getRequest()->getValues(), static function ( $v, $k ) {
+		$queryParams = array_filter( $request->getValues(), static function ( $v, $k ) {
 			return is_string( $k ) && is_string( $v );
 		}, ARRAY_FILTER_USE_BOTH );
 
-		$term = str_replace( "\n", ' ', $this->getRequest()->getText( 'search' ) );
+		$term = str_replace( "\n", ' ', $request->getText( 'search' ) );
 		$redirectUrl = $this->findExactMatchRedirectUrl( $term );
 		if ( $redirectUrl !== null ) {
 			$this->getOutput()->redirect( $redirectUrl );
@@ -210,7 +212,7 @@ class SpecialMediaSearch extends SpecialPage {
 			array_push( $tabs, $tabDefinitions[ $tabPlace ] );
 		}
 
-		$limit = $this->getRequest()->getText( 'limit' ) ? (int)$this->getRequest()->getText( 'limit' ) : 40;
+		$limit = $request->getText( 'limit' ) ? (int)$request->getText( 'limit' ) : 40;
 		$error = [];
 		$results = [];
 		$searchinfo = [];
@@ -230,7 +232,7 @@ class SpecialMediaSearch extends SpecialPage {
 				$type,
 				$this->getSearchNamespaces( $activeFilters, $type ),
 				$limit,
-				$this->getRequest()->getText( 'continue' ),
+				$request->getText( 'continue' ),
 				$this->getSort( $activeFilters )
 			);
 		} catch (
@@ -238,6 +240,22 @@ class SpecialMediaSearch extends SpecialPage {
 			NoCirrusSearchException | SearchFailedException $_
 		) {
 			$error = [
+				'title' => $this->msg( 'mediasearch-error-message' )->text(),
+				'text' => $this->msg( 'mediasearch-error-text' )->text(),
+			];
+		} catch ( ApiUsageException $apiEx ) {
+			// We are executing the API in internal mode which means there's no error
+			// handling for us, ergo, the API would directly throw ApiUsageException
+			// when any non-good status object is returned from the search request.
+			// Here, we catch that exception and turn it into a user error as it would
+			// have been done by ApiMain if the search API request were to come
+			// from a remote client.
+			// See T379293 and its numerous subtasks and their duplicates.
+			$error = [
+				'apiErrorHtml' => $apiEx->getMessageObject()->parse(),
+
+				// These are unused but in case anything is relying
+				// on the keys to be present
 				'title' => $this->msg( 'mediasearch-error-message' )->text(),
 				'text' => $this->msg( 'mediasearch-error-text' )->text(),
 			];
@@ -250,7 +268,8 @@ class SpecialMediaSearch extends SpecialPage {
 		$totalHits = $searchinfo['totalhits'] ?? 0;
 		$didYouMean = null;
 		$didYouMeanLink = null;
-		$currentResultStart = $this->getRequest()->getText( 'continue' ) ?: 0;
+		$currentResultStart = intval( $request->getText( 'continue' ) );
+		$apiErrorMessage = $error['apiErrorHtml'] ?? null;
 
 		if ( isset( $searchinfo[ 'suggestion' ] ) ) {
 			try {
@@ -272,7 +291,7 @@ class SpecialMediaSearch extends SpecialPage {
 		$data = [
 			'queryParams' => $mappedQueryParams,
 			'page' => $url,
-			'path' => parse_url( $url, PHP_URL_PATH ),
+			'path' => $url !== null ? parse_url( $url, PHP_URL_PATH ) : null,
 			'term' => $term,
 			'hasTerm' => (bool)$term,
 			'limit' => $limit,
@@ -298,6 +317,8 @@ class SpecialMediaSearch extends SpecialPage {
 			'endOfResultsMessage' => $this->msg( 'mediasearch-end-of-results' )->text(),
 			'errorTitle' => $this->msg( 'mediasearch-error-message' )->text(),
 			'errorText' => $this->msg( 'mediasearch-error-text' )->text(),
+			'hasApiError' => $apiErrorMessage !== null,
+			'apiErrorMsgHtml' => $apiErrorMessage,
 			'searchLabel' => $this->msg( 'mediasearch-input-label' )->text(),
 			'searchButton' => $this->msg( 'searchbutton' )->text(),
 			'searchPlaceholder' => $this->msg( 'mediasearch-input-placeholder' )->text(),
@@ -308,8 +329,10 @@ class SpecialMediaSearch extends SpecialPage {
 			'noResultsMessage' => $this->msg( 'mediasearch-no-results' )->text(),
 			'noResultsMessageExtra' => $this->msg( 'mediasearch-no-results-tips' )->text(),
 			'didYouMean' => $didYouMean,
-			// phpcs:ignore Generic.Files.LineLength.TooLong
-			'didYouMeanMessage' => $didYouMean ? $this->msg( 'mediasearch-did-you-mean' )->rawParams( $didYouMeanLink )->parse() : null,
+			'didYouMeanMessage' => $didYouMean
+				// @phan-suppress-next-line PhanTypeMismatchArgumentNullable $didYouMeanLink set with $didYouMean
+				? $this->msg( 'mediasearch-did-you-mean' )->rawParams( $didYouMeanLink )->parse()
+				: null,
 			'totalHits' => $totalHits,
 			'showResultsCount' => $totalHits > 0,
 			'resultsCount' => $this->msg(
@@ -346,16 +369,14 @@ class SpecialMediaSearch extends SpecialPage {
 		$specialSearchUrl = SpecialPage::getTitleFor( 'Search' )->getLocalURL( [ 'search' => $term ] );
 		$helpUrl = 'https://www.mediawiki.org/wiki/Special:MyLanguage/Help:MediaSearch';
 		$this->getOutput()->setIndicators( [
-			$this->getLanguage()->pipeList( [
-				( new Tag( 'a' ) )
-					->setAttributes( [ 'href' => $specialSearchUrl, 'id' => 'mediasearch-switch-special-search' ] )
-					// phpcs:ignore Generic.Files.LineLength.TooLong
-					->appendContent( $this->msg( 'mediasearch-switch-special-search' )->escaped() ),
-				( new Tag( 'a' ) )
-					->addClasses( [ 'mw-helplink' ] )
-					->setAttributes( [ 'href' => $helpUrl, 'target' => '_blank' ] )
-					->appendContent( $this->msg( 'helppage-top-gethelp' )->escaped() ),
-			] )
+			'mw-help-switch' => ( new Tag( 'a' ) )
+				->setAttributes( [ 'href' => $specialSearchUrl, 'id' => 'mediasearch-switch-special-search' ] )
+				// phpcs:ignore Generic.Files.LineLength.TooLong
+				->appendContent( $this->msg( 'mediasearch-switch-special-search' )->escaped() ),
+			'mw-helplink' => ( new Tag( 'a' ) )
+				->addClasses( [ 'mw-helplink' ] )
+				->setAttributes( [ 'href' => $helpUrl, 'target' => '_blank' ] )
+				->appendContent( $this->msg( 'helppage-top-gethelp' )->escaped() ),
 		] );
 
 		return parent::execute( $subPage );
@@ -409,16 +430,16 @@ class SpecialMediaSearch extends SpecialPage {
 		return $url ?? $title->getFullUrlForRedirect();
 	}
 
-	private function redirectOnExactMatch() {
+	private function redirectOnExactMatch(): bool {
 		if ( !$this->getConfig()->get( 'SearchMatchRedirectPreference' ) ) {
 			// If the preference for whether to redirect is disabled, use the default setting
-			return $this->userOptionsManager->getDefaultOption(
+			return (bool)$this->userOptionsManager->getDefaultOption(
 				'search-match-redirect',
 				$this->getUser()
 			);
 		} else {
 			// Otherwise use the user's preference
-			return $this->userOptionsManager->getOption( $this->getUser(), 'search-match-redirect' );
+			return $this->userOptionsManager->getBoolOption( $this->getUser(), 'search-match-redirect' );
 		}
 	}
 

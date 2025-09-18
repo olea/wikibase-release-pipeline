@@ -87,11 +87,16 @@ class PhraseQueryNodeHandler implements ParsedNodeHandlerInterface {
 			/** @var int */
 			private $slop;
 
+			/**
+			 * @param string $phrase
+			 * @param int $slop
+			 */
 			public function __construct( $phrase, $slop ) {
 				$this->phrase = $phrase;
 				$this->slop = $slop;
 			}
 
+			/** @inheritDoc */
 			public function getQuery( $field, $boost ): AbstractQuery {
 				return ( new MatchQuery() )
 					->setFieldQuery( $field, $this->phrase )

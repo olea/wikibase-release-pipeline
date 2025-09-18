@@ -11,16 +11,16 @@
 namespace MediaWiki\TimedMediaHandler\WebVideoTranscode;
 
 use Exception;
-use File;
-use HTMLCacheUpdateJob;
-use IForeignRepoWithDB;
-use IForeignRepoWithMWApi;
-use JobSpecification;
 use LogicException;
 use MediaWiki\Config\ConfigException;
 use MediaWiki\Deferred\CdnCacheUpdate;
 use MediaWiki\Deferred\DeferredUpdates;
-use MediaWiki\FileBackend\FSFile\TempFSFileFactory;
+use MediaWiki\FileRepo\File\File;
+use MediaWiki\FileRepo\IForeignRepoWithDB;
+use MediaWiki\FileRepo\IForeignRepoWithMWApi;
+use MediaWiki\JobQueue\Jobs\HTMLCacheUpdateJob;
+use MediaWiki\JobQueue\JobSpecification;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Status\Status;
 use MediaWiki\TimedMediaHandler\Handlers\FLACHandler\FLACHandler;
@@ -33,6 +33,7 @@ use MediaWiki\TimedMediaHandler\Handlers\WAVHandler\WAVHandler;
 use MediaWiki\TimedMediaHandler\HLS\Multivariant;
 use MediaWiki\Title\Title;
 use Wikimedia\FileBackend\FSFile\TempFSFile;
+use Wikimedia\FileBackend\FSFile\TempFSFileFactory;
 use Wikimedia\Rdbms\IReadableDatabase;
 
 /**
@@ -1136,7 +1137,9 @@ class WebVideoTranscode {
 	 * @return array
 	 */
 	public static function getPrimarySourceAttributes( $file, $options = [] ) {
-		$src = in_array( 'fullurl', $options, true ) ? wfExpandUrl( $file->getUrl() ) : $file->getUrl();
+		$src = in_array( 'fullurl', $options, true ) ?
+			MediaWikiServices::getInstance()->getUrlUtils()->expand( $file->getUrl() ) :
+			$file->getUrl();
 
 		/** @var FLACHandler|MIDIHandler|MP3Handler|MP4Handler|OggHandler|WAVHandler $handler */
 		$handler = $file->getHandler();
@@ -1182,7 +1185,9 @@ class WebVideoTranscode {
 		}
 
 		// Setup the url src:
-		$src = in_array( 'fullurl', $options, true ) ? wfExpandUrl( $src ) : $src;
+		$src = in_array( 'fullurl', $options, true ) ?
+			MediaWikiServices::getInstance()->getUrlUtils()->expand( $src ) :
+			$src;
 		$fields = [
 			'src' => $src,
 			'type' => static::$derivativeSettings[ $transcodeKey ][ 'type' ],
@@ -1597,7 +1602,7 @@ class WebVideoTranscode {
 		return $keys;
 	}
 
-	public static function enabledTranscodes() {
+	public static function enabledTranscodes(): array {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		return static::filterAndSort( array_merge(
 			$config->get( 'EnabledTranscodeSet' ),
@@ -1605,12 +1610,12 @@ class WebVideoTranscode {
 		) );
 	}
 
-	public static function enabledVideoTranscodes() {
+	public static function enabledVideoTranscodes(): array {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		return static::filterAndSort( $config->get( 'EnabledTranscodeSet' ) );
 	}
 
-	public static function enabledAudioTranscodes() {
+	public static function enabledAudioTranscodes(): array {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		return static::filterAndSort( $config->get( 'EnabledAudioTranscodeSet' ) );
 	}
@@ -1672,17 +1677,28 @@ class WebVideoTranscode {
 	 */
 	public static function cleanupOrphanedTranscodes( int $batchSize ): int {
 		$lbFactory = MediaWikiServices::getInstance()->getDBLoadBalancerFactory();
+		$migrationStage = MediaWikiServices::getInstance()->getMainConfig()->get(
+			MainConfigNames::FileSchemaMigrationStage
+		);
 		$dbw = $lbFactory->getPrimaryDatabase();
 		$ticket = $lbFactory->getEmptyTransactionTicket( __METHOD__ );
-		$ids = $dbw->newSelectQueryBuilder()
+		$queryBuilder = $dbw->newSelectQueryBuilder()
 			->select( 'transcode_id' )
 			->from( 'transcode' )
-			->leftJoin( 'image', null, [ 'img_name = transcode_image_name' ] )
-			->where( [ 'img_name' => null ] )
-			->limit( $batchSize )
-			->caller( __METHOD__ )
-			->fetchFieldValues();
+			->limit( $batchSize );
 
+		if ( $migrationStage & SCHEMA_COMPAT_READ_OLD ) {
+			$queryBuilder->leftJoin( 'image', null, [ 'img_name = transcode_image_name' ] )
+				->where( [ 'img_name' => null ] );
+		} else {
+			$queryBuilder->leftJoin( 'file', null, [ 'file_name = transcode_image_name' ] )
+				->where(
+					$dbw->expr( 'file_name', '=', null )
+						->or( 'file_deleted', '!=', 0 )
+				);
+		}
+
+		$ids = $queryBuilder->caller( __METHOD__ )->fetchFieldValues();
 		if ( count( $ids ) > 0 ) {
 			$dbw->newDeleteQueryBuilder()
 				->delete( 'transcode' )

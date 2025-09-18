@@ -4,16 +4,9 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita9a7ba6ed5d8f4828f1e546a6b452ec2
+class ComposerStaticInit27d46c9769f7abdc86e2e371298a0532
 {
     public static $prefixLengthsPsr4 = array (
-        'W' => 
-        array (
-            'Wikibase\\MediaInfo\\Tests\\MediaWiki\\' => 35,
-            'Wikibase\\MediaInfo\\Tests\\Integration\\' => 37,
-            'Wikibase\\MediaInfo\\Tests\\' => 25,
-            'Wikibase\\MediaInfo\\' => 19,
-        ),
         'S' => 
         array (
             'Serializers\\' => 12,
@@ -25,22 +18,6 @@ class ComposerStaticInita9a7ba6ed5d8f4828f1e546a6b452ec2
     );
 
     public static $prefixDirsPsr4 = array (
-        'Wikibase\\MediaInfo\\Tests\\MediaWiki\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/tests/phpunit/mediawiki',
-        ),
-        'Wikibase\\MediaInfo\\Tests\\Integration\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/tests/phpunit/integration',
-        ),
-        'Wikibase\\MediaInfo\\Tests\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/tests/phpunit/composer',
-        ),
-        'Wikibase\\MediaInfo\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
         'Serializers\\' => 
         array (
             0 => __DIR__ . '/..' . '/serialization/serialization/src/Serializers',
@@ -58,9 +35,9 @@ class ComposerStaticInita9a7ba6ed5d8f4828f1e546a6b452ec2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita9a7ba6ed5d8f4828f1e546a6b452ec2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita9a7ba6ed5d8f4828f1e546a6b452ec2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita9a7ba6ed5d8f4828f1e546a6b452ec2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit27d46c9769f7abdc86e2e371298a0532::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit27d46c9769f7abdc86e2e371298a0532::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit27d46c9769f7abdc86e2e371298a0532::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -5,17 +5,18 @@ import { useMessages } from '@/plugins/MessagesPlugin/Messages';
 import ItemLookup from '@/components/ItemLookup.vue';
 import RequiredAsterisk from '@/components/RequiredAsterisk.vue';
 import { useLanguageItemSearch } from '@/plugins/ItemSearchPlugin/LanguageItemSearch';
-import { computed } from 'vue';
+import { computed, toRef } from 'vue';
 import { useConfig } from '@/plugins/ConfigPlugin/Config';
+import { useModelWrapper } from '@wikimedia/codex';
 
 interface Props {
 	modelValue: SearchedItemOption | null;
 	searchInput: string;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
-defineEmits<{
+const emit = defineEmits<{
 	( e: 'update:modelValue', modelValue: Props['modelValue'] ): void;
 	( e: 'update:searchInput', searchInput: Props['searchInput'] ): void;
 }>();
@@ -45,26 +46,31 @@ const error = computed( () => {
 	};
 } );
 const config = useConfig();
-</script>
 
-<script lang="ts">
-export default {
-	compatConfig: {
-		MODE: 3,
-	},
-};
+/**
+ * We want to pass the searchInput property from the parent component
+ * to the child component. The searchInput property comes in read-only
+ * and receives updates from the parent (it is a ref / computed value).
+ * Use the `useModelWrapper` helper here to turn the read-only property
+ * into a computed value that emits updates on change.
+ */
+const searchInputWrapper = useModelWrapper(
+	toRef( props, 'searchInput' ),
+	emit,
+	'update:searchInput',
+);
 </script>
 
 <template>
 	<div class="wbl-snl-language-lookup">
 		<item-lookup
+			v-model:search-input="searchInputWrapper"
 			:label="messages.getUnescaped( 'wikibaselexeme-newlexeme-language' )"
 			:placeholder="messages.getUnescaped(
 				'wikibaselexeme-newlexeme-language-placeholder-with-example',
 				config.placeholderExampleData.languageLabel
 			)"
 			:value="modelValue"
-			:search-input="searchInput"
 			:search-for-items="searchForItems"
 			:error="error"
 			:aria-required="true"
@@ -79,12 +85,5 @@ export default {
 </template>
 
 <style lang="scss">
-@import '@wmde/wikit-tokens/variables';
-
-/* stylelint-disable selector-class-pattern */
-.wbl-snl-language-lookup .wikit .wikit-Lookup__label-wrapper {
-	gap: $dimension-spacing-xsmall;
-}
-/* stylelint-enable selector-class-pattern */
-
+@use '@wikimedia/codex-design-tokens/theme-wikimedia-ui';
 </style>

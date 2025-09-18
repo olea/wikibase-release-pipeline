@@ -15,7 +15,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "media",
 	"requires": {
-		"MediaWiki": ">= 1.43"
+		"MediaWiki": ">= 1.44"
 	},
 	"APIModules": {
 		"timedtext": {
@@ -132,7 +132,6 @@
 		"ImagePageFileHistoryLine": "main",
 		"LoadExtensionSchemaUpdates": "installer",
 		"MediaWikiPerformAction": "iframe",
-		"RevisionFromEditComplete": "main",
 		"PageMoveComplete": [
 			"main",
 			"timedtext"
@@ -379,6 +378,7 @@
 			"noflip": true,
 			"languageScripts": {
 				"ar": "lang/ar.js",
+				"az": "lang/az.js",
 				"ba": "lang/ba.js",
 				"bn": "lang/bn.js",
 				"bg": "lang/bg.js",
@@ -406,9 +406,11 @@
 				"ja": "lang/ja.js",
 				"ko": "lang/ko.js",
 				"lv": "lang/lv.js",
+				"mr": "lang/mr.js",
 				"nb": "lang/nb.js",
 				"nl": "lang/nl.js",
 				"nn": "lang/nn.js",
+				"np": "lang/np.js",
 				"oc": "lang/oc.js",
 				"pl": "lang/pl.js",
 				"pt": "lang/pt-PT.js",
@@ -575,6 +577,9 @@
 		"video/mpeg": "MediaWiki\\TimedMediaHandler\\Handlers\\MPEGHandler\\MPEGHandler",
 		"video/webm": "MediaWiki\\TimedMediaHandler\\Handlers\\WebMHandler\\WebMHandler"
 	},
+	"ServiceWiringFiles": [
+		"includes/ServiceWiring.php"
+	],
 	"JobClasses": {
 		"webVideoTranscode": {
 			"class": "MediaWiki\\TimedMediaHandler\\WebVideoTranscode\\WebVideoTranscodeJob",

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"EGobi",
 			"Eduardo Addad de Oliveira",
 			"Eduardo.mps",
 			"Eduardoaddad",
@@ -10,8 +11,7 @@
 			"Guilhermemau",
 			"Luckas",
 			"Opraco",
-			"TheEduGobi",
-			"EGobi"
+			"TheEduGobi"
 		]
 	},
 	"timedmediahandler-extensionname": "TimedMediaHandler",

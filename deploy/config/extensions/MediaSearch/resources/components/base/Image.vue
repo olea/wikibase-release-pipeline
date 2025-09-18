@@ -1,6 +1,5 @@
 <template>
 	<img
-		:src="observerSupported ? null : source"
 		:data-src="source"
 		:alt="alt"
 		class="sd-image"
@@ -10,7 +9,7 @@
 </template>
 
 <script>
-var observer = require( './mixins/observer.js' );
+const observer = require( './mixins/observer.js' );
 
 // @vue/component
 module.exports = exports = {

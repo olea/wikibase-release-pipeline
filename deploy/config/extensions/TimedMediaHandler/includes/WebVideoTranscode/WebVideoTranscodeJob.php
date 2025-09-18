@@ -1,20 +1,15 @@
 <?php
-/**
- * Job for transcode jobs
- *
- * @file
- * @ingroup JobQueue
- */
 
 namespace MediaWiki\TimedMediaHandler\WebVideoTranscode;
 
 use Exception;
-use File;
 use InvalidArgumentException;
-use Job;
 use LogicException;
 use MediaWiki\Config\Config;
 use MediaWiki\Deferred\CdnCacheUpdate;
+use MediaWiki\FileRepo\File\File;
+use MediaWiki\FileRepo\RepoGroup;
+use MediaWiki\JobQueue\Job;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Shell\CommandFactory;
@@ -22,9 +17,7 @@ use MediaWiki\Shell\Shell;
 use MediaWiki\TimedMediaHandler\HLS\Segmenter;
 use MediaWiki\TimedMediaHandler\TimedMediaHandler;
 use MediaWiki\Title\Title;
-use RepoGroup;
 use Shellbox\Command\BoxedCommand;
-use Wikimedia\FileBackend\FSFile\FSFile;
 use Wikimedia\FileBackend\FSFile\TempFSFile;
 use Wikimedia\Rdbms\ILBFactory;
 
@@ -38,38 +31,17 @@ use Wikimedia\Rdbms\ILBFactory;
  *
  * @ingroup JobQueue
  */
-
 class WebVideoTranscodeJob extends Job {
 
-	/** @var TempFSFile|null */
-	public $targetEncodeFile;
-
-	/** @var TempFSFile|null */
-	public $targetPlaylistFile;
-
-	/** @var string|null|false */
-	public $sourceFilePath;
-
-	/** @var File */
+	public ?TempFSFile $targetEncodeFile = null;
+	public ?TempFSFile $targetPlaylistFile = null;
+	/** @var File|false */
 	public $file;
-
-	/** @var FSFile|null */
-	public $source;
-
-	/** @var FSFile|null */
-	public $remuxSource;
-
-	/** @var CommandFactory */
-	private $commandFactory;
-
-	/** @var Config */
-	private $config;
-
-	/** @var ILBFactory */
-	private $lbFactory;
-
-	/** @var RepoGroup */
-	private $repoGroup;
+	private ?string $remuxVirtualUrl = null;
+	private CommandFactory $commandFactory;
+	private Config $config;
+	private ILBFactory $lbFactory;
+	private RepoGroup $repoGroup;
 
 	/**
 	 * @param Title $title
@@ -100,7 +72,6 @@ class WebVideoTranscodeJob extends Job {
 
 	/**
 	 * Accessor for MainConfig
-	 * @return Config
 	 */
 	protected function getConfig(): Config {
 		return $this->config;
@@ -108,14 +79,13 @@ class WebVideoTranscodeJob extends Job {
 
 	/**
 	 * Wrapper around debug logger
-	 * @param string $msg
 	 */
-	private function output( $msg ) {
+	private function output( string $msg ) {
 		LoggerFactory::getInstance( 'WebVideoTranscodeJob' )->debug( $msg );
 	}
 
 	/**
-	 * @return File
+	 * @return File|false
 	 */
 	private function getFile() {
 		if ( !$this->file ) {
@@ -125,31 +95,21 @@ class WebVideoTranscodeJob extends Job {
 		return $this->file;
 	}
 
-	/**
-	 * @return string
-	 */
-	private function getTargetEncodePath() {
+	private function getTargetEncodePath(): string {
 		if ( !$this->targetEncodeFile ) {
 			$this->targetEncodeFile = $this->fileTarget();
 		}
 		return $this->targetEncodeFile->getPath();
 	}
 
-	/**
-	 * @return string
-	 */
-	private function getTargetPlaylistPath() {
+	private function getTargetPlaylistPath(): string {
 		if ( !$this->targetPlaylistFile ) {
 			$this->targetPlaylistFile = $this->fileTarget( '.m3u8' );
 		}
 		return $this->targetPlaylistFile->getPath();
 	}
 
-	/**
-	 * @param string $suffix
-	 * @return TempFSFile
-	 */
-	private function fileTarget( $suffix = '' ) {
+	private function fileTarget( string $suffix = '' ): TempFSFile {
 		$base = $this->getFile();
 		$transcodeKey = $this->params[ 'transcodeKey' ];
 		$file = WebVideoTranscode::getTargetEncodeFile( $base, $transcodeKey, $suffix );
@@ -175,28 +135,9 @@ class WebVideoTranscodeJob extends Job {
 	}
 
 	/**
-	 * @return string|false
-	 */
-	private function getSourceFilePath() {
-		if ( !$this->sourceFilePath ) {
-			$file = $this->getFile();
-			$this->source = $file->repo->getLocalReference( $file->getPath() );
-			if ( !$this->source ) {
-				$this->sourceFilePath = false;
-			} else {
-				$this->sourceFilePath = $this->source->getPath();
-			}
-		}
-		return $this->sourceFilePath;
-	}
-
-	/**
 	 * Update the transcode table with failure time and error
-	 * @param string $transcodeKey
-	 * @param string $error
-	 *
 	 */
-	private function setTranscodeError( $transcodeKey, $error ) {
+	private function setTranscodeError( string $transcodeKey, string $error ) {
 		$dbw = $this->lbFactory->getPrimaryDatabase();
 		$dbw->newUpdateQueryBuilder()
 			->update( 'transcode' )
@@ -241,14 +182,6 @@ class WebVideoTranscodeJob extends Job {
 				$error = "Transcode key $transcodeKey not found, skipping";
 				$this->output( $error );
 				$this->setTranscodeError( $transcodeKey, $error );
-				return false;
-			}
-
-			// Validate the source exists:
-			if ( !$this->getSourceFilePath() || !is_file( $this->getSourceFilePath() ) ) {
-				$status = $this->title . ': Source not found ' . $this->getSourceFilePath();
-				$this->output( $status );
-				$this->setTranscodeError( $transcodeKey, $status );
 				return false;
 			}
 
@@ -327,15 +260,12 @@ class WebVideoTranscodeJob extends Job {
 			$remuxFrom = $options['remuxFrom'] ?? false;
 			if ( $remux && $remuxFrom ) {
 				foreach ( $remuxFrom as $altKey ) {
-					$altSource = WebVideoTranscode::getDerivativeFilePath( $file, $altKey );
+					$altVirtualUrl = WebVideoTranscode::getDerivativeFilePath( $file, $altKey );
 					$repo = $this->file->repo;
-					if ( $repo->fileExists( $altSource ) ) {
-						$remuxSource = $repo->getLocalReference( $altSource );
-						if ( $remuxSource ) {
-							$this->remuxSource = $remuxSource;
-							$twopass = false;
-							break;
-						}
+					if ( $repo->fileExists( $altVirtualUrl ) ) {
+						$this->remuxVirtualUrl = $altVirtualUrl;
+						$twopass = false;
+						break;
 					}
 				}
 			}
@@ -531,9 +461,8 @@ class WebVideoTranscodeJob extends Job {
 	/**
 	 * Gets a boxedCommand executor
 	 * @param string $name The route name for the BoxedCommand
-	 * @return BoxedCommand
 	 */
-	private function getCommand( string $name ) {
+	private function getCommand( string $name ): BoxedCommand {
 		$fullName = 'tmh-' . strtolower( $name );
 		return $this->commandFactory
 			->createBoxed(
@@ -547,9 +476,6 @@ class WebVideoTranscodeJob extends Job {
 
 	/**
 	 * Adds an input file from the scripts directory, sets the command to execute it
-	 * @param BoxedCommand $command
-	 * @param string $script
-	 *
 	 */
 	private function useScript( BoxedCommand $command, string $script ) {
 		$file = __DIR__ . "/../../scripts/$script";
@@ -566,17 +492,10 @@ class WebVideoTranscodeJob extends Job {
 	 * @param int $passes the number of encoding passes to perform
 	 * @return true|string
 	 */
-	private function ffmpegEncode( $options, $passes = 0 ) {
-		if ( !is_file( $this->getSourceFilePath() ) ) {
-			return "source file is missing, " . $this->getSourceFilePath() . ". Encoding failed.";
-		}
+	private function ffmpegEncode( array $options, int $passes = 0 ) {
 		// Environment variables for shellbox
 		$optsEnv = [];
-		if ( $this->remuxSource ) {
-			$sourcePath = $this->remuxSource->getPath();
-		} else {
-			$sourcePath = $this->getSourceFilePath();
-		}
+		$sourceFile = $this->getFile();
 
 		$interval = 10;
 		$fps = 0;
@@ -611,7 +530,7 @@ class WebVideoTranscodeJob extends Job {
 				}
 			}
 
-			if ( $this->remuxSource ) {
+			if ( $this->remuxVirtualUrl !== null ) {
 				$optsEnv['TMH_OPTS_VIDEO'] .= ' -vcodec copy';
 				$optsEnv['TMH_REMUX'] = "yes";
 			} else {
@@ -696,7 +615,7 @@ class WebVideoTranscodeJob extends Job {
 				}
 			}
 
-			if ( !$this->remuxSource ) {
+			if ( $this->remuxVirtualUrl === null ) {
 				// If necessary, add deinterlacing options
 				$optsEnv['TMH_OPTS_VIDEO'] .= $this->ffmpegAddDeinterlaceOptions( $options );
 				// Add size options:
@@ -755,6 +674,15 @@ class WebVideoTranscodeJob extends Job {
 		$this->useScript( $cmd, 'ffmpeg-encode.sh' );
 		// set up options that don't need mangling
 
+		if ( $this->remuxVirtualUrl !== null ) {
+			$addStatus = $sourceFile->getRepo()->addShellboxInputFile(
+				$cmd, 'original.video', $this->remuxVirtualUrl );
+		} else {
+			$addStatus = $sourceFile->addToShellboxCommand( $cmd, 'original.video' );
+		}
+		if ( !$addStatus->isOK() ) {
+			return 'source file is missing. Encoding failed.';
+		}
 		$backgroundMemoryLimit = $this->config->get( 'TranscodeBackgroundMemoryLimit' ) * 1024;
 		$wallTimeLimit = (int)$this->config->get( 'TranscodeBackgroundTimeLimit' );
 		$cpuTimeLimit = (int)$this->config->get( 'FFmpegThreads' ) * $wallTimeLimit;
@@ -765,7 +693,6 @@ class WebVideoTranscodeJob extends Job {
 		$outputFile = 'transcoded.' . pathinfo( $target, PATHINFO_EXTENSION );
 		// Execute the conversion
 		$cmd->outputFileToFile( $outputFile, $this->getTargetEncodePath() )
-			->inputFileFromFile( 'original.video', $sourcePath )
 			->includeStderr()
 			->environment( [
 				'TMH_OUTPUT_FILE'      => $outputFile,
@@ -805,9 +732,8 @@ class WebVideoTranscodeJob extends Job {
 	 *
 	 * @param array $options
 	 * @param string|int $rate
-	 * @return int
 	 */
-	private function scaleRate( $options, $rate ) {
+	private function scaleRate( array $options, $rate ): int {
 		$fps = $this->effectiveFrameRate( $options );
 		$base = $this->expandRate( $rate );
 
@@ -822,9 +748,8 @@ class WebVideoTranscodeJob extends Job {
 	 * Expand a bitrate that may have a k/m/g suffix
 	 *
 	 * @param string|int $rate
-	 * @return int
 	 */
-	private function expandRate( $rate ) {
+	private function expandRate( $rate ): int {
 		return WebVideoTranscode::expandRate( $rate );
 	}
 
@@ -833,11 +758,8 @@ class WebVideoTranscodeJob extends Job {
 	 * format-specific or generic limitations.
 	 * Suitable for scaling linear parameters like the
 	 * target bit rate.
-	 *
-	 * @param array $options
-	 * @return float
 	 */
-	private function effectiveFrameRate( $options ) {
+	private function effectiveFrameRate( array $options ): float {
 		if ( isset( $options['framerate'] ) ) {
 			// fixed framerate
 			$fps = $this->fractionToFloat( $options['framerate'] );
@@ -866,11 +788,7 @@ class WebVideoTranscodeJob extends Job {
 		return $fps;
 	}
 
-	/**
-	 * @param string $str
-	 * @return float
-	 */
-	private function fractionToFloat( $str ) {
+	private function fractionToFloat( string $str ): float {
 		$fraction = explode( '/', $str, 2 );
 		if ( count( $fraction ) > 1 ) {
 			return (float)$fraction[0] / (float)$fraction[1];
@@ -881,10 +799,8 @@ class WebVideoTranscodeJob extends Job {
 	/**
 	 * Return the actual frame rate of the file, or the default
 	 * if can't retrieve it.
-	 *
-	 * @return float
 	 */
-	private function frameRate() {
+	private function frameRate(): float {
 		$file = $this->getFile();
 		$handler = $file->getHandler();
 		if ( $handler instanceof TimedMediaHandler ) {
@@ -898,11 +814,8 @@ class WebVideoTranscodeJob extends Job {
 
 	/**
 	 * Adds ffmpeg shell options for h264
-	 *
-	 * @param array $options
-	 * @return string
 	 */
-	public function ffmpegAddH264VideoOptions( $options ) {
+	public function ffmpegAddH264VideoOptions( array $options ): string {
 		// Set the codec:
 		$cmd = " -threads " . (int)$this->config->get( 'FFmpegThreads' ) . " -vcodec libx264";
 		$cmd .= ' -pix_fmt yuv420p';
@@ -913,11 +826,8 @@ class WebVideoTranscodeJob extends Job {
 
 	/**
 	 * Adds ffmpeg shell options for h264
-	 *
-	 * @param array $options
-	 * @return string
 	 */
-	public function ffmpegAddMPEG4VideoOptions( $options ) {
+	public function ffmpegAddMPEG4VideoOptions( array $options ): string {
 		$cmd = " -vcodec mpeg4";
 
 		// Force to 4:2:0 chroma subsampling.
@@ -926,11 +836,7 @@ class WebVideoTranscodeJob extends Job {
 		return $cmd;
 	}
 
-	/**
-	 * @param array $options
-	 * @return string
-	 */
-	private function ffmpegAddGenericVideoOptions( $options ) {
+	private function ffmpegAddGenericVideoOptions( array $options ): string {
 		$cmd = ' -vcodec ' . $options['videoCodec'];
 
 		// Force to 4:2:0 chroma subsampling.
@@ -939,12 +845,7 @@ class WebVideoTranscodeJob extends Job {
 		return $cmd;
 	}
 
-	/**
-	 * @param array $options
-	 *
-	 * @return string
-	 */
-	private function ffmpegAddVideoSizeOptions( $options ) {
+	private function ffmpegAddVideoSizeOptions( array $options ): string {
 		$cmd = '';
 		// Get a local pointer to the file object
 		$file = $this->getFile();
@@ -968,11 +869,8 @@ class WebVideoTranscodeJob extends Job {
 
 	/**
 	 * Adds ffmpeg shell options for webm
-	 *
-	 * @param array $options
-	 * @return string
 	 */
-	private function ffmpegAddWebmVideoOptions( $options ) {
+	private function ffmpegAddWebmVideoOptions( array $options ): string {
 		$cmd = ' -threads ' . (int)$this->config->get( 'FFmpegThreads' );
 		if ( $this->config->get( 'FFmpegVP9RowMT' ) && $options['videoCodec'] === 'vp9' ) {
 			// Macroblock row multithreading allows using more CPU cores
@@ -1013,10 +911,7 @@ class WebVideoTranscodeJob extends Job {
 		return $cmd;
 	}
 
-	/**
-	 * @return bool
-	 */
-	private function isInterlaced() {
+	private function isInterlaced(): bool {
 		$handler = $this->file->getHandler();
 		return ( $handler instanceof TimedMediaHandler && $handler->isInterlaced( $this->file ) );
 	}
@@ -1024,11 +919,8 @@ class WebVideoTranscodeJob extends Job {
 	/**
 	 * Whether to produce one frame per field when deinterlacing.
 	 * This will double the output frame rate.
-	 *
-	 * @param array $options
-	 * @return bool
 	 */
-	private function shouldFrameDouble( $options ) {
+	private function shouldFrameDouble( array $options ): bool {
 		if ( $this->isInterlaced() ) {
 			if ( isset( $options['framerate'] ) ) {
 				// Fixed framerate, don't mess with it.
@@ -1042,11 +934,7 @@ class WebVideoTranscodeJob extends Job {
 		return false;
 	}
 
-	/**
-	 * @param array $options
-	 * @return string
-	 */
-	private function ffmpegAddDeinterlaceOptions( $options ) {
+	private function ffmpegAddDeinterlaceOptions( array $options ): string {
 		if ( $this->isInterlaced() ) {
 			if ( $this->shouldFrameDouble( $options ) ) {
 				// Send one frame per field for full motion smoothness.
@@ -1058,11 +946,7 @@ class WebVideoTranscodeJob extends Job {
 		return '';
 	}
 
-	/**
-	 * @param array $options
-	 * @return string
-	 */
-	private function ffmpegAddAudioOptions( $options ) {
+	private function ffmpegAddAudioOptions( array $options ): string {
 		$cmd = '';
 		if ( isset( $options['audioQuality'] ) ) {
 			$cmd .= " -aq " . (string)intval( $options['audioQuality'] );
@@ -1098,13 +982,9 @@ class WebVideoTranscodeJob extends Job {
 
 	/**
 	 * Utility helper for midi to an audio format conversion
-	 * @param array $options
 	 * @return true|string
 	 */
-	private function midiToAudioEncode( $options ) {
-		if ( !is_file( $this->getSourceFilePath() ) ) {
-			return "source file is missing, " . $this->getSourceFilePath() . ". Encoding failed.";
-		}
+	private function midiToAudioEncode( array $options ) {
 		$cmd = $this->getCommand( 'miditoaudio' );
 		$this->useScript( $cmd, 'midi-encode.sh' );
 		// set up options
@@ -1121,13 +1001,15 @@ class WebVideoTranscodeJob extends Job {
 				$optsEnv['TMH_OPT_' . $label] = Shell::escape( $options[$opt] );
 			}
 		}
+		if ( !$this->getFile()->addToShellboxCommand( $cmd, 'input.mid' )->isOK() ) {
+			return 'source file is missing. Encoding failed.';
+		}
 		$outputFile = 'output_audio.' . pathinfo( $this->getTargetEncodePath(), PATHINFO_EXTENSION );
 		// Execute the conversion
 		$backgroundMemoryLimit = $this->config->get( 'TranscodeBackgroundMemoryLimit' ) * 1024;
 		$wallTimeLimit = (int)$this->config->get( 'TranscodeBackgroundTimeLimit' );
 		$cpuTimeLimit = (int)$this->config->get( 'FFmpegThreads' ) * $wallTimeLimit;
 		$cmd->outputFileToFile( $outputFile, $this->getTargetEncodePath() )
-			->inputFileFromFile( 'input.mid', $this->getSourceFilePath() )
 			->includeStderr()
 			->environment( [
 				'TMH_FLUIDSYNTH_PATH' => $this->config->get( 'TmhFluidsynthLocation' ),

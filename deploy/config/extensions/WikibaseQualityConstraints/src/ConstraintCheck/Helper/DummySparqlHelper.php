@@ -28,11 +28,12 @@ class DummySparqlHelper extends SparqlHelper {
 		// no parent::__construct() call
 	}
 
-	public function hasType( string $id, array $classes ): CachedBool {
+	public function hasType( EntityId $id, array $classes ): CachedBool {
 		throw new LogicException( 'methods of this class should never be called' );
 	}
 
 	public function findEntitiesWithSameStatement(
+		EntityId $entityId,
 		Statement $statement,
 		array $separators
 	): CachedEntityIds {

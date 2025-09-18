@@ -94,20 +94,19 @@ npm run cypress:open
 You can see which dependencies have new releases by first making sure your local dependencies are up-to-date by executing `npm ci` and then running `npm outdated`.
 The following dependencies should be ignored:
 
-- Wikit (i.e. `@wmde/wikit-tokens` and `@wmde/wikit-vue-components`):
-  we’re using a newer pre-release version and don’t want to downgrade to the latest full release.
 - Vue and Vuex:
   in production, we use the versions shipped by MediaWiki core,
   so we should use the same versions for testing.
   The current versions shipped by MediaWiki core are listed in [foreign-resources.yaml](https://gerrit.wikimedia.org/g/mediawiki/core/+/master/resources/lib/foreign-resources.yaml).
-- Prettier:
-  [Jest 29.65.2](https://github.com/jestjs/jest/blob/main/CHANGELOG.md#2962) is not compatible with Prettier 3.
-  This might be resolved with the next release ([Jest#14566](https://github.com/jestjs/jest/pull/14566)),
-  so be sure to check whether a newer Jest version is available that includes Prettier 3 compatibility.
 - Node.js version:
   The GitHub Workflows here should use the same Node.js version as the `mwgate-nodeXX-docker` CI job in WikibaseLexeme,
   because that job builds this app for the `test:snl-distnodiff` script. This version is currently Node 18.
   The upgrade to Node 20 there is tracked in [T343827](https://phabricator.wikimedia.org/T343827).
+- ESLint and related dependencies (i.e. `@typescript-eslint/eslint-plugin`, `eslint-plugin-cypress`):
+  ESLint v9 requires flat config, which is currently incompatible with some MediaWiki repos.
+  Migration to ESLint v9 is tracked in [T364065](https://phabricator.wikimedia.org/T364065).
+  Until this migration is complete, we can't update to versions of dependencies that require v9 or higher.
+  
 
 All other dependencies should generally be updated to the latest version.
 If you discover that a dependency should not be updated for some reason, please add it to the above list.

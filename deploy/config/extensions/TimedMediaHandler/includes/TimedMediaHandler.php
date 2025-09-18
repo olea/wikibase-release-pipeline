@@ -2,11 +2,12 @@
 
 namespace MediaWiki\TimedMediaHandler;
 
-use File;
 use MediaHandler;
 use MediaTransformError;
 use MediaTransformOutput;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\FileRepo\File\File;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\Parser;
 use TransformParameterError;
 
@@ -426,7 +427,9 @@ class TimedMediaHandler extends MediaHandler {
 		}
 
 		// Generate thumb:
-		$thumbStatus = TimedMediaThumbnail::get( $options );
+		$timedMediaThumbnail = MediaWikiServices::getInstance()
+			->getService( 'TimedMediaHandler.TimedMediaThumbnail' );
+		$thumbStatus = $timedMediaThumbnail->get( $options );
 		if ( $thumbStatus !== true ) {
 			return $thumbStatus;
 		}

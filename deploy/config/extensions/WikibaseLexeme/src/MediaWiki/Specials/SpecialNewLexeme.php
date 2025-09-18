@@ -4,9 +4,8 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\MediaWiki\Specials;
 
 use Exception;
-use Iterator;
-use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Config\ConfigException;
+use MediaWiki\Exception\UserBlockedError;
 use MediaWiki\Html\Html;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\HTMLForm\HTMLForm;
@@ -17,7 +16,6 @@ use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
 use MediaWiki\User\TempUser\TempUserConfig;
 use OOUI\IconWidget;
-use UserBlockedError;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -53,7 +51,7 @@ use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\View\EntityIdFormatterFactory;
-use Wikimedia\Assert\Assert;
+use Wikimedia\Stats\StatsFactory;
 
 /**
  * New page for creating new Lexeme entities.
@@ -73,7 +71,7 @@ class SpecialNewLexeme extends SpecialPage {
 
 	private array $tags;
 	private LinkRenderer $linkRenderer;
-	private StatsdDataFactoryInterface $statsDataFactory;
+	private StatsFactory $statsFactory;
 	private MediaWikiEditEntityFactory $editEntityFactory;
 	private EntityNamespaceLookup $entityNamespaceLookup;
 	private EntityTitleStoreLookup $entityTitleLookup;
@@ -92,7 +90,7 @@ class SpecialNewLexeme extends SpecialPage {
 		array $tags,
 		SpecialPageCopyrightView $copyrightView,
 		LinkRenderer $linkRenderer,
-		StatsdDataFactoryInterface $statsDataFactory,
+		StatsFactory $statsFactory,
 		MediaWikiEditEntityFactory $editEntityFactory,
 		EntityNamespaceLookup $entityNamespaceLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
@@ -113,7 +111,7 @@ class SpecialNewLexeme extends SpecialPage {
 
 		$this->tags = $tags;
 		$this->linkRenderer = $linkRenderer;
-		$this->statsDataFactory = $statsDataFactory;
+		$this->statsFactory = $statsFactory;
 		$this->editEntityFactory = $editEntityFactory;
 		$this->entityNamespaceLookup = $entityNamespaceLookup;
 		$this->entityTitleLookup = $entityTitleLookup;
@@ -131,7 +129,7 @@ class SpecialNewLexeme extends SpecialPage {
 
 	public static function factory(
 		LinkRenderer $linkRenderer,
-		StatsdDataFactoryInterface $statsDataFactory,
+		StatsFactory $statsFactory,
 		TempUserConfig $tempUserConfig,
 		AnonymousEditWarningBuilder $anonymousEditWarningBuilder,
 		MediaWikiEditEntityFactory $editEntityFactory,
@@ -156,7 +154,7 @@ class SpecialNewLexeme extends SpecialPage {
 			$repoSettings->getSetting( 'specialPageTags' ),
 			$copyrightView,
 			$linkRenderer,
-			$statsDataFactory,
+			$statsFactory,
 			$editEntityFactory,
 			$entityNamespaceLookup,
 			$entityTitleLookup,
@@ -180,7 +178,8 @@ class SpecialNewLexeme extends SpecialPage {
 	 * @param string|null $subPage
 	 */
 	public function execute( $subPage ): void {
-		$this->statsDataFactory->increment( 'wikibase.lexeme.special.NewLexeme.views' );
+		$metric = $this->statsFactory->getCounter( 'special_new_lexeme_views_total' );
+		$metric->copyToStatsdAt( 'wikibase.lexeme.special.NewLexeme.views' )->increment();
 
 		parent::execute( $subPage );
 
@@ -333,6 +332,7 @@ class SpecialNewLexeme extends SpecialPage {
 		return $params;
 	}
 
+	/** @return mixed|null */
 	private function extractLanguageCode( EntityId $languageId ) {
 		$lexemeLanguageCodePropertyIdString = $this->getConfig()->get( 'LexemeLanguageCodePropertyId' );
 		if ( !$lexemeLanguageCodePropertyIdString ) {
@@ -518,7 +518,8 @@ class SpecialNewLexeme extends SpecialPage {
 						return $saveStatus;
 					}
 
-					$this->statsDataFactory->increment( 'wikibase.lexeme.special.NewLexeme.nojs.create' );
+					$metric = $this->statsFactory->getCounter( 'special_new_lexeme_nojs_create_total' );
+					$metric->copyToStatsdAt( 'wikibase.lexeme.special.NewLexeme.nojs.create' )->increment();
 
 					return $saveStatus;
 				}
@@ -547,11 +548,6 @@ class SpecialNewLexeme extends SpecialPage {
 		$summary->setLanguage( $uiLanguageCode );
 
 		$lemmaIterator = $lexeme->getLemmas()->getIterator();
-		// As getIterator can also in theory return a Traversable, guard against that
-		Assert::invariant(
-			$lemmaIterator instanceof Iterator,
-			'TermList::getIterator did not return an instance of Iterator'
-		);
 		/** @var Term|null $lemmaTerm */
 		$lemmaTerm = $lemmaIterator->current();
 		$summary->addAutoSummaryArgs( $lemmaTerm->getText() );

@@ -1,10 +1,6 @@
 # Wikibase Quality Constraints
-[![Scrutinizer Code Quality][scrutinizer-badge]][scrutinizer]
 
 Extension to Wikibase Repository that performs constraint checks.
-
-[scrutinizer-badge]: https://scrutinizer-ci.com/g/wikimedia/mediawiki-extensions-WikibaseQualityConstraints/badges/quality-score.png?b=master
-[scrutinizer]: https://scrutinizer-ci.com/g/wikimedia/mediawiki-extensions-WikibaseQualityConstraints/?branch=master
 
 ## Installation
 
@@ -42,6 +38,11 @@ Extension to Wikibase Repository that performs constraint checks.
 
   * Alternatively, to check “format” constraints without running a full SPARQL server,
     you can use the [minisparql] server.
+
+  * To check regex format constraints with [Shellbox](https://www.mediawiki.org/wiki/Shellbox),
+    configure `ShellboxUrls['constraint-regex-checker']` with the Shellbox url, and set
+    `WBQualityConstraintsFormatCheckerShellboxRatio` to the ratio of requests that should
+    go to Shellbox.
 
 * Run `php maintenance/run.php WikibaseQualityConstraints:ImportConstraintStatements.php`.
 

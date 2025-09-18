@@ -3,7 +3,7 @@
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
         'aliases' => array(),
-        'reference' => '2ab56ed3c1cef6c9f660039c28f455de1ebf4908',
+        'reference' => '22c20376264abe7bb7742dc2dba94e9234b92d88',
         'name' => '__root__',
     ),
     'versions' => array(
@@ -11,7 +11,7 @@
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
             'aliases' => array(),
-            'reference' => '2ab56ed3c1cef6c9f660039c28f455de1ebf4908',
+            'reference' => '22c20376264abe7bb7742dc2dba94e9234b92d88',
         ),
         'james-heinrich/getid3' => array(
             'pretty_version' => 'v1.9.23',

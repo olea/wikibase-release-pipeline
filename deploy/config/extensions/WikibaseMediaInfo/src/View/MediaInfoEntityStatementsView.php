@@ -107,6 +107,10 @@ class MediaInfoEntityStatementsView {
 		);
 	}
 
+	/**
+	 * @param string $propertyIdString
+	 * @return string
+	 */
 	public static function getHtmlContainerClass( $propertyIdString ) {
 		return 'wbmi-entityview-statementsGroup-' . str_replace( ':', '_', $propertyIdString );
 	}
@@ -265,7 +269,7 @@ class MediaInfoEntityStatementsView {
 		return $panel;
 	}
 
-	private function createPropertyHeader( $propertyIdString ) {
+	private function createPropertyHeader( string $propertyIdString ): Tag {
 		$propertyId = new NumericPropertyId( $propertyIdString );
 
 		$propertyTitle = $this->createFormattedDataValue(
@@ -333,14 +337,14 @@ class MediaInfoEntityStatementsView {
 		return $tag;
 	}
 
-	private function createStatementDiv( Statement $statement ) {
+	private function createStatementDiv( Statement $statement ): Tag {
 		$div = new Tag( 'div' );
 		$div->appendContent( $this->innerStatementDiv( $statement ) );
 		$div->addClasses( [ 'wbmi-item', 'wbmi-item-read' ] );
 		return $div;
 	}
 
-	private function innerStatementDiv( Statement $statement ) {
+	private function innerStatementDiv( Statement $statement ): Tag {
 		$mainSnak = $statement->getMainSnak();
 
 		$statementDiv = new Tag( 'div' );
@@ -388,7 +392,6 @@ class MediaInfoEntityStatementsView {
 					);
 					$referenceSnaklist->appendContent( $referenceTitle );
 
-					// @phan-suppress-next-line PhanTypeMismatchArgumentSuperType
 					$referenceSnaklist->appendContent( $this->renderSnakList( $snakList ) );
 				}
 			}
@@ -399,7 +402,7 @@ class MediaInfoEntityStatementsView {
 		return $statementDiv;
 	}
 
-	private function renderSnakList( SnakList $snakList ) {
+	private function renderSnakList( SnakList $snakList ): Tag {
 		$propertyOrder = $this->propertyOrderProvider->getPropertyOrder();
 		if ( $propertyOrder === null ) {
 			$snakList->orderByProperty();
@@ -590,7 +593,7 @@ class MediaInfoEntityStatementsView {
 		return $statementsByProperty;
 	}
 
-	private function addDefaultStatements( $statementsByProperty ) {
+	private function addDefaultStatements( array $statementsByProperty ): array {
 		foreach ( $this->defaultPropertyIds as $propertyId ) {
 			if ( !isset( $statementsByProperty[ $propertyId->getSerialization() ] ) ) {
 				$statementsByProperty[ $propertyId->getSerialization() ] = [];

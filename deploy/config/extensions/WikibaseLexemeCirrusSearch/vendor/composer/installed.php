@@ -3,7 +3,7 @@
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
         'aliases' => array(),
-        'reference' => 'f25a34b680422c741a89d21adb42e014bf55c47e',
+        'reference' => 'bbcc119ce41fab45890e621f9ca632c0dcef0d29',
         'name' => 'wikibase/lexeme-cirrusssearch',
     ),
     'versions' => array(
@@ -17,7 +17,7 @@
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
             'aliases' => array(),
-            'reference' => 'f25a34b680422c741a89d21adb42e014bf55c47e',
+            'reference' => 'bbcc119ce41fab45890e621f9ca632c0dcef0d29',
         ),
     ),
 );

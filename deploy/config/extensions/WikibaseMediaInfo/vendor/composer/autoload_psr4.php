@@ -6,10 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Wikibase\\MediaInfo\\Tests\\MediaWiki\\' => array($baseDir . '/tests/phpunit/mediawiki'),
-    'Wikibase\\MediaInfo\\Tests\\Integration\\' => array($baseDir . '/tests/phpunit/integration'),
-    'Wikibase\\MediaInfo\\Tests\\' => array($baseDir . '/tests/phpunit/composer'),
-    'Wikibase\\MediaInfo\\' => array($baseDir . '/src'),
     'Serializers\\' => array($vendorDir . '/serialization/serialization/src/Serializers'),
     'Deserializers\\' => array($vendorDir . '/serialization/serialization/src/Deserializers'),
 );

@@ -42,6 +42,9 @@ class ViolationMessageRenderer {
 	/**
 	 * @param EntityIdFormatter $entityIdFormatter
 	 * @param ValueFormatter $dataValueFormatter
+	 * @param LanguageNameUtils $languageNameUtils
+	 * @param string $userLanguageCode
+	 * @param TermLanguageFallbackChain $languageFallbackChain
 	 * @param MessageLocalizer $messageLocalizer
 	 * @param Config $config
 	 * @param int $maxListLength The maximum number of elements to be rendered in a list parameter.
@@ -74,7 +77,7 @@ class ViolationMessageRenderer {
 			$params = $this->renderArgument( $argument );
 			$paramsLists[] = $params;
 		}
-		$allParams = call_user_func_array( 'array_merge', $paramsLists );
+		$allParams = array_merge( ...$paramsLists );
 		return $this->messageLocalizer
 			->msg( $messageKey )
 			->params( $allParams )
@@ -167,7 +170,7 @@ class ViolationMessageRenderer {
 			array_fill( 0, count( $list ), $role )
 		);
 		$renderedParams = array_column( $renderedParamsLists, 0 );
-		$renderedElements = array_map( fn ( MessageParam $msg ) => $msg->getValue(), $renderedParams );
+		$renderedElements = array_map( static fn ( MessageParam $msg ) => $msg->getValue(), $renderedParams );
 		if ( isset( $truncated ) ) {
 			$renderedElements[] = $this->msgEscaped( 'ellipsis' );
 		}

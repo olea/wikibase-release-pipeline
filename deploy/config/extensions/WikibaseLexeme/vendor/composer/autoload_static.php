@@ -4,14 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2039e4e6bffb0882eb9793408ec9c5ae
+class ComposerStaticInit9c3935a3900cf0ee3566786b0447818c
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
         array (
             'Wikimedia\\Assert\\' => 17,
-            'Wikibase\\Lexeme\\Tests\\' => 22,
-            'Wikibase\\Lexeme\\' => 16,
             'WMDE\\VueJsTemplating\\' => 21,
         ),
         'S' => 
@@ -28,14 +26,6 @@ class ComposerStaticInit2039e4e6bffb0882eb9793408ec9c5ae
         'Wikimedia\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/wikimedia/assert/src',
-        ),
-        'Wikibase\\Lexeme\\Tests\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/tests/phpunit/composer',
-        ),
-        'Wikibase\\Lexeme\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
         'WMDE\\VueJsTemplating\\' => 
         array (
@@ -58,9 +48,9 @@ class ComposerStaticInit2039e4e6bffb0882eb9793408ec9c5ae
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2039e4e6bffb0882eb9793408ec9c5ae::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2039e4e6bffb0882eb9793408ec9c5ae::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2039e4e6bffb0882eb9793408ec9c5ae::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9c3935a3900cf0ee3566786b0447818c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9c3935a3900cf0ee3566786b0447818c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9c3935a3900cf0ee3566786b0447818c::$classMap;
 
         }, null, ClassLoader::class);
     }

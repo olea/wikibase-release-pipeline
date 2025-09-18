@@ -4,14 +4,6 @@ import { useMessages } from '@/plugins/MessagesPlugin/Messages';
 const messages = useMessages();
 </script>
 
-<script lang="ts">
-export default {
-	compatConfig: {
-		MODE: 3,
-	},
-};
-</script>
-
 <template>
 	<span
 		class="wbl-snl-required-asterisk"
@@ -21,18 +13,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '@wmde/wikit-tokens/variables';
+@use '@wikimedia/codex-design-tokens/theme-wikimedia-ui';
+@import '../styles/custom-variables.css';
 
 .wbl-snl-required-asterisk {
-	font-size: $font-size-xxlarge;
+	font-size: theme-wikimedia-ui.$font-size-x-large;
 	line-height: 0;
-
-	&:not( :first-child ) {
-		margin-inline-start: $dimension-spacing-small;
-	}
-
-	&:not( :last-child ) {
-		margin-inline-end: $dimension-spacing-small;
-	}
+	margin-inline-start: var( --dimension-spacing-xsmall );
 }
 </style>

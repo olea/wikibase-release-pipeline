@@ -16,7 +16,7 @@ class LemmaFieldTest extends LexemeFieldTestBase {
 		return [
 			[
 				new LemmaField(),
-				[ "Test Lemma" ]
+				[ "Test Lemma", "Test lemma" ]
 			]
 		];
 	}

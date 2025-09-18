@@ -1,6 +1,6 @@
 /* eslint-env node */
 module.exports = function ( grunt ) {
-	var conf = grunt.file.readJSON( 'extension.json' );
+	const conf = grunt.file.readJSON( 'extension.json' );
 
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
 	grunt.loadNpmTasks( 'grunt-stylelint' );
@@ -8,6 +8,9 @@ module.exports = function ( grunt ) {
 	grunt.initConfig( {
 		banana: conf.MessagesDirs,
 		stylelint: {
+			options: {
+				cache: true
+			},
 			all: [
 				'**/*.css',
 				'!modules/jquery.ucompare/**',

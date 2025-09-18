@@ -2,7 +2,6 @@
 
 namespace WikibaseQuality\ConstraintReport\Tests\Helper;
 
-use MediaWiki\Config\Config;
 use MediaWiki\Config\HashConfig;
 use Psr\Log\LoggerInterface;
 use Wikibase\DataModel\Entity\ItemId;
@@ -16,6 +15,7 @@ use WikibaseQuality\ConstraintReport\ConstraintCheck\Message\ViolationMessage;
 use WikibaseQuality\ConstraintReport\ConstraintCheck\Result\CheckResult;
 use WikibaseQuality\ConstraintReport\Tests\DefaultConfig;
 use Wikimedia\Stats\IBufferingStatsdDataFactory;
+use Wikimedia\Stats\StatsFactory;
 use Wikimedia\Timestamp\ConvertibleTimestamp;
 
 /**
@@ -54,6 +54,9 @@ class LoggingHelperTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$dataFactory = $this->createMock( IBufferingStatsdDataFactory::class );
+		$statsFactory = StatsFactory::newNull()
+			->withStatsdDataFactory( $dataFactory );
+
 		$dataFactory->expects( $this->once() )
 			->method( 'timing' )
 			->with(
@@ -91,7 +94,7 @@ class LoggingHelperTest extends \PHPUnit\Framework\TestCase {
 				)
 			);
 
-		$loggingHelper = new LoggingHelper( $dataFactory, $logger, self::getDefaultConfig() );
+		$loggingHelper = new LoggingHelper( $statsFactory, $logger, self::getDefaultConfig() );
 
 		$loggingHelper->logConstraintCheck(
 			$context, $constraint,
@@ -122,6 +125,9 @@ class LoggingHelperTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$dataFactory = $this->createMock( IBufferingStatsdDataFactory::class );
+		$statsFactory = StatsFactory::newNull()
+			->withStatsdDataFactory( $dataFactory );
+
 		$dataFactory->expects( $this->once() )
 			->method( 'timing' )
 			->with(
@@ -132,7 +138,7 @@ class LoggingHelperTest extends \PHPUnit\Framework\TestCase {
 		$logger = $this->createMock( LoggerInterface::class );
 		$logger->expects( $this->never() )->method( 'log' );
 
-		$loggingHelper = new LoggingHelper( $dataFactory, $logger, $this->getLoggingDisabledConfig() );
+		$loggingHelper = new LoggingHelper( $statsFactory, $logger, $this->getLoggingDisabledConfig() );
 
 		$loggingHelper->logConstraintCheck(
 			$context, $constraint,
@@ -149,6 +155,9 @@ class LoggingHelperTest extends \PHPUnit\Framework\TestCase {
 		$entityId = new ItemId( 'Q1' );
 
 		$dataFactory = $this->createMock( IBufferingStatsdDataFactory::class );
+		$statsFactory = StatsFactory::newNull()
+			->withStatsdDataFactory( $dataFactory );
+
 		$dataFactory->expects( $this->once() )
 			->method( 'timing' )
 			->with(
@@ -177,7 +186,7 @@ class LoggingHelperTest extends \PHPUnit\Framework\TestCase {
 				)
 			);
 
-		$loggingHelper = new LoggingHelper( $dataFactory, $logger, self::getDefaultConfig() );
+		$loggingHelper = new LoggingHelper( $statsFactory, $logger, self::getDefaultConfig() );
 
 		$loggingHelper->logConstraintCheckOnEntity(
 			$entityId,
@@ -199,18 +208,21 @@ class LoggingHelperTest extends \PHPUnit\Framework\TestCase {
 		$entityId = new ItemId( 'Q1' );
 
 		$dataFactory = $this->createMock( IBufferingStatsdDataFactory::class );
+		$statsFactory = StatsFactory::newNull()
+			->withStatsdDataFactory( $dataFactory );
+
 		$dataFactory->expects( $this->once() )
 			->method( 'timing' )
 			->with(
 				$this->identicalTo( 'wikibase.quality.constraints.check.entity.timing' ),
-				$this->identicalTo( 10000 )
+				$this->identicalTo( 10000.0 )
 			);
 
 		$logger = $this->createMock( LoggerInterface::class );
 		$logger->expects( $this->never() )
 			->method( 'log' );
 
-		$loggingHelper = new LoggingHelper( $dataFactory, $logger, $this->getLoggingDisabledConfig() );
+		$loggingHelper = new LoggingHelper( $statsFactory, $logger, $this->getLoggingDisabledConfig() );
 
 		$loggingHelper->logConstraintCheckOnEntity(
 			$entityId,
@@ -221,30 +233,29 @@ class LoggingHelperTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testlogSparqlHelperMadeTooManyRequestsRetryAfterPresent_CallsNotice() {
-		$dataFactory = $this->createMock( IBufferingStatsdDataFactory::class );
+		$statsFactory = StatsFactory::newNull();
 		$logger = $this->createMock( LoggerInterface::class );
-		$config = $this->createMock( Config::class );
+		$config = self::getDefaultConfig();
 		$timestamp = $this->createMock( ConvertibleTimestamp::class );
 		$request = $this->createMock( \MWHttpRequest::class );
 
 		$logger->expects( $this->once() )
 			->method( 'notice' );
 
-		$loggingHelper = new LoggingHelper( $dataFactory, $logger, $config );
+		$loggingHelper = new LoggingHelper( $statsFactory, $logger, $config );
 		$loggingHelper->logSparqlHelperTooManyRequestsRetryAfterPresent( $timestamp, $request );
 	}
 
 	public function testlogSparqlHelperMadeTooManyRequestsRetryAfterMissing_CallsWarning() {
-		$dataFactory = $this->createMock( IBufferingStatsdDataFactory::class );
+		$statsFactory = StatsFactory::newNull();
 		$logger = $this->createMock( LoggerInterface::class );
-		$config = $this->createMock( Config::class );
-		$timestamp = $this->createMock( ConvertibleTimestamp::class );
+		$config = self::getDefaultConfig();
 		$request = $this->createMock( \MWHttpRequest::class );
 
 		$logger->expects( $this->once() )
 			->method( 'warning' );
 
-		$loggingHelper = new LoggingHelper( $dataFactory, $logger, $config );
+		$loggingHelper = new LoggingHelper( $statsFactory, $logger, $config );
 		$loggingHelper->logSparqlHelperTooManyRequestsRetryAfterInvalid( $request );
 	}
 

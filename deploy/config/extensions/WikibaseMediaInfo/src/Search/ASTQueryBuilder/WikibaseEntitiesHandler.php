@@ -28,6 +28,9 @@ class WikibaseEntitiesHandler implements ParsedNodeHandlerInterface {
 	/** @var bool */
 	private $variableBoost;
 
+	/** @var float */
+	private $weightedTagsMinScoreThreshold;
+
 	public function __construct(
 		ParsedNode $node,
 		ParsedQuery $query,
@@ -40,6 +43,7 @@ class WikibaseEntitiesHandler implements ParsedNodeHandlerInterface {
 		$this->entitiesExtractor = $entitiesExtractor;
 		$this->boosts = $boosts;
 		$this->variableBoost = $options['entitiesVariableBoost'];
+		$this->weightedTagsMinScoreThreshold = $options['weightedTagsMinScoreThreshold'] ?? 0.5;
 	}
 
 	public function transform(): AbstractQuery {
@@ -52,7 +56,10 @@ class WikibaseEntitiesHandler implements ParsedNodeHandlerInterface {
 		$weightedTagsQueries = [];
 
 		foreach ( $entities as $entity ) {
-			if ( $entity['score'] >= 0 ) {
+			if (
+				$entity['score'] >= 0 &&
+				is_array( $this->boosts['statement'] ?? [] )
+			) {
 				foreach ( $this->boosts['statement'] ?? [] as $propertyId => $weight ) {
 					$statementBoost = $this->variableBoost ? $weight * $entity['score'] : $weight;
 					if ( $statementBoost > 0 ) {
@@ -65,10 +72,13 @@ class WikibaseEntitiesHandler implements ParsedNodeHandlerInterface {
 				}
 			}
 
-			// ONLY do weighted_tags queries if we have an exact match
+			// ONLY do weighted_tags queries if we have a good enough match
 			// weighted_tags is a very powerful search signal, so we want to be sure we're
 			// searching for the right thing
-			if ( $entity['score'] >= 1 ) {
+			if (
+				$entity['score'] >= $this->weightedTagsMinScoreThreshold &&
+				is_array( $this->boosts['weighted_tags'] ?? [] )
+			) {
 				foreach ( $this->boosts['weighted_tags'] ?? [] as $prefix => $weight ) {
 					$weightedTagBoost = $this->variableBoost ? $weight * $entity['score'] : $weight;
 					if ( $weightedTagBoost > 0 ) {

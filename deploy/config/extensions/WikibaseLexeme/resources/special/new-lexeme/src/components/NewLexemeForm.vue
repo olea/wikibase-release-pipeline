@@ -6,7 +6,7 @@ import {
 	ref,
 } from 'vue';
 import { useStore } from 'vuex';
-import { Button as WikitButton } from '@wmde/wikit-vue-components';
+import { CdxButton } from '@wikimedia/codex';
 import { useConfig } from '@/plugins/ConfigPlugin/Config';
 import { useMessages } from '@/plugins/MessagesPlugin/Messages';
 import LemmaInput from '@/components/LemmaInput.vue';
@@ -85,7 +85,7 @@ const spellingVariant = computed( {
 	get(): string {
 		return store.state.spellingVariant;
 	},
-	set( newSpellingVariant: string | null ): void {
+	set( newSpellingVariant: string | undefined ): void {
 		store.commit( SET_SPELLING_VARIANT, newSpellingVariant );
 		if ( newSpellingVariant ) {
 			store.commit( CLEAR_PER_FIELD_ERRORS, 'spellingVariantErrors' );
@@ -143,16 +143,8 @@ const onSubmit = async () => {
 
 </script>
 
-<script lang="ts">
-export default {
-	compatConfig: {
-		MODE: 3,
-	},
-};
-</script>
-
 <template>
-	<form class="wbl-snl-form" @submit.prevent="onSubmit">
+	<form class="wbl-snl-form">
 		<lemma-input
 			v-model="lemma"
 		/>
@@ -176,44 +168,46 @@ export default {
 			<span v-html="error" />
 		</error-message>
 		<div>
-			<wikit-button
+			<cdx-button
 				class="form-button-submit"
-				type="progressive"
-				variant="primary"
-				native-type="submit"
+				action="progressive"
+				weight="primary"
+				type="submit"
 				:disabled="submitting"
+				@click.prevent="onSubmit"
 			>
 				{{ submitButtonText }}
-			</wikit-button>
+			</cdx-button>
 		</div>
 	</form>
 </template>
 
 <style scoped lang="scss">
-@import '@wmde/wikit-tokens/variables';
-@import '@wmde/wikit-vue-components/src/styles/mixins/Typography';
+@use '@wikimedia/codex-design-tokens/theme-wikimedia-ui';
+@import '@/styles/custom-variables.css';
 
 .wbl-snl-form {
-	& > * + * {
-		margin-top: $dimension-layout-xsmall;
-	}
-
 	// Box model
-	padding: $dimension-layout-small;
+	padding: var( --dimension-layout-small );
 
 	// Border
-	border-style: $border-style-base;
-	border-width: $border-width-thin;
-	border-radius: $border-radius-base;
-	border-color: $border-color-base-subtle;
+	border-style: theme-wikimedia-ui.$border-style-base;
+	border-width: theme-wikimedia-ui.$border-width-base;
+	border-radius: theme-wikimedia-ui.$border-radius-base;
+	border-color: var( --border-color-muted );
+
+	& > * + * {
+		margin-top: var( --dimension-layout-xsmall );
+	}
 }
 
 .wbl-snl-copyright {
-	@include small-text;
-
-	font-size: 0.8125rem;
-	font-style: italic;
-	font-synthesis: none;
+	/* codex Body S */
+	font-family: theme-wikimedia-ui.$font-family-system-sans;
+	font-size: theme-wikimedia-ui.$font-size-small;
+	font-weight: theme-wikimedia-ui.$font-weight-normal;
+	line-height: theme-wikimedia-ui.$line-height-medium;
+	color: var( --color-base );
 	margin-bottom: 0;
 }
 

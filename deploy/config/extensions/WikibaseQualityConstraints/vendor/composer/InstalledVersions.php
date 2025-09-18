@@ -30,7 +30,7 @@ class InstalledVersions
     'aliases' => 
     array (
     ),
-    'reference' => '4d8b357d96da4f444d6a5c04cc06c1e3c975ed9d',
+    'reference' => 'b0f6c8d1ea574cb77a554b87fbada0a472ddac81',
     'name' => 'wikibase/constraints',
   ),
   'versions' => 
@@ -73,12 +73,12 @@ class InstalledVersions
     ),
     'data-values/number' => 
     array (
-      'pretty_version' => '0.12.3',
-      'version' => '0.12.3.0',
+      'pretty_version' => '0.13.0',
+      'version' => '0.13.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0e7e3217d04d48d3b895171e743ac81bf4824735',
+      'reference' => '131964ceb9b8d48bb974a7c0246003f54b445560',
     ),
     'data-values/serialization' => 
     array (
@@ -116,8 +116,8 @@ class InstalledVersions
     ),
     'symfony/polyfill-php80' => 
     array (
-      'pretty_version' => 'v1.32.0',
-      'version' => '1.32.0.0',
+      'pretty_version' => 'v1.33.0',
+      'version' => '1.33.0.0',
       'aliases' => 
       array (
       ),
@@ -130,7 +130,7 @@ class InstalledVersions
       'aliases' => 
       array (
       ),
-      'reference' => '4d8b357d96da4f444d6a5c04cc06c1e3c975ed9d',
+      'reference' => 'b0f6c8d1ea574cb77a554b87fbada0a472ddac81',
     ),
     'wikimedia/purtle' => 
     array (

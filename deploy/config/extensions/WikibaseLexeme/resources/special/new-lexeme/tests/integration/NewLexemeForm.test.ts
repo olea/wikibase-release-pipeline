@@ -70,13 +70,13 @@ describe( 'NewLexemeForm', () => {
 	async function selectLanguage( formWrapper: VueWrapper, input = '=Q123' ): Promise<void> {
 		const languageInput = formWrapper.find( '.wbl-snl-language-lookup input' );
 		await languageInput.setValue( input );
-		await formWrapper.find( '.wbl-snl-language-lookup .wikit-OptionsMenu__item' ).trigger( 'click' );
+		await formWrapper.find( '.wbl-snl-language-lookup .cdx-menu-item' ).trigger( 'click' );
 	}
 
 	async function selectLexicalCategory( formWrapper: VueWrapper, input = '=Q456' ): Promise<void> {
 		const lexicalCategoryInput = formWrapper.find( '.wbl-snl-lexical-category-lookup input' );
 		await lexicalCategoryInput.setValue( input );
-		await formWrapper.find( '.wbl-snl-lexical-category-lookup .wikit-OptionsMenu__item' ).trigger( 'click' );
+		await formWrapper.find( '.wbl-snl-lexical-category-lookup .cdx-menu-item' ).trigger( 'click' );
 	}
 
 	it( 'updates the store if something is entered into the lemma input', async () => {
@@ -100,7 +100,7 @@ describe( 'NewLexemeForm', () => {
 		const languageLookup = wrapper.find( '.wbl-snl-language-lookup input' );
 
 		await languageLookup.setValue( '=Q123' );
-		await wrapper.find( '.wbl-snl-language-lookup .wikit-OptionsMenu__item' ).trigger( 'click' );
+		await wrapper.find( '.wbl-snl-language-lookup .cdx-menu-item' ).trigger( 'click' );
 
 		expect( wrapper.find( '.wbl-snl-spelling-variant-lookup' ).exists() ).toBe( false );
 		expect( store.state.language?.id ).toBe( 'Q123' );
@@ -132,7 +132,7 @@ describe( 'NewLexemeForm', () => {
 
 		expect( store.state.languageCodeFromLanguageItem ).toBe( false );
 
-		const warning = wrapper.find( '.wikit-ValidationMessage--warning' );
+		const warning = wrapper.find( '.cdx-message--warning' );
 		expect( warning.exists() ).toBe( true );
 	} );
 
@@ -141,7 +141,7 @@ describe( 'NewLexemeForm', () => {
 		const lexicalCategoryInput = wrapper.find( '.wbl-snl-lexical-category-lookup input' );
 
 		await lexicalCategoryInput.setValue( '=Q456' );
-		await wrapper.find( '.wbl-snl-lexical-category-lookup .wikit-OptionsMenu__item' ).trigger( 'click' );
+		await wrapper.find( '.wbl-snl-lexical-category-lookup .cdx-menu-item' ).trigger( 'click' );
 
 		expect( store.state.lexicalCategory?.id ).toBe( 'Q456' );
 	} );
@@ -162,14 +162,14 @@ describe( 'NewLexemeForm', () => {
 		await selectLanguage( wrapper );
 		await nextTick();
 
-		const warning = wrapper.find( '.wikit-ValidationMessage--warning' );
+		const warning = wrapper.find( '.cdx-message--warning' );
 		expect( warning.exists() ).toBe( false );
 
 		const spellingVariantLookup = wrapper.find( '.wbl-snl-spelling-variant-lookup input' );
 
 		await spellingVariantLookup.setValue( 'de' );
 
-		await wrapper.find( '.wbl-snl-spelling-variant-lookup .wikit-OptionsMenu__item' ).trigger( 'click' );
+		await wrapper.find( '.wbl-snl-spelling-variant-lookup .cdx-menu-item' ).trigger( 'click' );
 
 		expect( store.state.spellingVariant ).toBe( 'de' );
 	} );
@@ -201,7 +201,7 @@ describe( 'NewLexemeForm', () => {
 			const spellingVariantInput = wrapper.find( '.wbl-snl-spelling-variant-lookup input' );
 			expect( spellingVariantInput.exists() ).toBe( false );
 
-			await wrapper.trigger( 'submit' );
+			await wrapper.find( 'button' ).trigger( 'click' );
 			await flushPromises();
 
 			expect( createLexeme ).toHaveBeenCalledWith( 'foo', 'de', 'Q123', 'Q456' );
@@ -235,9 +235,9 @@ describe( 'NewLexemeForm', () => {
 			// will actually select en-gb, en is not in wikibaseLexemeTermLanguages
 			const spellingVariantInput = wrapper.find( '.wbl-snl-spelling-variant-lookup input' );
 			await spellingVariantInput.setValue( 'en' );
-			await wrapper.find( '.wbl-snl-spelling-variant-lookup .wikit-OptionsMenu__item' ).trigger( 'click' );
+			await wrapper.find( '.wbl-snl-spelling-variant-lookup .cdx-menu-item' ).trigger( 'click' );
 
-			await wrapper.trigger( 'submit' );
+			await wrapper.find( 'button' ).trigger( 'click' );
 			await flushPromises();
 
 			expect( createLexeme ).toHaveBeenCalledWith( 'foo', 'en-gb', 'Q123', 'Q456' );
@@ -271,9 +271,9 @@ describe( 'NewLexemeForm', () => {
 			const spellingVariantInput = wrapper.find( '.wbl-snl-spelling-variant-lookup input' );
 			expect( spellingVariantInput.exists() ).toBe( false );
 
-			await wrapper.trigger( 'submit' );
+			await wrapper.find( 'button' ).trigger( 'click' );
 
-			const submitButton = wrapper.find( '.wikit-Button' );
+			const submitButton = wrapper.find( '.cdx-button' );
 			expect( submitButton.attributes( 'disabled' ) ).toBe( '' );
 			expect( submitButton.text() ).toBe( 'Creating Lexeme...' );
 
@@ -306,14 +306,14 @@ describe( 'NewLexemeForm', () => {
 			await selectLanguage( wrapper, '=Q123' );
 			await selectLexicalCategory( wrapper, '=Q456' );
 
-			await wrapper.trigger( 'submit' );
+			await wrapper.find( 'button' ).trigger( 'click' );
 
 			const lemmaInputWrapper = wrapper.get( '.wbl-snl-lemma-input' );
-			expect( lemmaInputWrapper.get( '.wikit-ValidationMessage--error' ).text() ).toBe( messagesPlugin.get( 'wikibaselexeme-newlexeme-lemma-empty-error' ) );
+			expect( lemmaInputWrapper.get( '.cdx-message--error' ).text() ).toBe( messagesPlugin.get( 'wikibaselexeme-newlexeme-lemma-empty-error' ) );
 
 			await lemmaInputWrapper.get( 'input' ).setValue( 'foo' );
 
-			expect( lemmaInputWrapper.find( '.wikit-ValidationMessage--error' ).exists() ).toBe( false );
+			expect( lemmaInputWrapper.find( '.cdx-message--error' ).exists() ).toBe( false );
 
 			expect( createLexeme ).not.toHaveBeenCalled();
 		} );
@@ -336,14 +336,14 @@ describe( 'NewLexemeForm', () => {
 			await setLemmaInput( wrapper, 'foo' );
 			await selectLanguage( wrapper, '=Q123' );
 
-			await wrapper.trigger( 'submit' );
+			await wrapper.find( 'button' ).trigger( 'click' );
 
 			const lexicalCategoryInputWrapper = wrapper.get( '.wbl-snl-lexical-category-lookup' );
-			expect( lexicalCategoryInputWrapper.get( '.wikit-ValidationMessage--error' ).text() )
+			expect( lexicalCategoryInputWrapper.get( '.cdx-message--error' ).text() )
 				.toBe( messagesPlugin.get( 'wikibaselexeme-newlexeme-lexicalcategory-empty-error' ) );
 			await lexicalCategoryInputWrapper.get( 'input' ).setValue( '=Q456' );
-			await lexicalCategoryInputWrapper.find( '.wikit-OptionsMenu__item' ).trigger( 'click' );
-			expect( lexicalCategoryInputWrapper.find( '.wikit-ValidationMessage--error' ).exists() ).toBe( false );
+			await lexicalCategoryInputWrapper.find( '.cdx-menu-item' ).trigger( 'click' );
+			expect( lexicalCategoryInputWrapper.find( '.cdx-message--error' ).exists() ).toBe( false );
 
 			expect( createLexeme ).not.toHaveBeenCalled();
 		} );
@@ -366,17 +366,17 @@ describe( 'NewLexemeForm', () => {
 			await setLemmaInput( wrapper, 'foo' );
 			await selectLexicalCategory( wrapper, '=Q456' );
 
-			await wrapper.trigger( 'submit' );
+			await wrapper.find( 'button' ).trigger( 'click' );
 
 			const languageInputWrapper = wrapper.get( '.wbl-snl-language-lookup' );
-			expect( languageInputWrapper.get( '.wikit-ValidationMessage--error' ).text() )
+			expect( languageInputWrapper.get( '.cdx-message--error' ).text() )
 				.toBe( messagesPlugin.get( 'wikibaselexeme-newlexeme-language-empty-error' ) );
 			await languageInputWrapper.get( 'input' ).setValue( '=Q123' );
-			await languageInputWrapper.find( '.wikit-OptionsMenu__item' ).trigger( 'click' );
+			await languageInputWrapper.find( '.cdx-menu-item' ).trigger( 'click' );
 
 			await flushPromises();
 
-			expect( languageInputWrapper.find( '.wikit-ValidationMessage--error' ).exists() ).toBe( false );
+			expect( languageInputWrapper.find( '.cdx-message--error' ).exists() ).toBe( false );
 
 			expect( createLexeme ).not.toHaveBeenCalled();
 		} );
@@ -403,16 +403,16 @@ describe( 'NewLexemeForm', () => {
 			await selectLanguage( wrapper );
 			await selectLexicalCategory( wrapper );
 
-			await wrapper.trigger( 'submit' );
+			await wrapper.find( 'button' ).trigger( 'click' );
 
 			const spellingVariantInputWrapper = wrapper.get( '.wbl-snl-spelling-variant-lookup' );
-			expect( spellingVariantInputWrapper.get( '.wikit-ValidationMessage--error' ).text() )
+			expect( spellingVariantInputWrapper.get( '.cdx-message--error' ).text() )
 				.toBe( messagesPlugin.get( 'wikibaselexeme-newlexeme-lemma-language-empty-error' ) );
 
 			await spellingVariantInputWrapper.get( 'input' ).setValue( 'en' );
-			await spellingVariantInputWrapper.get( '.wikit-OptionsMenu__item' ).trigger( 'click' );
+			await spellingVariantInputWrapper.get( '.cdx-menu-item' ).trigger( 'click' );
 
-			expect( spellingVariantInputWrapper.find( '.wikit-ValidationMessage--error' ).exists() ).toBe( false );
+			expect( spellingVariantInputWrapper.find( '.cdx-message--error' ).exists() ).toBe( false );
 
 			expect( createLexeme ).not.toHaveBeenCalled();
 		} );
