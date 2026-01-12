@@ -12,15 +12,29 @@
 // e.g. when extension installation instructions state you need to put
 //   wfLoadExtension( 'WikibaseLexeme' );
 // here in Wikibase Suite Deploy you need to put
-//   wfLoadExtension( 'extensions/WikibaseLexeme' );
+// wfLoadExtension( 'extensions/WikibaseLexeme' );
+
+# Enable multilanguage labels
+## Mediawiki 1.44
+$wgWBRepoSettings['EnableMulLanguageCode'] = true;
+
+
+# activate UploadWizard extension:
+$wgEnableUploads = true;
+$wgUseImageMagick = true;
+//$wgImageMagickConvertCommand = <path to your convert command>;  # Only needs to be set if different from /usr/bin/convert
+wfLoadExtension( 'extensions/UploadWizard' );
 
 // Springboard: seems it will never be an universal mediawiki extensions installer.
 /// wfLoadExtension('extensions/Springboard-main');
 /// require_once('/var/www/html/extensions/extensions/Springboard-main/includes/CustomLoader.php');
 
+
 // TimedMediaHandler
 wfLoadExtension('extensions/TimedMediaHandler');
 $wgFFmpegLocation = '/usr/bin/ffmpeg';
+// read more at https://www.mediawiki.org/wiki/Extension:TimedMediaHandler
+
 
 // PDF handler
 wfLoadExtension( 'PdfHandler' );
@@ -35,9 +49,28 @@ $wgFileExtensions[] = 'pdf';
 
 // PagedTiffHandler
 wfLoadExtension( 'extensions/PagedTiffHandler' );
+// read more at https://www.mediawiki.org/wiki/Extension:PagedTiffHandler
+// WE SHOULD to verify these are the real paths:
+// Path to identify
+$wgImageMagickIdentifyCommand = '/usr/bin/identify';
+// Use exiv2? if false, MediaWiki's internal EXIF parser will be used
+$wgTiffUseExiv = true;
+// Path to exiv2 (MediaWiki core configuration option)
+$wgExiv2Command = '/usr/bin/exiv2';
+// Use tiffinfo? if false, ImageMagick's identify command will be used
+$wgTiffUseTiffinfo = false;
+// Path to tiffinfo
+// $wgTiffTiffinfoCommand = '/usr/bin/tiffinfo';
 
 // VipsScaler
 wfLoadExtension( 'extensions/VipsScaler' );
+// read more at https://www.mediawiki.org/wiki/Extension:VipsScaler
+
+
+# activate MediaSearch extension:
+wfLoadExtension( 'extensions/MediaSearch' );
+$wgMediaSearchExternalEntitySearchBaseUri = '';
+$wgMediaSearchExternalSearchUri = '';
 
 // extensions distributed in WBS but not activated:
 // CiteThisPage
@@ -55,51 +88,65 @@ wfLoadExtension( 'Echo' );
 
 
 // Wikibase extensions:
-// WikibaseQualityConstraints
-wfLoadExtension( 'extensions/WikibaseQualityConstraints' );
+
+// activate WikibaseQualityConstraints extension:
+// wfLoadExtension( 'extensions/WikibaseQualityConstraints' );
+// we need to figure out how to set up everything for this.
+
 
 // WikibaseMediaInfo
 wfLoadExtension( 'extensions/WikibaseMediaInfo' );
 $wgUploadWizardConfig['wikibase']['enabled'] = true ;
 // set to the definitive 
-$wgMediaInfoProperties = [ 'depicts' => 'P1', ];
+$wgMediaInfoProperties = [ 'depicts' => 'PXXXXX', ]; // FIX THIS
 //Links to pages to learn more about wikibase properties:
-//$wgMediaInfoHelpUrls =	[ 'P1' => 'https://commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Depicts' ];
+$wgMediaInfoHelpUrls =	[ 'PXXXXX' => 'https://commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Depicts' ]; // FIX THIS
 //UploadWizard feature-flags:
 $wgUploadWizardConfig[ 'wikibase' ][ 'enabled' ] = true;
 $wgUploadWizardConfig[ 'wikibase' ][ 'captions' ] = true;
 $wgUploadWizardConfig[ 'wikibase' ][ 'statements' ] = true;
 
+
 // WikibaseInWikitext
 wfLoadExtension( 'extensions/WikibaseInWikitext' );
 //$wgWikibaseInWikitextSparqlDefaultUi = $WDQS_PUBLIC_URL ;
-$wgWikibaseInWikitextSparqlDefaultUi = "https://wbqs.local/";
+$wgWikibaseInWikitextSparqlDefaultUi = "https://wbqs.local/";  // FIX THIS
+
 
 // WikibaseLexeme
 wfLoadExtension( 'extensions/WikibaseLexeme' );
+
 
 // WikibaseLexemeCirrusSearch
 wfLoadExtension( 'extensions/WikibaseLexemeCirrusSearch' );
 $wgLexemeUseCirrus = true;
 
-// PropertySuggester
-wfLoadExtension( 'extensions/PropertySuggester' );
+
+// activate PropertySuggester extension:
+// wfLoadExtension( 'extensions/PropertySuggester' );
+// wfLoadExtension( 'PropertySuggester' );
+// can't activate until set up a workflow/automatism for updating the suggestions db
+// RFE added to https://docs.google.com/spreadsheets/d/1cRp5ZkSdfaRuMfosaFkCfTCtOsMcg17H1OC9sMBh0kM/
+// read more at https://gerrit.wikimedia.org/r/plugins/gitiles/wikibase/property-suggester-scripts/
 
 
 // Extension:WikibaseManifest things
-
 // this should use external variables for the services names,
 // but it's a job for me from the future.
 $wgWbManifestExternalServiceMapping = [
-        // WDQS_PUBLIC_HOST
-	'queryservice_ui' => 'https://wbqs.local',
-        # queryservice is derived from Wikibase config if left out:
-	'queryservice' => 'https://wbqs.local/sparql',
+	// WDQS_PUBLIC_HOST
+	//'queryservice_ui' => 'https://wbqs.local', // FIX THIS
+	'queryservice_ui' => 'https://grafoq.laoficinacultural.org', // FIX THIS
+    # queryservice is derived from Wikibase config if left out:
+	'queryservice' => 'https://grafoq.laoficinacultural.org/sparql',			
+	// 'queryservice' => 'https://wbqs.local/sparql',
 	// QUICKSTATEMENTS_PUBLIC_URL
-	'quickstatements' => 'https://wb.local/tools/quickstatements',
+	//'quickstatements' => 'https://wb.local/tools/quickstatements',
+	'quickstatements' => 'https://grafo.laoficinacultural.org/tools/quickstatements',
 	// OPENREFINE_VERSION ?
 	// RECONCILE_PORT=8000
-	'openrefine_reconcile' => 'https://wbqs.local:8000/${lang}/api',
+	//'openrefine_reconcile' => 'https://wbqs.local:8000/${lang}/api',
+	'openrefine_reconcile' => 'https://grafo.laoficinacultural.org:8000/${lang}/api',
 ];
 
 
@@ -107,8 +154,3 @@ $wgWbManifestExternalServiceMapping = [
 // $wgGroupPermissions['user']['read'] = true;  // logged-in users only
 ///// $wgGroupPermissions['*']['read']  = false;   // anons can’t read
 $wgWhitelistRead = [ 'Main Page', 'Special:UserLogin', 'Special:CreateAccount' ]; // optional
-
-
-# Enable multilanguage labels
-## Mediawiki 1.44
-$wgWBRepoSettings['EnableMulLanguageCode'] = true;
