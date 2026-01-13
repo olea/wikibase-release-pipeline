@@ -151,6 +151,14 @@ $wgWbManifestExternalServiceMapping = [
 ];
 
 
+// Citoid
+wfLoadExtension( 'extensions/TemplateData' );
+wfLoadExtension( 'extensions/TemplateStyles' );
+wfLoadExtension( 'extensions/Cite' );
+wfLoadExtension( 'extensions/Citoid' );
+$wgCitoidServiceUrl = "https://es.wikipedia.org/api/rest_v1/data/citation";
+
+
 // Access control
 $wgGroupPermissions['user']['read'] = true;  // logged-in users only
 $wgGroupPermissions['*']['read']  = false;   // anons can’t read
