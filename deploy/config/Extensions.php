@@ -159,6 +159,9 @@ wfLoadExtension( 'extensions/Citoid' );
 $wgCitoidServiceUrl = "https://es.wikipedia.org/api/rest_v1/data/citation";
 
 
+// skin!!
+wfLoadSkin( 'skins/Timeless' );
+
 // Access control
 $wgGroupPermissions['user']['read'] = true;  // logged-in users only
 $wgGroupPermissions['*']['read']  = false;   // anons can’t read
