@@ -160,7 +160,8 @@ $wgCitoidServiceUrl = "https://es.wikipedia.org/api/rest_v1/data/citation";
 
 
 // skin!!
-wfLoadSkin( 'skins/Timeless' );
+wfLoadSkin( 'Timeless' );
+$wgDefaultSkin = 'timeless';
 
 // Access control
 $wgGroupPermissions['user']['read'] = true;  // logged-in users only
