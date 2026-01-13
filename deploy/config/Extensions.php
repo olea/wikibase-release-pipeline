@@ -24,6 +24,8 @@ $wgEnableUploads = true;
 $wgUseImageMagick = true;
 //$wgImageMagickConvertCommand = <path to your convert command>;  # Only needs to be set if different from /usr/bin/convert
 wfLoadExtension( 'extensions/UploadWizard' );
+// we keep this installed for the moment but with no use because is hardcoded for Wikimedia Commons
+
 
 // Springboard: seems it will never be an universal mediawiki extensions installer.
 /// wfLoadExtension('extensions/Springboard-main');
@@ -95,12 +97,12 @@ wfLoadExtension( 'Echo' );
 
 
 // WikibaseMediaInfo
-// FIX THIS  ¿roto? wfLoadExtension( 'extensions/WikibaseMediaInfo' );
+wfLoadExtension( 'extensions/WikibaseMediaInfo' );
 $wgUploadWizardConfig['wikibase']['enabled'] = true ;
 // set to the definitive 
-$wgMediaInfoProperties = [ 'depicts' => 'PXXXXX', ]; // FIX THIS
+$wgMediaInfoProperties = [ 'depicts' => 'P1', ]; // FIX THIS
 //Links to pages to learn more about wikibase properties:
-$wgMediaInfoHelpUrls =	[ 'PXXXXX' => 'https://commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Depicts' ]; // FIX THIS
+$wgMediaInfoHelpUrls =	[ 'P1' => 'https://commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Depicts' ]; // FIX THIS
 //UploadWizard feature-flags:
 $wgUploadWizardConfig[ 'wikibase' ][ 'enabled' ] = true;
 $wgUploadWizardConfig[ 'wikibase' ][ 'captions' ] = true;
@@ -117,7 +119,7 @@ $wgWikibaseInWikitextSparqlDefaultUi = "https://grafoq.laoficinacultural.org/";
 wfLoadExtension( 'extensions/WikibaseLexeme' );
 
 
-// WikibaseLexemeCirrusSearch
+k// WikibaseLexemeCirrusSearch
 wfLoadExtension( 'extensions/WikibaseLexemeCirrusSearch' );
 $wgLexemeUseCirrus = true;
 
