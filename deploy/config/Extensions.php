@@ -119,7 +119,7 @@ $wgWikibaseInWikitextSparqlDefaultUi = "https://grafoq.laoficinacultural.org/";
 wfLoadExtension( 'extensions/WikibaseLexeme' );
 
 
-k// WikibaseLexemeCirrusSearch
+// WikibaseLexemeCirrusSearch
 wfLoadExtension( 'extensions/WikibaseLexemeCirrusSearch' );
 $wgLexemeUseCirrus = true;
 
