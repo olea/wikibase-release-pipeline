@@ -30,7 +30,7 @@ class InstalledVersions
     'aliases' => 
     array (
     ),
-    'reference' => 'fc964ba05d5b3e6f9e72ffaf21d32169e8429bb8',
+    'reference' => '4c841953b10e2c016133c74df3e9eae0a26d1aab',
     'name' => 'wikibase/lexeme',
   ),
   'versions' => 
@@ -51,7 +51,7 @@ class InstalledVersions
       'aliases' => 
       array (
       ),
-      'reference' => 'fc964ba05d5b3e6f9e72ffaf21d32169e8429bb8',
+      'reference' => '4c841953b10e2c016133c74df3e9eae0a26d1aab',
     ),
     'wikimedia/assert' => 
     array (
