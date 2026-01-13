@@ -3,7 +3,7 @@
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
         'aliases' => array(),
-        'reference' => 'ceff863cfc3a256acabba7a9e025887d80759fef',
+        'reference' => 'd92864d94acc5393f3573bf9ecb8fea148257648',
         'name' => 'wikibase/media-info',
     ),
     'versions' => array(
@@ -17,7 +17,7 @@
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
             'aliases' => array(),
-            'reference' => 'ceff863cfc3a256acabba7a9e025887d80759fef',
+            'reference' => 'd92864d94acc5393f3573bf9ecb8fea148257648',
         ),
     ),
 );
