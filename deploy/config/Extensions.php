@@ -31,7 +31,7 @@ wfLoadExtension( 'extensions/UploadWizard' );
 
 
 // TimedMediaHandler
-wfLoadExtension('extensions/TimedMediaHandler');
+//FIX THIS wfLoadExtension('extensions/TimedMediaHandler');
 $wgFFmpegLocation = '/usr/bin/ffmpeg';
 // read more at https://www.mediawiki.org/wiki/Extension:TimedMediaHandler
 
@@ -95,7 +95,7 @@ wfLoadExtension( 'Echo' );
 
 
 // WikibaseMediaInfo
-wfLoadExtension( 'extensions/WikibaseMediaInfo' );
+// FIX THIS  ¿roto? wfLoadExtension( 'extensions/WikibaseMediaInfo' );
 $wgUploadWizardConfig['wikibase']['enabled'] = true ;
 // set to the definitive 
 $wgMediaInfoProperties = [ 'depicts' => 'PXXXXX', ]; // FIX THIS
@@ -110,15 +110,16 @@ $wgUploadWizardConfig[ 'wikibase' ][ 'statements' ] = true;
 // WikibaseInWikitext
 wfLoadExtension( 'extensions/WikibaseInWikitext' );
 //$wgWikibaseInWikitextSparqlDefaultUi = $WDQS_PUBLIC_URL ;
-$wgWikibaseInWikitextSparqlDefaultUi = "https://wbqs.local/";  // FIX THIS
-
+//$wgWikibaseInWikitextSparqlDefaultUi = "https://wbqs.local/";  // FIX THIS
+$wgWikibaseInWikitextSparqlDefaultUi = "https://grafoq.laoficinacultural.org/";
 
 // WikibaseLexeme
+//FIX THIS 
 wfLoadExtension( 'extensions/WikibaseLexeme' );
 
 
 // WikibaseLexemeCirrusSearch
-wfLoadExtension( 'extensions/WikibaseLexemeCirrusSearch' );
+//FIX THIS wfLoadExtension( 'extensions/WikibaseLexemeCirrusSearch' );
 $wgLexemeUseCirrus = true;
 
 
@@ -142,15 +143,15 @@ $wgWbManifestExternalServiceMapping = [
 	// 'queryservice' => 'https://wbqs.local/sparql',
 	// QUICKSTATEMENTS_PUBLIC_URL
 	//'quickstatements' => 'https://wb.local/tools/quickstatements',
-	'quickstatements' => 'https://grafo.laoficinacultural.org/tools/quickstatements',
+	'quickstatements' => '${wgServer}/tools/quickstatements',
 	// OPENREFINE_VERSION ?
 	// RECONCILE_PORT=8000
 	//'openrefine_reconcile' => 'https://wbqs.local:8000/${lang}/api',
-	'openrefine_reconcile' => 'https://grafo.laoficinacultural.org:8000/${lang}/api',
+	'openrefine_reconcile' => '${wgServer}:8000/${lang}/api',
 ];
 
 
 // Access control
-// $wgGroupPermissions['user']['read'] = true;  // logged-in users only
-///// $wgGroupPermissions['*']['read']  = false;   // anons can’t read
+$wgGroupPermissions['user']['read'] = true;  // logged-in users only
+$wgGroupPermissions['*']['read']  = false;   // anons can’t read
 $wgWhitelistRead = [ 'Main Page', 'Special:UserLogin', 'Special:CreateAccount' ]; // optional
