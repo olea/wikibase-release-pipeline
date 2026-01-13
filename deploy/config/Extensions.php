@@ -90,7 +90,7 @@ wfLoadExtension( 'Echo' );
 // Wikibase extensions:
 
 // activate WikibaseQualityConstraints extension:
-// wfLoadExtension( 'extensions/WikibaseQualityConstraints' );
+// wfLoadExtension( 'extensions/WikibaseQualityConstraints' );  // FIX THIS
 // we need to figure out how to set up everything for this.
 
 
@@ -123,8 +123,7 @@ $wgLexemeUseCirrus = true;
 
 
 // activate PropertySuggester extension:
-// wfLoadExtension( 'extensions/PropertySuggester' );
-// wfLoadExtension( 'PropertySuggester' );
+// wfLoadExtension( 'extensions/PropertySuggester' );  // FIX THIS
 // can't activate until set up a workflow/automatism for updating the suggestions db
 // RFE added to https://docs.google.com/spreadsheets/d/1cRp5ZkSdfaRuMfosaFkCfTCtOsMcg17H1OC9sMBh0kM/
 // read more at https://gerrit.wikimedia.org/r/plugins/gitiles/wikibase/property-suggester-scripts/
