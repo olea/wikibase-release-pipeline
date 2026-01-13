@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dbc334",
+			"Eleassar",
+			"Pinky sl",
+			"Upwinxp"
+		]
+	},
+	"citoid-action-replace": "Zamenjava sklica",
+	"citoid-citation-widget-insert-button": "Vstavi",
+	"citoid-citoiddialog-back": "Nazaj",
+	"citoid-citoiddialog-credit": "Omogoča $1",
+	"citoid-citoiddialog-lookup-button": "Ustvari",
+	"citoid-citoiddialog-mode-auto": "Samodejno",
+	"citoid-citoiddialog-mode-manual": "Ročno",
+	"citoid-citoiddialog-mode-reuse": "Ponovna uporaba",
+	"citoid-citoiddialog-search-label": "Vnesite povezavo ali referenčno kodo (ISBN, DOI ali drugo), da ustvarite sklic",
+	"citoid-citoiddialog-search-placeholder": "npr. http://www.example.com",
+	"citoid-citoiddialog-title": "Dodaj sklic",
+	"citoid-citoiddialog-title-replace": "Zamenjava sklica",
+	"citoid-citoidtool-title": "Navedi",
+	"citoid-citoidtool-title-othergroup": "Sklic",
+	"citoid-desc": "Zagotavlja točke dostopa med storitvama citoid in MediaWiki",
+	"citoid-isbnscannerdialog-title": "Skeniranje črtne kode ISBN",
+	"citoid-referencecontextitem-convert-button": "Pretvori",
+	"citoid-referencecontextitem-convert-message": "Uporabite lahko gumb »{{int:citoid-referencecontextitem-convert-button}}« spodaj, da ustvarite ustrezno oblikovan sklic iz zunanje povezave.",
+	"citoid-unknown-error": "Prišlo je do neznane napake, ki je preprečila ustvaritev sklica. Prosimo, poskusite znova pozneje.",
+	"citoid-wb-referenceview-tabs-automatic": "Samodejno",
+	"citoid-wb-referenceview-tabs-search": "iskanje",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN ali QID:",
+	"citoid-wb-pendingdialog-error": "Iz tega vnosa ni mogoče ustvariti sklica. Uporabite zavihek za ročno ustvaritev ali poskusite znova.",
+	"citoid-wb-pendingdialog-message": "Ustvarjanje sklica za vas ... Prosimo, počakajte ...",
+	"citoid-wb-pendingdialog-title": "Ustvarjanje sklica"
+}

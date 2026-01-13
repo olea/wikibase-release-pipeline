@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"Anakmalaysia",
+			"Hakimi97",
+			"Muhdnurhidayat",
+			"Tofeiku"
+		]
+	},
+	"citoid-action-replace": "Gantikan petikan",
+	"citoid-citation-widget-insert-button": "Sisipkan",
+	"citoid-citoiddialog-back": "Kembali",
+	"citoid-citoiddialog-credit": "Dikuasakan oleh $1",
+	"citoid-citoiddialog-lookup-button": "Cipta",
+	"citoid-citoiddialog-manual-button": "Tambah secara manual",
+	"citoid-citoiddialog-mode-auto": "Automatik",
+	"citoid-citoiddialog-mode-manual": "Manual",
+	"citoid-citoiddialog-mode-reuse": "Guna semula",
+	"citoid-citoiddialog-search-label": "Masukkan pautan atau kod rujukan (ISBN, DOI atau lain-lain) untuk mencipta petikan",
+	"citoid-citoiddialog-search-placeholder": "cth. http://www.example.com",
+	"citoid-citoiddialog-title": "Tambah petikan",
+	"citoid-citoiddialog-title-replace": "Ganti petikan",
+	"citoid-citoiddialog-use-general-error-message-title": "Kami tidak dapat membuat petikan untuk anda.",
+	"citoid-citoiddialog-use-general-error-message-body": "Cuba sumber lain atau buat satu secara manual.",
+	"citoid-citoiddialog-unsupported-media-type-message": "Tidak dapat memetik jenis media yang tidak disokong seperti fail-fail PDF, gambar dan video.",
+	"citoid-citoiddialog-reliability-back": "Cuba sumber baharu",
+	"citoid-citoiddialog-reliability-unreliable-description": "Sumber ini dianggap tidak boleh dipercayai oleh komuniti kami, oleh itu penggunaan sumber ini tidak dibenarkan. Sila pilih sumber lain yang boleh dipercayai.",
+	"citoid-citoiddialog-reliability-unreliable-title": "Laman ini telah disekat",
+	"citoid-citoidtool-title": "Petik",
+	"citoid-citoidtool-title-othergroup": "Petikan",
+	"citoid-desc": "Menyediakan titik-titik akses antara khidmat citoid dan MediaWiki",
+	"citoid-isbnscannerdialog-title": "Imbas kod bar ISBN",
+	"citoid-referencecontextitem-convert-button": "Tukar",
+	"citoid-referencecontextitem-convert-message": "Anda boleh menggunakan butang \"{{int:citoid-referencecontextitem-convert-button}}\" di bawah untuk menjana rujukan yang diformatkan dengan betul daripada pautan luaran.",
+	"citoid-unknown-error": "Ralat yang tidak diketahui telah berlaku yang menghalang kami daripada membuat petikan. Sila cuba sebentar lagi.",
+	"citoid-wb-referenceview-tabs-automatic": "Automatik",
+	"citoid-wb-referenceview-tabs-search": "cari",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN, atau QID:",
+	"citoid-wb-pendingdialog-error": "Tidak dapat menjana rujukan daripada input ini. Gunakan tab manual atau cuba lagi.",
+	"citoid-wb-pendingdialog-message": "Menjana rujukan untuk anda... sila tunggu...",
+	"citoid-wb-pendingdialog-title": "Menjana Petikan"
+}

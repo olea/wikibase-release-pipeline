@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sagan",
+			"Азат Хәлилов",
+			"З. ӘЙЛЕ",
+			"Ләйсән"
+		]
+	},
+	"citoid-citation-widget-insert-button": "Өҫтәргә",
+	"citoid-citoiddialog-back": "Кирегә",
+	"citoid-citoiddialog-lookup-button": "Туплау",
+	"citoid-citoiddialog-mode-auto": "Автоматик",
+	"citoid-citoiddialog-mode-manual": "Ҡулдан",
+	"citoid-citoiddialog-mode-reuse": "Ҡабаттан ҡулланырға",
+	"citoid-citoiddialog-search-label": "URL-адрес, DOI, ISBN, PMC/PMID, QID, атама йәки өҙөмтә",
+	"citoid-citoiddialog-search-placeholder": "мәҫәлән, http://www.example.com",
+	"citoid-citoidtool-title": "Өҙөмтә өҫтәргә",
+	"citoid-citoidtool-title-othergroup": "Өҙөмтә",
+	"citoid-desc": "Citoid сервисы һәм Медиавики араһында инеү мөмкинлеген тәьмин итә.",
+	"citoid-referencecontextitem-convert-button": "Формат алмаштырыу",
+	"citoid-referencecontextitem-convert-message": "Тышҡы һылтанмаларҙан дөрөҫ иҫкәрмә булдырыу өсөн «{{int:citoid-referencecontextitem-convert-button}}» төймәһен файҙалана алаһығыҙ.",
+	"citoid-unknown-error": "Өҙөмтә булдырыуға ҡамасаулаған билдәһеҙ хата килеп сыҡты. Зинһар, һуңғараҡ тағы ҡабатлап ҡарағыҙ."
+}

@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Manke ruLpa"
+		]
+	},
+	"citoid-citoiddialog-back": "Furi",
+	"citoid-citoiddialog-search-label": "URL, DOI, ISBN, PMC/PMID, QID, üy kam konümpan",
+	"citoid-citoiddialog-search-placeholder": "femngechi: http://www.femngechi.com",
+	"citoid-wb-referenceview-tabs-search": "kintun",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN, kam QID:"
+}

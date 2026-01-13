@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"ꠢꠣꠍꠘ ꠞꠣꠎꠣ"
+		]
+	},
+	"citoid-citation-widget-insert-button": "ꠢꠣꠞꠣꠁꠘ",
+	"citoid-citoiddialog-back": "ꠇꠞꠦꠖꠤ",
+	"citoid-citoiddialog-credit": "$1 ꠖꠤ ꠌꠟꠦ",
+	"citoid-citoiddialog-lookup-button": "ꠛꠣꠞ ꠇꠞꠂꠘ",
+	"citoid-citoiddialog-mode-auto": "ꠀꠙꠌꠦ",
+	"citoid-citoiddialog-mode-manual": "ꠝꠦꠘꠥꠄꠟ",
+	"citoid-citoiddialog-mode-reuse": "ꠢꠤꠞꠛꠣꠞ ꠛꠦꠛꠀꠞ",
+	"citoid-citoiddialog-title": "ꠟꠇ ꠎꠥꠉ ꠇꠞꠂꠘ",
+	"citoid-citoidtool-title": "ꠟꠇ ꠖꠦꠅꠀ",
+	"citoid-citoidtool-title-othergroup": "ꠟꠇ ꠖꠤꠀ",
+	"citoid-referencecontextitem-convert-button": "ꠛꠖꠟꠣ",
+	"citoid-wb-referenceview-tabs-automatic": "ꠀꠙꠘꠣ ꠀꠙꠘꠤ",
+	"citoid-wb-referenceview-tabs-search": "ꠕꠥꠇꠣꠘꠤ"
+}

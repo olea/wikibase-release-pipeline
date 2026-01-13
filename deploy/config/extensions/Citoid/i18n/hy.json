@@ -1,0 +1,34 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beko",
+			"Kareyac",
+			"Mvolz",
+			"Vahe Gharakhanyan",
+			"Աշոտ1997",
+			"Դավիթ Սարոյան",
+			"Սահակ"
+		]
+	},
+	"citoid-action-replace": "Փոխարինել մեջբերումը",
+	"citoid-citation-widget-insert-button": "Ավելացնել",
+	"citoid-citoiddialog-back": "Հետ",
+	"citoid-citoiddialog-credit": "$1-ի միջոցով",
+	"citoid-citoiddialog-lookup-button": "Ստեղծել",
+	"citoid-citoiddialog-manual-button": "Ավելացնել ձեռքով",
+	"citoid-citoiddialog-mode-auto": "Ավտոմատ",
+	"citoid-citoiddialog-mode-manual": "Ձեռքով",
+	"citoid-citoiddialog-mode-reuse": "Կրկին օգտագործում",
+	"citoid-citoiddialog-search-label": "URL, DOI, ISBN, PMC/PMID, QID, վերնագիրը կամ քաղվածքը",
+	"citoid-citoiddialog-search-placeholder": "օր.՝ http://www.example.com",
+	"citoid-citoiddialog-title": "Ավելացնել աղբյուր",
+	"citoid-citoiddialog-title-replace": "Փոխարինեք մեջբերումը",
+	"citoid-citoidtool-title": "Աղբյուր",
+	"citoid-desc": "Կապ է հաստատում ծանոթագրության և ՄեդիաՎիքիի միջև:",
+	"citoid-referencecontextitem-convert-button": "Փոխարկել",
+	"citoid-referencecontextitem-convert-message": "Ծանոթագրությունը միայն արտաքին հղում է։ Դուք կարող եք օգտագործել {{int:citoid-referencecontextitem-convert-button}} կոճակը՝ ճիշտ ձևավորված ծանոթագրություն ստանալու համար։",
+	"citoid-unknown-error": "Ինչ-որ բան խանգարեց ծանոթագրությունը ստեղծել: Խնդրում ենք, փորձեք մի փոքր ուշ:",
+	"citoid-wb-referenceview-tabs-automatic": "Ավտոմատ",
+	"citoid-wb-referenceview-tabs-search": "որոնել",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN, կամ QID՝"
+}

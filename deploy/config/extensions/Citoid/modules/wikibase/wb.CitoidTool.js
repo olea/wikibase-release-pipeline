@@ -1,0 +1,137 @@
+( function ( wb ) {
+
+	'use strict';
+
+	function CitoidTool( config ) {
+		this.config = config;
+
+		this.citoidClient = new wb.CitoidClient();
+		this.citoidToolReferenceEditor = null;
+		this.citoidTabRenderer = null;
+
+		this.tabNames = [ 'manual', 'automatic' ];
+	}
+
+	CitoidTool.prototype.init = function () {
+		if ( !mw.config.exists( 'wbEntityId' ) ) {
+			return;
+		}
+
+		// eslint-disable-next-line no-jquery/no-global-selector
+		$( '.wikibase-entityview' )
+			.on( 'referenceviewafterstartediting', ( e ) => {
+				this.initAutomaticTab( e.target );
+			} );
+
+		this.pendingDialog = new wb.CitoidPendingDialog( {
+			size: 'small'
+		} );
+
+		this.windowManager = new OO.ui.WindowManager();
+
+		$( document.body ).append( this.windowManager.$element );
+
+		this.windowManager.addWindows( [ this.pendingDialog ] );
+
+		this.citoidToolReferenceEditor = new wb.CitoidToolReferenceEditor( this.config, this.windowManager, this.pendingDialog );
+		this.citoidTabRenderer = new wb.CitoidTabRenderer(
+			this.config,
+			this.citoidClient,
+			this.citoidToolReferenceEditor,
+			this.windowManager,
+			this.pendingDialog
+		);
+	};
+
+	/**
+	 * Gets the index of the tab from the name of the tab mode
+	 *
+	 * @param  {string} mode  name of the mode, i.e. 'automatic' or 'manual'
+	 * @return {number}          integer representing tab position, or null if it doesn't exist
+	 */
+	CitoidTool.prototype.getTabIDFromMode = function ( mode ) {
+		if ( mode ) {
+			const tabID = this.tabNames.indexOf( mode );
+			return ( tabID > -1 ) ? tabID : null;
+		} else {
+			return null;
+		}
+	};
+
+	/**
+	 * Gets the name of the tab from the index of the tab
+	 *
+	 * @param  {number}      id     index of mode, representing tab position
+	 * @return {string}          name of the tab
+	 */
+	CitoidTool.prototype.getModeFromTabID = function ( id ) {
+		return this.tabNames[ id ];
+	};
+
+	/**
+	 * Gets mode preference, if set
+	 *
+	 * @return {string} mode name, i.e. 'manual' or 'automatic'
+	 */
+	CitoidTool.prototype.getModePreference = function () {
+		const mode = mw.user.options.get( 'wb-reftabs-mode' );
+		return mode;
+	};
+
+	/**
+	 * Set mode for this page view only
+	 *
+	 * @param {string} mode     mode name, i.e. 'manual' or 'automatic'
+	 */
+	CitoidTool.prototype.setModePreference = function ( mode ) {
+		mw.user.options.set( 'wb-reftabs-mode', mode );
+	};
+
+	CitoidTool.prototype.initAutomaticTab = function ( referenceView ) {
+		const $refView = $( referenceView ),
+			reference = this.getReferenceFromView( referenceView );
+
+		this.citoidTabRenderer.renderTab( referenceView );
+
+		// Disable automatic tab for existing references
+		if ( reference ) {
+			$refView.tabs( 'disable', 1 );
+			$refView.tabs( { active: 0 } );
+		// Switch to automatic tab if new reference is being created and user preference has not been set
+		} else {
+
+			// Enable automatic tab
+			$refView.tabs( 'enable', 1 );
+
+			// Check user preference for preferred active tab, otherwise use automatic
+			let mode = this.getModePreference();
+			if ( !mode ) {
+				mode = 'automatic';
+				this.setModePreference( mode );
+			}
+
+			// Set active tab according to user preference
+			const tabID = this.getTabIDFromMode( mode );
+			$refView.tabs( { active: tabID } );
+
+			if ( mode === 'automatic' ) {
+				$refView.find( 'input.citoid-search' ).trigger( 'focus' );
+				$refView.find( 'span.wikibase-citoid-search' ).toolbarbutton( 'disable' );
+			}
+		}
+	};
+
+	CitoidTool.prototype.getReferenceFromView = function ( referenceView ) {
+		// not a reference view change
+		if ( !referenceView ) {
+			return null;
+		}
+
+		const refView = $( referenceView ).data( 'referenceview' );
+
+		return refView.value();
+	};
+
+	wb.CitoidTool = CitoidTool;
+
+}( wikibase ) );

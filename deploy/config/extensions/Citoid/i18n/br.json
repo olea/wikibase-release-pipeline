@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"Adriendelucca",
+			"Fulup",
+			"Huñvreüs",
+			"Y-M D"
+		]
+	},
+	"citoid-action-replace": "Erlec'hiañ ar meneg",
+	"citoid-citation-widget-insert-button": "Ensoc'hañ",
+	"citoid-citoiddialog-back": "Distreiñ",
+	"citoid-citoiddialog-credit": "O vont en-dro gant $1",
+	"citoid-citoiddialog-lookup-button": "Krouiñ",
+	"citoid-citoiddialog-manual-button": "Ouzhpennañ dre zorn",
+	"citoid-citoiddialog-mode-auto": "Emgefre",
+	"citoid-citoiddialog-mode-manual": "Dre zorn",
+	"citoid-citoiddialog-mode-reuse": "Adimplijout",
+	"citoid-citoiddialog-search-label": "Merkit ul liamm pe ur c’hod dave (ISBN, DOI pe unan all) evit krouiñ un daveenn",
+	"citoid-citoiddialog-search-placeholder": "da sk. http://www.example.com",
+	"citoid-citoiddialog-title": "Ouzhpennañ ur meneg",
+	"citoid-citoiddialog-title-replace": "Erlec'hiañ ar meneg",
+	"citoid-citoiddialog-use-general-error-message-title": "N’omp ket deuet a-benn da aozañ ur veneg evitoc’h.",
+	"citoid-citoiddialog-use-general-error-message-body": "Grit gant ur vammenn all pe krouit unan dre zorn.",
+	"citoid-citoiddialog-unsupported-media-type-message": "N'haller ket menegiñ ar seurt mediaoù anskoret evel PDFoù, skeudennoù ha restroù video.",
+	"citoid-citoiddialog-reliability-back": "Esaeit ur vammenn nevez",
+	"citoid-citoiddialog-reliability-unreliable-description": "N’eo ket fiziadus ar vammenn-se hervez hor c’humuniez, neuze n’eo ket aotreet. Grit gant ur vammenn fiziadus all mar plij.",
+	"citoid-citoiddialog-reliability-unreliable-title": "Stanket eo al lec'hienn-mañ",
+	"citoid-citoidtool-title": "Menegiñ",
+	"citoid-citoidtool-title-othergroup": "Arroud",
+	"citoid-desc": "Pourveziñ a ra poentoù enmont etre servij citoid ha MediaWiki",
+	"citoid-isbnscannerdialog-title": "Skannañ ar c'hod barrennoù ISBN",
+	"citoid-referencecontextitem-convert-button": "Amdreiñ",
+	"citoid-referencecontextitem-convert-message": "Gallout a rit implijout ar bouton \"{{int:citoid-referencecontextitem-convert-button}}\" a-is evit ober ur dave furmadet mat eus al liamm diavaez.",
+	"citoid-unknown-error": "N’eo ket bet posubl krouiñ un dave abalamour d’ur fazi dianav. Klaskit en-dro diwezhatoc’h mar plij.",
+	"citoid-wb-referenceview-tabs-automatic": "Emgefre",
+	"citoid-wb-referenceview-tabs-search": "klask",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN, pe QID:",
+	"citoid-wb-pendingdialog-error": "N’eo ket bet posubl ober un dave eus an enont-mañ. Grit gant ar steudenn dre zorn, pe klaskit en-dro.",
+	"citoid-wb-pendingdialog-message": "Oc’h aozañ un daveenn evitoc’h… gortozit mar plij…",
+	"citoid-wb-pendingdialog-title": "O genel ur meneg"
+}

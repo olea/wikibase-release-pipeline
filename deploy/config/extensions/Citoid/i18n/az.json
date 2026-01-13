@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"NMW03",
+			"Nemoralis",
+			"Wertuose"
+		]
+	},
+	"citoid-action-replace": "İstinadı dəyiş",
+	"citoid-citation-widget-insert-button": "Yerləşdir",
+	"citoid-citoiddialog-back": "Geriyə",
+	"citoid-citoiddialog-credit": "$1 tərəfindən təmin edilir",
+	"citoid-citoiddialog-lookup-button": "Yarat",
+	"citoid-citoiddialog-manual-button": "Manual əlavə et",
+	"citoid-citoiddialog-mode-auto": "Avtomatik",
+	"citoid-citoiddialog-mode-manual": "Manual",
+	"citoid-citoiddialog-mode-reuse": "Təkrar istifadə",
+	"citoid-citoiddialog-search-label": "İstinad yaratmaq üçün keçid və ya istinad kodu (ISBN, DOI və ya digər) daxil edin",
+	"citoid-citoiddialog-search-placeholder": "məs. http://www.example.com",
+	"citoid-citoiddialog-title": "İstinad əlavə et",
+	"citoid-citoiddialog-title-replace": "İstinadı dəyiş",
+	"citoid-citoiddialog-use-general-error-message-title": "Sizin üçün istinad yarada bilmədik.",
+	"citoid-citoiddialog-use-general-error-message-body": "Başqa mənbəni sınayın və ya manual olaraq yaradın.",
+	"citoid-citoiddialog-unsupported-media-type-message": "PDF, şəkillər və video faylları kimi dəstəklənməyən media növlərinə istinad etmək mümkün deyil.",
+	"citoid-citoiddialog-reliability-back": "Yeni mənbəni sına",
+	"citoid-citoiddialog-reliability-unreliable-description": "Bu mənbə icma tərəfindən etibarsız hesab edilir və buna görə də icazə verilmir. Fərqli etibarlı mənbə seçin.",
+	"citoid-citoiddialog-reliability-unreliable-title": "Bu sayt bloklanıb",
+	"citoid-citoidtool-title": "İstinad",
+	"citoid-citoidtool-title-othergroup": "İstinad",
+	"citoid-desc": "Citoid xidməti ilə MediaWiki arasında giriş nöqtələri təmin edir",
+	"citoid-isbnscannerdialog-title": "ISBN ştrix kodunu skan edin",
+	"citoid-referencecontextitem-convert-button": "Çevir",
+	"citoid-referencecontextitem-convert-message": "Xarici keçiddən düzgün formatlandırılmış istinad yaratmaq üçün aşağıdakı \"{{int:citoid-referencecontextitem-convert-button}}\" düyməsini istifadə edə bilərsiniz.",
+	"citoid-unknown-error": "İstinad yaratmağımıza mane olan bilinməyən bir səhv baş verdi. Zəhmət olmasa, bir az sonra yenidən cəhd edin.",
+	"citoid-wb-referenceview-tabs-automatic": "Avtomatik",
+	"citoid-wb-referenceview-tabs-search": "axtar",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN, və ya QID:",
+	"citoid-wb-pendingdialog-error": "İstinad yaratmaq mümkün olmadı. Manual nişandan istifadə edin və ya yenidən cəhd edin.",
+	"citoid-wb-pendingdialog-message": "Sizin üçün istinad yaradılır... zəhmət olmasa, gözləyin...",
+	"citoid-wb-pendingdialog-title": "İstinad yaradılır"
+}

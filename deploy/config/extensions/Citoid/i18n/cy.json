@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"Afalau",
+			"Ceirios",
+			"Ed g2s",
+			"Jdforrester",
+			"Robin Owain"
+		]
+	},
+	"citoid-action-replace": "Newid y math o gyfeiriad",
+	"citoid-citation-widget-insert-button": "Mewnosod",
+	"citoid-citoiddialog-back": "Nôl",
+	"citoid-citoiddialog-credit": "Darparwyd gyda $1",
+	"citoid-citoiddialog-lookup-button": "Cynhyrchu",
+	"citoid-citoiddialog-mode-auto": "Awtomatig",
+	"citoid-citoiddialog-mode-manual": "Wrth law",
+	"citoid-citoiddialog-mode-reuse": "Ailddefnyddio",
+	"citoid-citoiddialog-search-label": "URL, DOI neu PMC/PMID",
+	"citoid-citoiddialog-search-placeholder": "e.e. http://www.example.com",
+	"citoid-citoiddialog-title": "Ychwanegu dyfyniad",
+	"citoid-citoiddialog-title-replace": "Ailosod y dyfyniad",
+	"citoid-citoidtool-title": "Cyfeirio",
+	"citoid-citoidtool-title-othergroup": "Cyfeiriad",
+	"citoid-referencecontextitem-convert-button": "Trosi",
+	"citoid-wb-referenceview-tabs-automatic": "Awtomatig",
+	"citoid-wb-referenceview-tabs-search": "chwilio",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN, neu QID:"
+}

@@ -1,0 +1,39 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"citoid-action-replace": "Замени навод",
+	"citoid-citation-widget-insert-button": "Вметни",
+	"citoid-citoiddialog-back": "Назад",
+	"citoid-citoiddialog-credit": "Овозможено од $1",
+	"citoid-citoiddialog-lookup-button": "Создај",
+	"citoid-citoiddialog-manual-button": "Додај рачно",
+	"citoid-citoiddialog-mode-auto": "Автоматски",
+	"citoid-citoiddialog-mode-manual": "Рачно",
+	"citoid-citoiddialog-mode-reuse": "Повторна употреба",
+	"citoid-citoiddialog-search-label": "Внесете врска или код на наводот (ISBN, DOI или др.) за да создадете навод",
+	"citoid-citoiddialog-search-placeholder": "на пр. http://www.example.com",
+	"citoid-citoiddialog-title": "Додај навод",
+	"citoid-citoiddialog-title-replace": "Замени навод",
+	"citoid-citoiddialog-use-general-error-message-title": "Не можев да ви направам навод.",
+	"citoid-citoiddialog-use-general-error-message-body": "Пробајте со друг извор или создајте го рачно.",
+	"citoid-citoiddialog-unsupported-media-type-message": "Не можам да наведувам неподдржани податотечни типови како PDF, слики и видеоснимки.",
+	"citoid-citoiddialog-reliability-back": "Пробај со нов извор",
+	"citoid-citoiddialog-reliability-unreliable-description": "Овој изворе се смета за недоверлив од нашата заедница, па затоа не е дозволен. Изберете поинаков доверлив извор.",
+	"citoid-citoiddialog-reliability-unreliable-title": "Ова мрежно место е блокирано",
+	"citoid-citoidtool-title": "Наведи",
+	"citoid-citoidtool-title-othergroup": "Навод",
+	"citoid-desc": "Овозможува поврзаност помеѓу службата Citoid и МедијаВики",
+	"citoid-isbnscannerdialog-title": "Читање на ISBN-линиски код",
+	"citoid-referencecontextitem-convert-button": "Претвори",
+	"citoid-referencecontextitem-convert-message": "Можете да се послужите со долуприкажаното копче „{{int:citoid-referencecontextitem-convert-button}}“ за да направите правилно срочен навод од надворешна врска.",
+	"citoid-unknown-error": "Се појави непозната грешка и затоа не можев да го создадам наводот. Обидете се подоцна.",
+	"citoid-wb-referenceview-tabs-automatic": "Автоматски",
+	"citoid-wb-referenceview-tabs-search": "пребарај",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN или QID:",
+	"citoid-wb-pendingdialog-error": "Не можев да создадам навод од зададеното. Послужете се со јазичето за рачно внесување или пробајте повторно.",
+	"citoid-wb-pendingdialog-message": "Го правам наводот... Почекајте...",
+	"citoid-wb-pendingdialog-title": "Создавање на навод"
+}

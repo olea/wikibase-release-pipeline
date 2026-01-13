@@ -1,0 +1,219 @@
+{
+	"name": "Citoid",
+	"version": "0.3.0",
+	"author": [
+		"Marielle Volz",
+		"Moriel Schottlender",
+		"Ed Sanders"
+	],
+	"url": "https://www.mediawiki.org/wiki/Citoid",
+	"descriptionmsg": "citoid-desc",
+	"license-name": "MIT",
+	"type": "other",
+	"requires": {
+		"MediaWiki": ">= 1.44"
+	},
+	"MessagesDirs": {
+		"Citoid": [
+			"i18n"
+		]
+	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\Citoid\\": "includes/"
+	},
+	"ResourceModules": {
+		"ext.citoid.visualEditor": {
+			"localBasePath": "modules/ve",
+			"remoteExtPath": "Citoid/modules/ve",
+			"scripts": [
+				"ve.ui.ISBNScannerButtonWidget.js",
+				"ve.ui.ISBNScannerDialog.js",
+				"ve.ui.CiteSourceSelectWidget.js",
+				"ve.ui.CitoidInspectorTool.js",
+				"ve.ui.CitoidGroupWidget.js",
+				"ve.ui.CitoidReferenceWidget.js",
+				"ve.ui.CitoidReferenceContextItem.js",
+				"ve.ui.CitoidInspector.js",
+				"ve.ui.CitoidAction.js",
+				"ve.ui.Citoid.init.js"
+			],
+			"styles": [
+				"ve.ui.ISBNScannerDialog.less",
+				"ve.ui.CiteSourceSelectWidget.less",
+				"ve.ui.CitoidInspector.less",
+				"ve.ui.CitoidReferenceContextItem.less"
+			],
+			"dependencies": [
+				"ext.cite.visualEditor",
+				"ext.visualEditor.mediawiki",
+				"mediawiki.api",
+				"ext.citoid.visualEditor.data",
+				"ext.citoid.visualEditor.icons"
+			],
+			"messages": [
+				"citoid-action-replace",
+				"citoid-citation-widget-insert-button",
+				"citoid-citoiddialog-back",
+				"citoid-citoiddialog-credit",
+				"citoid-citoiddialog-lookup-button",
+				"citoid-citoiddialog-manual-button",
+				"citoid-citoiddialog-mode-auto",
+				"citoid-citoiddialog-mode-manual",
+				"citoid-citoiddialog-mode-reuse",
+				"citoid-citoiddialog-search-label",
+				"citoid-citoiddialog-search-placeholder",
+				"citoid-citoiddialog-title",
+				"citoid-citoiddialog-title-replace",
+				"citoid-citoiddialog-use-general-error-message-title",
+				"citoid-citoiddialog-use-general-error-message-body",
+				"citoid-citoiddialog-unsupported-media-type-message",
+				"citoid-citoidtool-title",
+				"citoid-citoidtool-title-othergroup",
+				"citoid-citoiddialog-reliability-back",
+				"citoid-citoiddialog-reliability-unreliable-description",
+				"citoid-citoiddialog-reliability-unreliable-title",
+				"citoid-isbnscannerdialog-title",
+				"citoid-referencecontextitem-convert-button",
+				"citoid-referencecontextitem-convert-message",
+				"citoid-unknown-error"
+			]
+		},
+		"quagga2": {
+			"scripts": [
+				"lib/quagga2/quagga.min.js"
+			]
+		},
+		"ext.citoid.visualEditor.icons": {
+			"class": "MediaWiki\\ResourceLoader\\ImageModule",
+			"selectorWithoutVariant": ".oo-ui-icon-{name}",
+			"selectorWithVariant": ".oo-ui-image-{variant}.oo-ui-icon-{name}",
+			"variants": {
+				"progressive": {
+					"color": "#36c"
+				},
+				"invert": {
+					"color": "#fff"
+				}
+			},
+			"images": {
+				"switchCamera": {
+					"file": "modules/icons/switchCamera.svg",
+					"variants": [
+						"invert"
+					]
+				},
+				"cameraFlash": {
+					"file": "modules/icons/cameraFlash.svg",
+					"variants": [
+						"invert"
+					]
+				},
+				"barcode": {
+					"file": "modules/icons/barcode.svg",
+					"variants": [
+						"invert"
+					]
+				}
+			}
+		},
+		"ext.citoid.visualEditor.data": {
+			"class": "MediaWiki\\Extension\\Citoid\\CitoidDataModule"
+		},
+		"ext.citoid.wikibase.init": {
+			"localBasePath": "modules/wikibase",
+			"remoteExtPath": "Citoid/modules/wikibase",
+			"packageFiles": [
+				"wb.Citoid.init.js",
+				{
+					"name": "data.json",
+					"callback": "MediaWiki\\Extension\\Citoid\\Hooks::getWikibaseInitData"
+				}
+			]
+		},
+		"ext.citoid.wikibase": {
+			"localBasePath": "modules/wikibase",
+			"remoteExtPath": "Citoid/modules/wikibase",
+			"scripts": [
+				"wb.CitoidClient.js",
+				"wb.CitoidLanguageConverter.js",
+				"wb.CitoidPendingDialog.js",
+				"wb.CitoidToolReferenceEditor.js",
+				"wb.CitoidToolTabRenderer.js",
+				"wb.CitoidTool.js"
+			],
+			"styles": [
+				"wb.Citoid.css"
+			],
+			"dependencies": [
+				"ext.citoid.wikibase.init",
+				"oojs-ui",
+				"jquery.ui"
+			],
+			"messages": [
+				"citoid-wb-referenceview-tabs-automatic",
+				"citoid-wb-referenceview-tabs-search",
+				"citoid-wb-referenceview-tabs-search-label",
+				"citoid-wb-pendingdialog-error",
+				"citoid-wb-pendingdialog-message",
+				"citoid-wb-pendingdialog-title"
+			]
+		}
+	},
+	"ForeignResourcesDir": "lib",
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "Citoid"
+	},
+	"QUnitTestModule": {
+		"localBasePath": "",
+		"remoteExtPath": "Citoid",
+		"scripts": [
+			"modules/ve/tests/index.test.js"
+		],
+		"dependencies": [
+			"ext.citoid.visualEditor"
+		]
+	},
+	"Hooks": {
+		"ResourceLoaderGetConfigVars": "main",
+		"BeforePageDisplay": "main",
+		"GetPreferences": "main"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "MediaWiki\\Extension\\Citoid\\Hooks"
+		}
+	},
+	"attributes": {
+		"VisualEditor": {
+			"PluginModules": [
+				"ext.citoid.visualEditor"
+			]
+		}
+	},
+	"config": {
+		"CitoidServiceUrl": {
+			"value": false,
+			"description": "Full url to use the native citoid api, i.e. http://localhost:1970/api."
+		},
+		"CitoidFullRestbaseURL": {
+			"value": false,
+			"description": "Full url to use a citoid service running behind restbase, i.e. https://en.wikipedia.org/api/rest_."
+		},
+		"CitoidIsbnScannerEnabled": {
+			"value": {
+				"mobile": true,
+				"desktop": false
+			},
+			"description": "Enable the ISBN scanner, per platform."
+		},
+		"WBCitoidFullRestbaseURL": {
+			"value": false,
+			"description": "Full url to use a citoid service running behind restbase, used by wikibase module/repository, i.e. https://en.wikipedia.org/api/rest_"
+		}
+	},
+	"ConfigRegistry": {
+		"citoid": "GlobalVarConfig::newInstance"
+	},
+	"manifest_version": 2
+}

@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Aneeskaka",
+			"Aursani",
+			"Mehtab ahmed"
+		]
+	},
+	"citoid-action-replace": "حوالو بدلايو",
+	"citoid-citation-widget-insert-button": "وجھو",
+	"citoid-citoiddialog-back": "پوئتي",
+	"citoid-citoiddialog-credit": "$1 پاران ھٿي-وٺايل",
+	"citoid-citoiddialog-lookup-button": "سرجيو",
+	"citoid-citoiddialog-mode-auto": "پاڻمرادو",
+	"citoid-citoiddialog-mode-manual": "ترتيبوار",
+	"citoid-citoiddialog-mode-reuse": "ٻيھر استعمال ڪريو",
+	"citoid-citoiddialog-search-label": "حوالو جوڙڻ لاءِ ڳنڍڻو يا حوالو ڪوڊ (ISBN, DOI يا ٻيو) داخل ڪريو",
+	"citoid-citoiddialog-search-placeholder": "مثال http://www.example.com",
+	"citoid-citoiddialog-title": "ڪو حوالو ڏيو",
+	"citoid-citoidtool-title": "حوالو ڏيو",
+	"citoid-citoidtool-title-othergroup": "حوالو",
+	"citoid-referencecontextitem-convert-button": "مٽيو",
+	"citoid-unknown-error": "ھڪ اڻڄاتل خرابي پيش آئي آھي جنھن اسانکي ڪو حوالو سرجڻ کان روڪيو. براءِ مھرباني بعد ۾ ٻيھر ڪوشش ڪريو.",
+	"citoid-wb-referenceview-tabs-automatic": "پاڻمرادو",
+	"citoid-wb-referenceview-tabs-search": "ڳوليو",
+	"citoid-wb-pendingdialog-message": "توھان لاءِ ھڪ حوالو جوڙيندي… مھرباني ڪري انتظار ڪريو…",
+	"citoid-wb-pendingdialog-title": "حوالو جوڙيندي"
+}

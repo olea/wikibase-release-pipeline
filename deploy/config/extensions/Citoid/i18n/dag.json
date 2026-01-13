@@ -1,0 +1,34 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bashiru Nurideen Pona",
+			"Kalakpagh",
+			"Reedy"
+		]
+	},
+	"citoid-action-replace": "Taɣimi kundivihira balibu",
+	"citoid-citation-widget-insert-button": "Kpɛhima",
+	"citoid-citoiddialog-back": "Nyaaŋa",
+	"citoid-citoiddialog-credit": "$1 n-kpaŋsi li",
+	"citoid-citoiddialog-lookup-button": "Yooma",
+	"citoid-citoiddialog-mode-auto": "Otomatiki",
+	"citoid-citoiddialog-mode-manual": "Sodoligu buku",
+	"citoid-citoiddialog-mode-reuse": "Labi zaŋ tum tuma",
+	"citoid-citoiddialog-search-label": "Kpɛhimi taɣibu bee kundivihira zaɣa'ŋmaa (ISBN, DOI bee din pahi) n-yoogi kundivihira",
+	"citoid-citoiddialog-search-placeholder": "e.g. http://www.example.com",
+	"citoid-citoiddialog-title": "Pahimi kundivihirili",
+	"citoid-citoiddialog-title-replace": "Tahimi kundivihirili",
+	"citoid-citoidtool-title": "Wuhi",
+	"citoid-citoidtool-title-othergroup": "Zaŋ wuhi",
+	"citoid-desc": "Bomi din yɛn sɔŋ citoid tuma mini MediaWiki sunsuuni",
+	"citoid-isbnscannerdialog-title": "Zaŋ kpa n-nyaa ISBN",
+	"citoid-referencecontextitem-convert-button": "Tahi",
+	"citoid-referencecontextitem-convert-message": "A ni tooi zaŋ \"{{int:citoid-referencecontextitem-convert-button}}\" dihibu daliŋ din dolina ŋɔ n-nam kundinvihir’ suŋ linki din kani",
+	"citoid-unknown-error": "Muɣisigu shɛli din bi baŋ niŋya n-yɛn gu ti ka che zaŋ wuhi nambu. Dimi suɣilo labi kpɛhi saha biɛla",
+	"citoid-wb-referenceview-tabs-automatic": "Otomatiki",
+	"citoid-wb-referenceview-tabs-search": "Vihima",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN, or QID:",
+	"citoid-wb-pendingdialog-error": "Kundivihirili bi tooi nam kpe. Dihi niŋ bo, bee ka a labi kpɛhi di saha biɛla",
+	"citoid-wb-pendingdialog-message": "Di namdila kundivihirili tiri a maa… dimi suɣilo ka kuhima...",
+	"citoid-wb-pendingdialog-title": "Zaŋ wuhi Nambu"
+}

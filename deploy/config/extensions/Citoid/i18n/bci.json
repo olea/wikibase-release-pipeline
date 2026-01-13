@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kjeanclaude"
+		]
+	},
+	"citoid-action-replace": "Katchi liké nga bé nian sou yé, i fa",
+	"citoid-citation-widget-insert-button": "Fa wlou noun",
+	"citoid-citoiddialog-back": "Bé si'n salè",
+	"citoid-citoiddialog-credit": "$1 yô yéli ô",
+	"citoid-citoiddialog-lookup-button": "Yi",
+	"citoid-citoiddialog-mode-auto": "Kpêkoungba",
+	"citoid-citoiddialog-mode-manual": "Bé yé i ni bé sa",
+	"citoid-citoiddialog-mode-reuse": "Fa i ékoun",
+	"citoid-citoiddialog-search-label": "URL, DOI, ISBN, PMC/PMID, QID, douman, annzè sran nouan noun ndè",
+	"citoid-citoiddialog-search-placeholder": "liké kè nga sa, http://www.example.com/",
+	"citoid-citoiddialog-title": "Fa sran nouan noun ndè koun goua sou",
+	"citoid-citoiddialog-title-replace": "Katchi sran nouan noun ndè nga",
+	"citoid-citoidtool-title": "Fa sran nouan noun ndè koun goua sou",
+	"citoid-citoidtool-title-othergroup": "Sran nouan noun ndè",
+	"citoid-referencecontextitem-convert-button": "Katchi",
+	"citoid-wb-referenceview-tabs-automatic": "Kpêkoungba",
+	"citoid-wb-referenceview-tabs-search": "kounndè",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN, annzè QID:",
+	"citoid-wb-pendingdialog-title": "Yi Sran nouan noun ndè"
+}

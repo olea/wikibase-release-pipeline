@@ -1,0 +1,40 @@
+{
+	"@metadata": {
+		"authors": [
+			"Papuass",
+			"Silraks"
+		]
+	},
+	"citoid-action-replace": "Aizvietot atsauci",
+	"citoid-citation-widget-insert-button": "Ievietot",
+	"citoid-citoiddialog-back": "Atpakaļ",
+	"citoid-citoiddialog-credit": "Nodrošina $1",
+	"citoid-citoiddialog-lookup-button": "Izveidot",
+	"citoid-citoiddialog-manual-button": "Pievienot manuāli",
+	"citoid-citoiddialog-mode-auto": "Automātiski",
+	"citoid-citoiddialog-mode-manual": "Manuāli",
+	"citoid-citoiddialog-mode-reuse": "Atkārtota izmantošana",
+	"citoid-citoiddialog-search-label": "Lai izveidotu atsauci, ievadi saiti vai atsauces kodu (ISBN, DOI vai citu)",
+	"citoid-citoiddialog-search-placeholder": "piemēram, http://www.piemers.com",
+	"citoid-citoiddialog-title": "Pievienot atsauci",
+	"citoid-citoiddialog-title-replace": "Aizvietot atsauci",
+	"citoid-citoiddialog-use-general-error-message-title": "Mēs nevarējām izveidot atsauci.",
+	"citoid-citoiddialog-use-general-error-message-body": "Izmēģini citu avotu vai izveido atsauci manuāli.",
+	"citoid-citoiddialog-unsupported-media-type-message": "Nevar citēt neatbalstītus multivides veidus, piemēram, PDF, attēlus un video failus.",
+	"citoid-citoiddialog-reliability-back": "Izmēģini jaunu avotu",
+	"citoid-citoiddialog-reliability-unreliable-description": "Mūsu kopiena šo avotu uzskata par neuzticamu, tāpēc tas nav atļauts. Lūdzu, izvēlies citu uzticamu avotu.",
+	"citoid-citoiddialog-reliability-unreliable-title": "Šī vietne ir bloķēta",
+	"citoid-citoidtool-title": "Atsauce",
+	"citoid-citoidtool-title-othergroup": "Atsauce",
+	"citoid-desc": "Nodrošina piekļuves punktus starp citoid pakalpojumu un MediaWiki",
+	"citoid-isbnscannerdialog-title": "Skenēt ISBN svītrkodu",
+	"citoid-referencecontextitem-convert-button": "Pārveidot",
+	"citoid-referencecontextitem-convert-message": "Šī atsauce sastāv tikai no ārējās saites. Tu vari izmantot \"{{int:citoid-referencecontextitem-convert-button}}\" pogu, lai izveidotu pareizi noformētu atsauci.",
+	"citoid-unknown-error": "Notika nezināma kļūda, kas neļāva izveidot atsauci. Lūdzu, vēlāk mēģini vēlreiz.",
+	"citoid-wb-referenceview-tabs-automatic": "Automātiski",
+	"citoid-wb-referenceview-tabs-search": "meklēt",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN vai QID:",
+	"citoid-wb-pendingdialog-error": "No ievadītajiem datiem nav iespējams izveidot atsauci. Izmanto manuālās atsauces cilni vai mēģini vēlreiz.",
+	"citoid-wb-pendingdialog-message": "Veido atsauci... lūdzu, uzgaidi...",
+	"citoid-wb-pendingdialog-title": "Veido atsauci"
+}

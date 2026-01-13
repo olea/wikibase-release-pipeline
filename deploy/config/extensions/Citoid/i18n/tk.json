@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"TayfunEt.",
+			"Zolgoyo"
+		]
+	},
+	"citoid-citation-widget-insert-button": "Goýmak",
+	"citoid-citoiddialog-back": "Yzyna",
+	"citoid-citoiddialog-credit": "$1 bilen işleýär",
+	"citoid-citoiddialog-lookup-button": "Dörediň",
+	"citoid-citoiddialog-mode-auto": "Awtomat",
+	"citoid-citoiddialog-mode-manual": "El bilen",
+	"citoid-citoiddialog-mode-reuse": "Gaýtadan ulanyň",
+	"citoid-citoiddialog-title": "Sitata goşuň",
+	"citoid-citoiddialog-title-replace": "Sitatany çalyşyň"
+}

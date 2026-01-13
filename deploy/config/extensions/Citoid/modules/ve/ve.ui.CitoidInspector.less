@@ -1,0 +1,100 @@
+/*!
+ * VisualEditor UserInterface Citoid styles.
+ */
+
+.ve-ui-citoidInspector {
+	&-search,
+	&-extends {
+		min-height: 20em;
+
+		.ve-ui-mwReferenceResultWidget {
+			padding: 0.5em;
+		}
+	}
+
+	&-dialog-error,
+	.ve-ui-citoidReferenceWidget {
+		line-height: 1.5em;
+	}
+
+	.ve-ui-citoidReferenceWidget {
+		padding: 0.5em;
+
+		+ .ve-ui-citoidReferenceWidget {
+			margin-top: 0.75em;
+			padding-top: 0.75em;
+			border-top: 1px solid #ccc;
+		}
+
+		&.oo-ui-labelElement .oo-ui-labelElement-label {
+			white-space: normal;
+			font-size: 1em;
+			font-weight: bold;
+		}
+
+		&.oo-ui-iconElement > .oo-ui-iconElement-icon {
+			position: static;
+			display: inline-block;
+			margin-right: 0.5em;
+			vertical-align: middle;
+		}
+
+		.ve-ui-previewElement {
+			margin-top: 0.5em;
+
+			> p:last-child {
+				margin-bottom: 0;
+				padding-bottom: 0;
+			}
+		}
+
+		&-insert-button {
+			float: right;
+			margin: 0 0 1em 1em;
+			/* Position above mw-body-content */
+			position: relative;
+			z-index: 1;
+		}
+	}
+
+	&-preview-single .ve-ui-citoidReferenceWidget-insert-button {
+		display: none;
+	}
+
+	&-resultError {
+		margin: 0.5em -0.75em -0.75em -0.75em;
+		/* stylelint-disable-next-line declaration-no-important */
+		border: 0 !important;
+	}
+
+	&-credit {
+		font-size: x-small;
+		color: #888;
+		display: block;
+		text-align: right;
+	}
+
+	&-error {
+		margin-top: 1em;
+
+		/* stylelint-disable-next-line no-descending-specificity */
+		p {
+			font-weight: normal;
+		}
+	}
+
+	&-sourceSelect {
+		margin: -0.5em 0;
+
+		.oo-ui-optionWidget {
+			box-sizing: border-box;
+			display: inline-block;
+			width: 50%;
+			margin: 0.5em 0;
+		}
+
+		.ve-ui-citeSourceSelectWidget-basic {
+			width: 100%;
+		}
+	}
+}

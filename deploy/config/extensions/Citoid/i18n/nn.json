@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mvolz",
+			"Njardarlogar",
+			"Ranveig"
+		]
+	},
+	"citoid-citation-widget-insert-button": "Set inn",
+	"citoid-citoiddialog-back": "Attende",
+	"citoid-citoiddialog-credit": "Drive av $1",
+	"citoid-citoiddialog-lookup-button": "Opprett",
+	"citoid-citoiddialog-mode-auto": "Automatisk",
+	"citoid-citoiddialog-mode-manual": "Manual",
+	"citoid-citoiddialog-mode-reuse": "Bruk om att",
+	"citoid-citoiddialog-search-label": "URL, DOI, ISBN, PMC/PMID, tittel eller referanse",
+	"citoid-citoiddialog-search-placeholder": "t.d. http://www.example.com",
+	"citoid-citoiddialog-title": "Legg til ei kjelde",
+	"citoid-citoidtool-title": "Siter",
+	"citoid-citoidtool-title-othergroup": "Kjelde",
+	"citoid-desc": "Knyttar Citoid-tenesta til MediaWiki",
+	"citoid-referencecontextitem-convert-button": "Konverter",
+	"citoid-referencecontextitem-convert-message": "Denne referansen inneheld berre ei ekstern lenkje. Du kan bruka «{{int:citoid-referencecontextitem-convert-button}}»-knappen under for å laga ein korrekt formatert referanse.",
+	"citoid-unknown-error": "Det oppstod ein ukjend feil som hindra laginga av ein referanse. Du kan prøva igjen seinare."
+}

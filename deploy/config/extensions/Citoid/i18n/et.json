@@ -1,0 +1,38 @@
+{
+	"@metadata": {
+		"authors": [
+			"Pikne"
+		]
+	},
+	"citoid-action-replace": "Asenda viide",
+	"citoid-citation-widget-insert-button": "Lisa",
+	"citoid-citoiddialog-back": "Tagasi",
+	"citoid-citoiddialog-credit": "Platvorm: $1",
+	"citoid-citoiddialog-lookup-button": "Koosta",
+	"citoid-citoiddialog-manual-button": "Lisa käsitsi",
+	"citoid-citoiddialog-mode-auto": "Automaatne",
+	"citoid-citoiddialog-mode-manual": "Käsitsi",
+	"citoid-citoiddialog-mode-reuse": "Korduv",
+	"citoid-citoiddialog-search-label": "Sisesta link või viitekood (ISBN, DOI või muu), et koostada viide",
+	"citoid-citoiddialog-search-placeholder": "nt http://www.example.com",
+	"citoid-citoiddialog-title": "Viite lisamine",
+	"citoid-citoiddialog-title-replace": "Viite asendamine",
+	"citoid-citoiddialog-use-general-error-message-title": "Viidet ei õnnestunud koostada.",
+	"citoid-citoiddialog-use-general-error-message-body": "Proovi teist allikat või koosta viide käsitsi.",
+	"citoid-citoiddialog-unsupported-media-type-message": "Viidet ei saa koostada toetamata failitüübi põhjal, näiteks PDF-i ega pildi- või videofaili põhjal.",
+	"citoid-citoiddialog-reliability-back": "Proovi teist allikat",
+	"citoid-citoiddialog-reliability-unreliable-description": "Kaastöölised peavad seda allikat ebausaldusväärseks ja allikas on seetõttu keelatud. Palun vali muu usaldusväärne allikas.",
+	"citoid-citoiddialog-reliability-unreliable-title": "See sait on blokeeritud",
+	"citoid-citoidtool-title": "Viide",
+	"citoid-citoidtool-title-othergroup": "Viide",
+	"citoid-desc": "Tagab teenuse Citoid ja MediaWiki vahelised pääsupunktid.",
+	"citoid-referencecontextitem-convert-button": "Teisenda",
+	"citoid-referencecontextitem-convert-message": "Saad kasutada alljärgnevat nuppu \"{{int:citoid-referencecontextitem-convert-button}}\", et genereerida välislingist korralikult vormistatud viide.",
+	"citoid-unknown-error": "Ilmnes tundmatu tõrge, mis takistas viite loomist. Palun proovi hiljem uuesti.",
+	"citoid-wb-referenceview-tabs-automatic": "Automaatne",
+	"citoid-wb-referenceview-tabs-search": "otsi",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN või QID:",
+	"citoid-wb-pendingdialog-error": "Selle sisendi põhjal ei ole võimalik viidet koostada. Kasuta käsitsi koostamise kaarti või proovi uuesti.",
+	"citoid-wb-pendingdialog-message": "Viite koostamine... palun oota...",
+	"citoid-wb-pendingdialog-title": "Viite koostamine"
+}

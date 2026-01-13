@@ -1,0 +1,39 @@
+{
+	"@metadata": {
+		"authors": [
+			"KuboF",
+			"Kvardek du",
+			"Mirin",
+			"NMaia",
+			"Ochilov",
+			"Psychoslave",
+			"Yekrats",
+			"Ziko"
+		]
+	},
+	"citoid-action-replace": "Ŝanĝo de referenca tipo",
+	"citoid-citation-widget-insert-button": "Enmeti",
+	"citoid-citoiddialog-back": "Reen",
+	"citoid-citoiddialog-credit": "Funkcias per $1",
+	"citoid-citoiddialog-lookup-button": "Generi",
+	"citoid-citoiddialog-mode-auto": "Aŭtomate",
+	"citoid-citoiddialog-mode-manual": "Permane",
+	"citoid-citoiddialog-mode-reuse": "Reuze",
+	"citoid-citoiddialog-search-label": "URL, DOI, ISBN, PMC/PMID, QID, titolo aŭ citaĵo",
+	"citoid-citoiddialog-search-placeholder": "ekzemple http://www.ekzemplo.com",
+	"citoid-citoiddialog-title": "Aldoni citon",
+	"citoid-citoiddialog-title-replace": "Anstataŭigi citaĵon",
+	"citoid-citoidtool-title": "Citado",
+	"citoid-citoidtool-title-othergroup": "Citaĵo",
+	"citoid-desc": "Provizi alirpunktojn inter la servo Citoid kaj MediaWiki",
+	"citoid-isbnscannerdialog-title": "Skanu ISBN-strekkodon",
+	"citoid-referencecontextitem-convert-button": "Igi",
+	"citoid-referencecontextitem-convert-message": "Vi povas uzi la suban butonon \"{{int:citoid-referencecontextitem-convert-button}}\" por generi taŭge formatitan referencon el la ekstera ligilo.",
+	"citoid-unknown-error": "Ni ne povis krei la citon pro nekonata eraro. Bonvolu reprovi pli malfrue.",
+	"citoid-wb-referenceview-tabs-automatic": "Aŭtomate",
+	"citoid-wb-referenceview-tabs-search": "serĉi",
+	"citoid-wb-referenceview-tabs-search-label": "Retadreso, DOI, ISBN, aŭ QID:",
+	"citoid-wb-pendingdialog-error": "Ne povas produkti referencon el tiu enigaĵo. Uzu la malaŭtomatan langeton, aŭ reprovu.",
+	"citoid-wb-pendingdialog-message": "Produktante referencon por vi; bonvolu atendi...",
+	"citoid-wb-pendingdialog-title": "Produktante Citaĵon"
+}

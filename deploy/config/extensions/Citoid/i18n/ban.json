@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chinamoonroll"
+		]
+	},
+	"citoid-action-replace": "Gentosin anggitan",
+	"citoid-citation-widget-insert-button": "Sisipang",
+	"citoid-citoiddialog-back": "Walik",
+	"citoid-citoiddialog-credit": "Kawasa olih $1",
+	"citoid-citoiddialog-lookup-button": "Kardi",
+	"citoid-citoiddialog-mode-auto": "Otomatis",
+	"citoid-citoiddialog-mode-manual": "Manual",
+	"citoid-citoiddialog-mode-reuse": "Anggén malih",
+	"citoid-citoiddialog-search-label": "Manjingang pranala utawi kode pustaka (ISBN, DOI utawi sané tiosan) anggén ngaryanin kutipan",
+	"citoid-citoiddialog-search-placeholder": "sekadi http://www.example.com",
+	"citoid-citoiddialog-title": "Tambah anggit",
+	"citoid-citoiddialog-title-replace": "Gentos anggit",
+	"citoid-citoidtool-title": "Anggit",
+	"citoid-citoidtool-title-othergroup": "Anggit",
+	"citoid-desc": "Nyadiayang titik aksés riantara layanan anggitan tur MédiaWiki",
+	"citoid-isbnscannerdialog-title": "Pindai kode batang ISBN",
+	"citoid-referencecontextitem-convert-button": "Konvérsi",
+	"citoid-referencecontextitem-convert-message": "Ragané prasida nganggén tombol \"{{int:citoid-referencecontextitem-convert-button}}\" ring sor antuk antuk pustaka sané sampun kaformat becik saking pranala jaba",
+	"citoid-unknown-error": "Galat sané nénten kauningin sané ngempetin iraga ngardi anggitan. Durus ingayang malih jebos.",
+	"citoid-wb-referenceview-tabs-automatic": "Otomatis",
+	"citoid-wb-referenceview-tabs-search": "rereh",
+	"citoid-wb-referenceview-tabs-search-label": "URL, DOI, ISBN, utawi QID:",
+	"citoid-wb-pendingdialog-error": "Tan sida ngasilang pustaka saking manjingan niki. Anggén tab manual utawi indayang malih.",
+	"citoid-wb-pendingdialog-message": "Ngasilanng pustaka antuk ragané... durus jantos...",
+	"citoid-wb-pendingdialog-title": "Asilang Anggitan"
+}
