@@ -84,9 +84,14 @@ wfLoadExtension( 'extensions/WikibaseLexemeCirrusSearch' );
 // PropertySuggester
 wfLoadExtension( 'extensions/PropertySuggester' );
 
+// Citoid
+wfLoadExtension( 'extensions/TemplateData' );
+wfLoadExtension( 'extensions/TemplateStyles' );
+wfLoadExtension( 'extensions/Cite' );
+wfLoadExtension( 'extensions/Citoid' );
+$wgCitoidServiceUrl = "https://es.wikipedia.org/api/rest_v1/data/citation";
 
 // Extension:WikibaseManifest things
-
 // this should use external variables for the services names,
 // but it's a job for me from the future.
 $wgWbManifestExternalServiceMapping = [
