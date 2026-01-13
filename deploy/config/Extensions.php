@@ -14,7 +14,7 @@
 // here in Wikibase Suite Deploy you need to put
 //   wfLoadExtension( 'extensions/WikibaseLexeme' );
 
-// Springboard
+// Springboard: seems it will never be an universal mediawiki extensions installer.
 /// wfLoadExtension('extensions/Springboard-main');
 /// require_once('/var/www/html/extensions/extensions/Springboard-main/includes/CustomLoader.php');
 
@@ -89,6 +89,19 @@ wfLoadExtension( 'extensions/TemplateData' );
 wfLoadExtension( 'extensions/TemplateStyles' );
 wfLoadExtension( 'extensions/Cite' );
 wfLoadExtension( 'extensions/Citoid' );
-// Citoid configuration
 $wgCitoidServiceUrl = "https://es.wikipedia.org/api/rest_v1/data/citation";
 
+// Extension:WikibaseManifest things
+// this should use external variables for the services names,
+// but it's a job for me from the future.
+$wgWbManifestExternalServiceMapping = [
+        // WDQS_PUBLIC_HOST
+	'queryservice_ui' => 'https://wbqs.local',
+        # queryservice is derived from Wikibase config if left out:
+	'queryservice' => 'https://wbqs.local/sparql',
+	// QUICKSTATEMENTS_PUBLIC_URL
+	'quickstatements' => 'https://wb.local/tools/quickstatements',
+	// OPENREFINE_VERSION ?
+	// RECONCILE_PORT=8000
+	'openrefine_reconcile' => 'https://wbqs.local:8000/${lang}/api',
+];
