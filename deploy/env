@@ -46,6 +46,6 @@ DB_PASS=change-this-password
 
 # configuration for docker-compose.reconciliator.yml:
 
-RECONCILIATOR_VERSION = 1.1.0
+RECONCILIATOR_VERSION=1.1.0
 # RECONCILIATOR_VERSION = latest
-RECONCILIATOR_PORT = 8000
+RECONCILIATOR_PORT=8000
