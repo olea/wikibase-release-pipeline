@@ -1,6 +1,18 @@
 #!/bin/bash
 # generate manifest.json and config.js for openrefine endpoint
 
+if [[ ! -d "./static/" ]]; then
+  mkdir "./static/"
+fi
+
+if [[ -f "./config.conf" ]]; then
+  # shellcheck source=config.conf
+  source config.conf
+else
+  echo "Please create a config.conf file before using this script."
+  exit
+fi
+
 echo "
 {
     \"version\": \"2.0\",
@@ -44,9 +56,9 @@ echo "
       \"url_schema\": \"\"
     }
   }
-" > manifest.json
+" > static/manifest.json
 
-echo "manifest.json processed"
+echo "static/manifest.json processed"
 
 echo "
 \"\"\"
