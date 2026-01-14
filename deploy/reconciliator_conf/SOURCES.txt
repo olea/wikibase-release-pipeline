@@ -1,0 +1,3 @@
+
+Upstream source of config.sh is https://gitlab.com/nfdi4culture/openrefine-reconciliation-services/openrefine-wikibase/-/blob/master/config.sh
+
