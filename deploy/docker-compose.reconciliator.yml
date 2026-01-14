@@ -11,7 +11,7 @@ services:
      - "${RECONCILIATOR_PORT}:8000"
     volumes:
      - ./reconciliator_conf/config.py:/openrefine-wikibase/config.py
-     - ./reconciliator_conf/manifest.json:/openrefine-wikibase/static/manifest.json
+     - ./reconciliator_conf/static/manifest.json:/openrefine-wikibase/static/manifest.json
     depends_on:
      - openrefine-redis
     env_file:
