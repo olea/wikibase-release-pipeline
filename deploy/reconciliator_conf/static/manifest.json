@@ -23,7 +23,7 @@
     "entity_types": {
       "item": {
          "site_iri": "https://grafo.laoficinacultural.org/entity/",
-         "reconciliation_endpoint": "http://localhost:8000/${lang}/api",
+         "reconciliation_endpoint": "http://grafo.laoficinacultural.org:8000/${lang}/api",
          "mediawiki_api": "https://grafo.laoficinacultural.org/w/api.php"
       },
       "property": {
@@ -32,7 +32,7 @@
       },
       "mediainfo": {
          "site_iri": "https://grafo.laoficinacultural.org/entity/",
-         "reconciliation_endpoint": "http://localhost:8000/${lang}/api"
+         "reconciliation_endpoint": "http://grafo.laoficinacultural.org:8000/${lang}/api"
       }
     }
   }
