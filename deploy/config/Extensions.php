@@ -19,6 +19,10 @@
 $wgWBRepoSettings['EnableMulLanguageCode'] = true;
 
 
+//FIX ME Extension:UrlShortner
+//wfLoadExtension( 'extensions/UrlShortner');
+
+
 # activate UploadWizard extension:
 $wgEnableUploads = true;
 $wgUseImageMagick = true;
