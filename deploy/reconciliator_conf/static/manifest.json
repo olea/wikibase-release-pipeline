@@ -10,7 +10,7 @@
     "wikibase": {
       "site_iri": "https://grafo.laoficinacultural.org/entity/",
       "maxlag": 5,
-      "max_edits_per_minute": 60,
+      "max_edits_per_minute": 600,
       "tag": "openrefine-${version}",
       "properties": {
         "instance_of": "P1",
