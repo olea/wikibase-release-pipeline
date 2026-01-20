@@ -22,6 +22,10 @@ $wgWBRepoSettings['EnableMulLanguageCode'] = true;
 //FIX ME Extension:UrlShortner
 //wfLoadExtension( 'extensions/UrlShortner');
 
+//FIX ME Extension:WikibaseFacetedSearch
+//See https://professional.wiki/en/extension/wikibase-faceted-search#Installation
+//wfLoadExtension( 'WikibaseFacetedSearch' );
+
 
 # activate UploadWizard extension:
 $wgEnableUploads = true;
