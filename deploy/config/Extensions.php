@@ -172,5 +172,6 @@ $wgDefaultSkin = 'vector-2022';
 
 // Access control
 $wgGroupPermissions['user']['read'] = true;  // logged-in users only
-$wgGroupPermissions['*']['read']  = false;   // anons can’t read
+// FIX ME: we need to disable this for the benefit of current ttl2wb.py script
+// $wgGroupPermissions['*']['read']  = false;   // anons can’t read
 $wgWhitelistRead = [ 'Main Page', 'Special:UserLogin', 'Special:CreateAccount' ]; // optional
