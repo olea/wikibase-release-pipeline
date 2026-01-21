@@ -154,7 +154,7 @@ $wgWbManifestExternalServiceMapping = [
 	'quickstatements' => '${wgServer}/tools/quickstatements',
 	// OPENREFINE_VERSION ?
 	// RECONCILE_PORT=8000
-	//'openrefine_reconcile' => 'https://wbqs.local:8000/${lang}/api',
+OA	//'openrefine_reconcile' => 'https://wbqs.local:8000/${lang}/api',
 	'openrefine_reconcile' => '${wgServer}:8000/${lang}/api',
 ];
 
@@ -168,8 +168,7 @@ $wgCitoidServiceUrl = "https://es.wikipedia.org/api/rest_v1/data/citation";
 
 
 // skin!!
-wfLoadSkin( 'Timeless' );
-$wgDefaultSkin = 'timeless';
+$wgDefaultSkin = 'vector-2022';
 
 // Access control
 $wgGroupPermissions['user']['read'] = true;  // logged-in users only
