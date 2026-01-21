@@ -154,7 +154,7 @@ $wgWbManifestExternalServiceMapping = [
 	'quickstatements' => '${wgServer}/tools/quickstatements',
 	// OPENREFINE_VERSION ?
 	// RECONCILE_PORT=8000
-OA	//'openrefine_reconcile' => 'https://wbqs.local:8000/${lang}/api',
+	//'openrefine_reconcile' => 'https://wbqs.local:8000/${lang}/api',
 	'openrefine_reconcile' => '${wgServer}:8000/${lang}/api',
 ];
 
