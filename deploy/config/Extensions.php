@@ -151,13 +151,12 @@ $wgWbManifestExternalServiceMapping = [
 	// 'queryservice' => 'https://wbqs.local/sparql',
 	// QUICKSTATEMENTS_PUBLIC_URL
 	//'quickstatements' => 'https://wb.local/tools/quickstatements',
-	'quickstatements' => '${wgServer}/tools/quickstatements',
+	'quickstatements' => "{$wgServer}/tools/quickstatements",
 	// OPENREFINE_VERSION ?
 	// RECONCILE_PORT=8000
 	//'openrefine_reconcile' => 'https://wbqs.local:8000/${lang}/api',
-	'openrefine_reconcile' => '${wgServer}:8000/${lang}/api',
+	'openrefine_reconcile' => "{$wgServer}:8000/\${lang}/api",
 ];
-
 
 // Citoid
 wfLoadExtension( 'extensions/TemplateData' );
