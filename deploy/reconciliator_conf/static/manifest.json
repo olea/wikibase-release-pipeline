@@ -15,8 +15,6 @@
       "properties": {
         "instance_of": "P1",
         "subclass_of": "P2"
-      },
-      "constraints": {
       }
     },
     "oauth": {
@@ -36,9 +34,6 @@
          "site_iri": "https://grafo.laoficinacultural.org/entity/",
          "reconciliation_endpoint": "http://grafo.laoficinacultural.org:8000/${lang}/api"
       }
-    },
-    "editgroups": {
-      "url_schema": ""
     }
   }
 
