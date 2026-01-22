@@ -59,7 +59,7 @@ avoid_items_of_class = None
 service_name = 'Reconcile for grafo.laoficinacultural.org.'
 
 # URL (without the trailing slash) where this server runs
-this_host = 'http://grafo.laoficinacultural.org:8000'
+this_host = 'http://localhost:8000'
 
 # The default limit on the number of results returned by us
 default_num_results = 25
@@ -71,7 +71,7 @@ wd_api_max_search_results = 50 # need a bot account to get more
 validation_threshold = 95
 
 # Redis client used for caching at various places
-redis_uri = 'redis://redis:6379/0?encoding=utf-8'
+redis_uri = 'redis://openrefine-redis:6379/0?encoding=utf-8'
 
 # Redis prefix to use in front of all keys
 redis_key_prefix = 'openrefine_wikibase:'
@@ -123,12 +123,12 @@ type_property_path = 'P1'
 property_for_this_type_property = None
 
 # Optional prefix in front of properties in SPARQL-like property paths
-wdt_prefix = 'wdt:'
+wdt_prefix = 'wbt:'
 
 # Sparql query used to fetch all the subclasses of a given item.
 # The '$qid' string will be replaced by the qid whose children should be fetched.
 sparql_query_to_fetch_subclasses = """
-SELECT ?child WHERE { ?child wdt:P2* wd:$qid }
+SELECT ?child WHERE { ?child wbt:P2* wb:$qid }
 """
 
 # Sparql query used to fetch all the properties which store unique identifiers
@@ -142,15 +142,15 @@ sparql_query_to_propose_properties = """
 SELECT ?prop ?propLabel ?depth WHERE {
 SERVICE gas:service {
     gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.BFS" .
-    gas:program gas:in wd:$base_type .
+    gas:program gas:in wb:$base_type .
     gas:program gas:out ?out .
     gas:program gas:out1 ?depth .
     gas:program gas:maxIterations 10 .
     gas:program gas:maxVisited 100 .
-    gas:program gas:linkType wdt:P2 .
+    gas:program gas:linkType wbt:P2 .
 }
 SERVICE wikibase:label { bd:serviceParam wikibase:language "$lang" }
-?out wdt:$property_for_this_type ?prop .
+?out wbt:$property_for_this_type ?prop .
 }
 ORDER BY ?depth
 LIMIT $limit

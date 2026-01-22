@@ -121,7 +121,7 @@ avoid_items_of_class = None
 service_name = 'Reconcile for ${WIKIBASE_NAME}.'
 
 # URL (without the trailing slash) where this server runs
-this_host = '${RECONCILE_ADDRESS}'
+this_host = 'http://localhost:8000'
 
 # The default limit on the number of results returned by us
 default_num_results = 25
@@ -133,7 +133,7 @@ wd_api_max_search_results = 50 # need a bot account to get more
 validation_threshold = 95
 
 # Redis client used for caching at various places
-redis_uri = 'redis://redis:6379/0?encoding=utf-8'
+redis_uri = 'redis://openrefine-redis:6379/0?encoding=utf-8'
 
 # Redis prefix to use in front of all keys
 redis_key_prefix = 'openrefine_wikibase:'
