@@ -71,7 +71,7 @@ should be used.
 mediawiki_api_endpoint = 'https://${WIKIBASE_ADDRESS}/w/api.php'
 
 # SPARQL endpoint
-wikibase_sparql_endpoint = 'https://${QUERY_ADDRESS}/proxy/wdqs/bigdata/namespace/wdq/sparql'
+wikibase_sparql_endpoint = 'https://${QUERY_ADDRESS}/sparql'
 
 # Name of the Wikibase instance
 wikibase_name = '${WIKIBASE_NAME}'

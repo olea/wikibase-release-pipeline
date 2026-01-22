@@ -9,7 +9,7 @@ should be used.
 mediawiki_api_endpoint = 'https://grafo.laoficinacultural.org/w/api.php'
 
 # SPARQL endpoint
-wikibase_sparql_endpoint = 'https://grafoq.laoficinacultural.org/proxy/wdqs/bigdata/namespace/wdq/sparql'
+wikibase_sparql_endpoint = 'https://grafoq.laoficinacultural.org/sparql'
 
 # Name of the Wikibase instance
 wikibase_name = 'grafo.laoficinacultural.org'
@@ -59,7 +59,7 @@ avoid_items_of_class = None
 service_name = 'Reconcile for grafo.laoficinacultural.org.'
 
 # URL (without the trailing slash) where this server runs
-this_host = 'http://localhost:8000'
+this_host = 'http://grafo.laoficinacultural.org:8000'
 
 # The default limit on the number of results returned by us
 default_num_results = 25
