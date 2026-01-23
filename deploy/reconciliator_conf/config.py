@@ -128,6 +128,8 @@ wdt_prefix = 'wdt:'
 # Sparql query used to fetch all the subclasses of a given item.
 # The '$qid' string will be replaced by the qid whose children should be fetched.
 sparql_query_to_fetch_subclasses = """
+PREFIX wb: <https://grafo.laoficinacultural.org/entity/>
+PREFIX wbt: <https://grafo.laoficinacultural.org/prop/direct/>
 SELECT ?child WHERE { ?child wdt:P2* wd:$qid }
 """
 
