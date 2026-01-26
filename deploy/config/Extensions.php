@@ -18,6 +18,10 @@
 ## Mediawiki 1.44
 $wgWBRepoSettings['EnableMulLanguageCode'] = true;
 
+# Enable UniversalLanguageSelector
+# (seems it's required for the Openrefine reconcilator to work)
+wfLoadExtension( 'UniversalLanguageSelector' );
+
 
 //FIX ME Extension:UrlShortner
 //wfLoadExtension( 'extensions/UrlShortner');
