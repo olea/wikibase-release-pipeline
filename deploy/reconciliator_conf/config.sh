@@ -6,12 +6,18 @@ if [[ ! -d "./static/" ]]; then
 fi
 
 if [[ -f "./config.conf" ]]; then
-  # shellcheck source=config.conf
-  source config.conf
+  # shellcheck disable=SC1091
+  source ../.env
 else
-  echo "Please create a config.conf file before using this script."
+  echo "Please create a ../.env file before using this script."
   exit
 fi
+
+# mapping from .env to the expected variables
+WIKIBASE_NAME=${WIKIBASE_PUBLIC_HOST}
+WIKIBASE_ADDRESS=${WIKIBASE_PUBLIC_HOST}
+QUERY_ADDRESS=${WDQS_PUBLIC_HOST}
+RECONCILE_ADDRESS="http://${WIKIBASE_PUBLIC_HOST}:${RECONCILIATOR_PORT}"
 
 echo "
 {
