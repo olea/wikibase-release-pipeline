@@ -148,17 +148,12 @@ $wgLexemeUseCirrus = true;
 // but it's a job for me from the future.
 $wgWbManifestExternalServiceMapping = [
 	// WDQS_PUBLIC_HOST
-	//'queryservice_ui' => 'https://wbqs.local', // FIX THIS
-	'queryservice_ui' => {$wdqs_frontend_url}, // FIX THIS
-    # queryservice is derived from Wikibase config if left out:
-	'queryservice' => {$wdqs_endpoint_url},	
-	// 'queryservice' => 'https://wbqs.local/sparql',
+	'queryservice_ui' => "{$wdqs_frontend_url}", 
+	'queryservice' => "{$wdqs_endpoint_url}",	
 	// QUICKSTATEMENTS_PUBLIC_URL
-	//'quickstatements' => 'https://wb.local/tools/quickstatements',
 	'quickstatements' => "{$quickstatements_url}",
 	// OPENREFINE_VERSION ?
 	// RECONCILE_PORT=8000
-	//'openrefine_reconcile' => 'https://wbqs.local:8000/${lang}/api',
 	'openrefine_reconcile' => "{$wgServer}:8000/\${lang}/api",
 ];
 
