@@ -173,3 +173,7 @@ $wgGroupPermissions['user']['read'] = true;  // logged-in users only
 // FIX ME: we need to disable this for the benefit of current ttl2wb.py script
 // $wgGroupPermissions['*']['read']  = false;   // anons can’t read
 $wgWhitelistRead = [ 'Main Page', 'Special:UserLogin', 'Special:CreateAccount' ]; // optional
+
+
+// FIX ME: Set up Hooks/SkinBuildSidebar
+// See https://www.mediawiki.org/wiki/Manual:Hooks/SkinBuildSidebar
