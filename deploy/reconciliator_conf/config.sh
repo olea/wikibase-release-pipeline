@@ -5,7 +5,7 @@ if [[ ! -d "./static/" ]]; then
   mkdir "./static/"
 fi
 
-if [[ -f "./config.conf" ]]; then
+if [[ -f "../.env" ]]; then
   # shellcheck disable=SC1091
   source ../.env
 else
