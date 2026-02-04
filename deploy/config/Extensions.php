@@ -146,6 +146,8 @@ $wgLexemeUseCirrus = true;
 // Extension:WikibaseManifest things
 // this should use external variables for the services names,
 // but it's a job for me from the future.
+
+$wgServerHttp = preg_replace('#^https://#', 'http://', $wgServer);
 $wgWbManifestExternalServiceMapping = [
 	// WDQS_PUBLIC_HOST
 	'queryservice_ui' => "{$wdqs_frontend_url}", 
@@ -154,7 +156,7 @@ $wgWbManifestExternalServiceMapping = [
 	'quickstatements' => "{$quickstatements_url}",
 	// OPENREFINE_VERSION ?
 	// RECONCILE_PORT=8000
-	'openrefine_reconcile' => "{$wgServer}:8000/\${lang}/api",
+	'openrefine_reconcile' => "{$wgServerHttp}:8000/\${lang}/api",
 ];
 
 // Citoid
