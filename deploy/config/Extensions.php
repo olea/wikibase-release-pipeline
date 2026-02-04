@@ -149,13 +149,13 @@ $wgLexemeUseCirrus = true;
 $wgWbManifestExternalServiceMapping = [
 	// WDQS_PUBLIC_HOST
 	//'queryservice_ui' => 'https://wbqs.local', // FIX THIS
-	'queryservice_ui' => 'https://grafoq.laoficinacultural.org', // FIX THIS
+	'queryservice_ui' => {$wdqs_frontend_url}, // FIX THIS
     # queryservice is derived from Wikibase config if left out:
-	'queryservice' => 'https://grafoq.laoficinacultural.org/sparql',			
+	'queryservice' => {$wdqs_endpoint_url},	
 	// 'queryservice' => 'https://wbqs.local/sparql',
 	// QUICKSTATEMENTS_PUBLIC_URL
 	//'quickstatements' => 'https://wb.local/tools/quickstatements',
-	'quickstatements' => "{$wgServer}/tools/quickstatements",
+	'quickstatements' => "{$quickstatements_url}",
 	// OPENREFINE_VERSION ?
 	// RECONCILE_PORT=8000
 	//'openrefine_reconcile' => 'https://wbqs.local:8000/${lang}/api',
