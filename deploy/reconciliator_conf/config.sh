@@ -36,9 +36,15 @@ echo "
       \"properties\": {
         \"instance_of\": \"P1\",
         \"subclass_of\": \"P2\"
-      },
-      \"constraints\": {
       }
+" > static/manifest.json
+
+# we can't add an empty section 
+#      ,
+#      \"constraints\": {
+#      }
+
+echo "
     },
     \"oauth\": {
       \"registration_page\": \"https://${WIKIBASE_ADDRESS}/wiki/Special:OAuthConsumerRegistration/propose\"
@@ -57,12 +63,18 @@ echo "
          \"site_iri\": \"https://${WIKIBASE_ADDRESS}/entity/\",
          \"reconciliation_endpoint\": \"${RECONCILE_ADDRESS}/\${lang}/api\"
       }
-    },
-    \"editgroups\": {
-      \"url_schema\": \"\"
     }
+" >> static/manifest.json
+
+# we can't add an empty section 
+#    ,
+#    \"editgroups\": {
+#      \"url_schema\": \"\"
+#    }
+
+echo "  
   }
-" > static/manifest.json
+" >> static/manifest.json
 
 echo "static/manifest.json processed"
 
