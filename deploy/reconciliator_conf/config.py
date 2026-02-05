@@ -6,16 +6,16 @@ should be used.
 """
 
 # Endpoint of the MediaWiki API of the Wikibase instance
-mediawiki_api_endpoint = 'https://grafo.laoficinacultural.org/w/api.php'
+mediawiki_api_endpoint = 'https://wb.local/w/api.php'
 
 # SPARQL endpoint
-wikibase_sparql_endpoint = 'https://grafoq.laoficinacultural.org/sparql'
+wikibase_sparql_endpoint = 'https://wbqs.local/sparql'
 
 # Name of the Wikibase instance
-wikibase_name = 'grafo.laoficinacultural.org'
+wikibase_name = 'wb.local'
 
 # URL of the main page of the Wikibase instance
-wikibase_main_page = 'https://grafo.laoficinacultural.org/wiki/Main_Page'
+wikibase_main_page = 'https://wb.local/wiki/Main_Page'
 
 # Wikibase namespace ID, used to search for items
 # For Wikidata this is 0, but most by default Wikibase uses 120, which is the default Wikibase 'Item:' namespace
@@ -30,21 +30,21 @@ user_agent = 'OpenRefine-Wikibase reconciliation interface'
 
 # Regexes and group ids to extracts Qids and Pids from URLs
 import re
-q_re = re.compile(r'(<?https?://grafo.laoficinacultural.org/(entity/|wiki/Item:))?(Q[0-9]+)>?')
+q_re = re.compile(r'(<?https?://wb.local/(entity/|wiki/Item:))?(Q[0-9]+)>?')
 q_re_group_id = 3
-p_re = re.compile(r'(<?https?://grafo.laoficinacultural.org/(entity/|wiki/Property:))?(P[0-9]+)>?')
+p_re = re.compile(r'(<?https?://wb.local/(entity/|wiki/Property:))?(P[0-9]+)>?')
 p_re_group_id = 3
 
 # Identifier space and schema space exposed to OpenRefine.
 # This should match the IRI prefixes used in RDF serialization.
 # Note that you should be careful about using http or https there,
 # because any variation will break comparisons at various places.
-identifier_space = 'https://grafo.laoficinacultural.org/entity/'
-schema_space = 'https://grafo.laoficinacultural.org/prop/direct/'
+identifier_space = 'https://wb.local/entity/'
+schema_space = 'https://wb.local/prop/direct/'
 
 # Pattern used to form the URL of a Qid.
 # This is only used for viewing so it is fine to use any protocol (therefore, preferably HTTPS if supported)
-qid_url_pattern = 'https://grafo.laoficinacultural.org/wiki/Item:{{id}}'
+qid_url_pattern = 'https://wb.local/wiki/Item:{{id}}'
 
 # By default, filter out any items which are instance
 # of a subclass of this class.
@@ -56,7 +56,7 @@ avoid_items_of_class = None
 
 # Service name exposed at various places,
 # mainly in the list of reconciliation services of users
-service_name = 'Reconcile for grafo.laoficinacultural.org.'
+service_name = 'Reconcile for wb.local.'
 
 # URL (without the trailing slash) where this server runs
 this_host = 'http://localhost:8000'
@@ -128,8 +128,8 @@ wdt_prefix = 'wdt:'
 # Sparql query used to fetch all the subclasses of a given item.
 # The '$qid' string will be replaced by the qid whose children should be fetched.
 sparql_query_to_fetch_subclasses = """
-PREFIX wd: <https://grafo.laoficinacultural.org/entity/>
-PREFIX wdt: <https://grafo.laoficinacultural.org/prop/direct/>
+PREFIX wd: <https://wb.local/entity/>
+PREFIX wdt: <https://wb.local/prop/direct/>
 SELECT ?child WHERE { ?child wdt:P2* wd:$qid }
 """
 
