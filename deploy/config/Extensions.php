@@ -112,9 +112,9 @@ wfLoadExtension( 'Echo' );
 wfLoadExtension( 'extensions/WikibaseMediaInfo' );
 $wgUploadWizardConfig['wikibase']['enabled'] = true ;
 // set to the definitive 
-$wgMediaInfoProperties = [ 'depicts' => 'P1', ]; // FIX THIS
+$wgMediaInfoProperties = [ 'depicts' => 'P10', ]; // according to wikibase-bootstrap-extendend
 //Links to pages to learn more about wikibase properties:
-$wgMediaInfoHelpUrls =	[ 'P1' => 'https://commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Depicts' ]; // FIX THIS
+$wgMediaInfoHelpUrls =	[ 'P10' => 'https://commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Depicts' ]; 
 //UploadWizard feature-flags:
 $wgUploadWizardConfig[ 'wikibase' ][ 'enabled' ] = true;
 $wgUploadWizardConfig[ 'wikibase' ][ 'captions' ] = true;
@@ -123,9 +123,7 @@ $wgUploadWizardConfig[ 'wikibase' ][ 'statements' ] = true;
 
 // WikibaseInWikitext
 wfLoadExtension( 'extensions/WikibaseInWikitext' );
-//$wgWikibaseInWikitextSparqlDefaultUi = $WDQS_PUBLIC_URL ;
-//$wgWikibaseInWikitextSparqlDefaultUi = "https://wbqs.local/";  // FIX THIS
-$wgWikibaseInWikitextSparqlDefaultUi = "https://grafoq.laoficinacultural.org/";
+$wgWikibaseInWikitextSparqlDefaultUi = "{$wdqs_frontend_url}";
 
 // WikibaseLexeme
 wfLoadExtension( 'extensions/WikibaseLexeme' );
