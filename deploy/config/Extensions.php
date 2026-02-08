@@ -110,7 +110,6 @@ wfLoadExtension( 'Echo' );
 
 // WikibaseMediaInfo
 wfLoadExtension( 'extensions/WikibaseMediaInfo' );
-$wgUploadWizardConfig['wikibase']['enabled'] = true ;
 // set to the definitive 
 $wgMediaInfoProperties = [ 'depicts' => 'P10', ]; // according to wikibase-bootstrap-extendend
 //Links to pages to learn more about wikibase properties:
