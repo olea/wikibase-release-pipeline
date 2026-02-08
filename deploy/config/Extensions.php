@@ -173,6 +173,39 @@ $wgGroupPermissions['user']['read'] = true;  // logged-in users only
 // $wgGroupPermissions['*']['read']  = false;   // anons can’t read
 $wgWhitelistRead = [ 'Main Page', 'Special:UserLogin', 'Special:CreateAccount' ]; // optional
 
-
-// FIX ME: Set up Hooks/SkinBuildSidebar
 // See https://www.mediawiki.org/wiki/Manual:Hooks/SkinBuildSidebar
+$wgHooks['SkinBuildSidebar'][] = function ( $skin, &$sidebar ) {
+    $sidebar['Wikibase'][] = [
+        'text'  => 'New Item',
+        'href'  => '/wiki/Special:NewItem',
+    ];
+    $sidebar['Wikibase'][] = [
+        'text'  => 'New Property',
+        'href'  => '/wiki/Special:NewProperty',
+    ];
+    $sidebar['Wikibase'][] = [
+        'text'  => 'New Lexeme',
+        'href'  => '/wiki/Special:NewLexeme',
+    ];
+    $sidebar['Wikibase'][] = [
+        'text'  => 'New Schema',
+        'href'  => '/wiki/Special:NewEntitySchema',
+    ];
+    $sidebar['Wikibase'][] = [
+        'text'  => 'All Properties',
+        'href'  => '/wiki/Special:ListProperties',
+    ];
+    $sidebar['Wikibase'][] = [
+        'text'  => 'Query Service',
+#        'href'  => "{$wdqs_frontend_url}",	// FIX ME: this variable doesn't work
+        'href'  => "https://grafoq.laoficinacultural.org/",   // FIX ME
+    ];
+    $sidebar['Wikibase'][] = [
+        'text'  => 'QuickStatements',
+        'href'  => '/tools/quickstatements/',
+    ];
+#    $sidebar['Wikibase'][] = [
+#        'text'  => 'Wikibase reconciliation manifest',
+#        'href'  => "{$wgServerHttp}:8000/static/manifest.json", // FIX ME: this variable doesn't work
+#    ];
+};
