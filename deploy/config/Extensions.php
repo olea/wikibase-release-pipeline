@@ -175,6 +175,11 @@ $wgWhitelistRead = [ 'Main Page', 'Special:UserLogin', 'Special:CreateAccount' ]
 
 // See https://www.mediawiki.org/wiki/Manual:Hooks/SkinBuildSidebar
 $wgHooks['SkinBuildSidebar'][] = function ( $skin, &$sidebar ) {
+
+    $wgServer = getenv( 'MW_WG_SERVER' );
+    $wgServerHttp = preg_replace('#^https://#', 'http://', $wgServer);
+    $local_wdqs_frontend_url = getenv( 'WDQS_PUBLIC_FRONTEND_URL' );
+
     $sidebar['Wikibase'][] = [
         'text'  => 'New Item',
         'href'  => '/wiki/Special:NewItem',
@@ -197,15 +202,14 @@ $wgHooks['SkinBuildSidebar'][] = function ( $skin, &$sidebar ) {
     ];
     $sidebar['Wikibase'][] = [
         'text'  => 'Query Service',
-#        'href'  => "{$wdqs_frontend_url}",	// FIX ME: this variable doesn't work
-        'href'  => "https://grafoq.laoficinacultural.org/",   // FIX ME
+        'href'  => "{$local_wdqs_frontend_url}",
     ];
     $sidebar['Wikibase'][] = [
         'text'  => 'QuickStatements',
         'href'  => '/tools/quickstatements/',
     ];
-#    $sidebar['Wikibase'][] = [
-#        'text'  => 'Wikibase reconciliation manifest',
-#        'href'  => "{$wgServerHttp}:8000/static/manifest.json", // FIX ME: this variable doesn't work
-#    ];
+    $sidebar['Wikibase'][] = [
+        'text'  => 'Wikibase reconciliation manifest',
+        'href'  => "{$wgServerHttp}:8000/static/manifest.json",
+    ];
 };
